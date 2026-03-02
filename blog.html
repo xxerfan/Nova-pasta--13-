@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Xerfan Tech Lab | Notícias e Tecnologia</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- AOS Animate On Scroll -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Blog da Xerfan Tech Lab - Notícias, dicas e tendências em tecnologia, automação e desenvolvimento web.">
+    <meta name="keywords" content="blog, tecnologia, automação, desenvolvimento web, notícias tech">
+    <meta name="author" content="Xerfan Tech Lab">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Blog - Xerfan Tech Lab">
+    <meta property="og:description" content="Fique por dentro das últimas tendências em tecnologia">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="img/logo.png">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    
+    <!-- Header Component -->
+    <div id="header"></div>
+    
+    <!-- Reading Progress Bar -->
+    <div id="reading-progress" class="fixed top-0 left-0 h-1 bg-orange-500 z-50 transition-all duration-300" style="width: 0%"></div>
+    
+    <!-- Hero Section -->
+    <section class="relative py-20 bg-gradient-to-br from-blue-900 via-blue-800 to-orange-600 overflow-hidden">
+        
+        <!-- Particles Container -->
+        <div id="particles-container" class="particles-container"></div>
+        
+        <div class="container mx-auto px-4 relative z-10 text-center">
+            <div data-aos="fade-up" data-aos-duration="1000">
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
+                    Blog <span class="text-orange-400">Tech Lab</span>
+                </h1>
+                <p class="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
+                    Fique por dentro das últimas tendências em tecnologia, automação e desenvolvimento web
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button class="px-6 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                        <i class="fas fa-rss mr-2"></i>
+                        Inscrever-se
+                    </button>
+                    <div class="relative">
+                        <input type="text" placeholder="Buscar artigos..." 
+                               class="px-6 py-3 bg-white/20 backdrop-blur-sm text-white placeholder-gray-300 rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-orange-500 w-full sm:w-80">
+                        <i class="fas fa-search absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Blog Posts Section -->
+    <section class="py-20 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            
+            <!-- Featured Post -->
+            <div class="mb-16" data-aos="fade-up">
+                <div class="bg-gradient-to-r from-blue-600 to-orange-500 rounded-3xl p-1">
+                    <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 lg:p-12">
+                        <div class="grid lg:grid-cols-2 gap-12 items-center">
+                            <div>
+                                <div class="inline-flex items-center bg-orange-100 dark:bg-orange-900 text-orange-600 dark:text-orange-400 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                                    <i class="fas fa-fire mr-2"></i>
+                                    Destaque da Semana
+                                </div>
+                                <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 dark:text-white mb-4">
+                                    Como a Automação Residencial está Transformando os Lares Brasileiros
+                                </h2>
+                                <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                                    Descubra como a tecnologia de automação está revolucionando a forma como vivemos, trazendo mais conforto, segurança e eficiência energética para nossos lares.
+                                </p>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                                            XT
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="font-semibold text-gray-800 dark:text-white">Xerfan Tech Lab</p>
+                                            <p class="text-gray-600 dark:text-gray-400 text-sm">15 de Fevereiro, 2026</p>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="inline-flex items-center px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-semibold transition-colors">
+                                        Ler Mais
+                                        <i class="fas fa-arrow-right ml-2"></i>
+                                    </a>
+                                    <!-- Social Share -->
+                                    <div class="flex items-center gap-3 mt-4">
+                                        <span class="text-gray-600 dark:text-gray-400 text-sm">Compartilhar:</span>
+                                        <a href="https://wa.me/?text=Confira este artigo sobre automação residencial" target="_blank" 
+                                           class="w-8 h-8 bg-green-500 hover:bg-green-600 text-white rounded-full flex items-center justify-center transition-colors" title="WhatsApp">
+                                            <i class="fab fa-whatsapp text-sm"></i>
+                                        </a>
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://xerfantechlab.com.br/blog.html" target="_blank" 
+                                           class="w-8 h-8 bg-blue-600 hover:bg-blue-700 text-white rounded-full flex items-center justify-center transition-colors" title="Facebook">
+                                            <i class="fab fa-facebook-f text-sm"></i>
+                                        </a>
+                                        <a href="https://twitter.com/intent/tweet?text=Conheça as tendências em automação residencial&url=https://xerfantechlab.com.br/blog.html" target="_blank" 
+                                           class="w-8 h-8 bg-blue-400 hover:bg-blue-500 text-white rounded-full flex items-center justify-center transition-colors" title="Twitter">
+                                            <i class="fab fa-twitter text-sm"></i>
+                                        </a>
+                                        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://xerfantechlab.com.br/blog.html" target="_blank" 
+                                           class="w-8 h-8 bg-blue-700 hover:bg-blue-800 text-white rounded-full flex items-center justify-center transition-colors" title="LinkedIn">
+                                            <i class="fab fa-linkedin-in text-sm"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1558002038-1055907df827?w=600&h=400&fit=crop" 
+                                     alt="Automação Residencial" 
+                                     class="w-full h-64 lg:h-80 object-cover rounded-2xl shadow-xl">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Posts -->
+            <div class="mb-16">
+                <h3 class="text-3xl font-bold text-gray-800 dark:text-white mb-8 text-center" data-aos="fade-up">
+                    Artigos Recentes
+                </h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Post 1 -->
+                    <article class="bg-white dark:bg-gray-700 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=200&fit=crop" 
+                                 alt="Tecnologia" class="w-full h-48 object-cover">
+                            <div class="absolute top-4 right-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold text-gray-800 dark:text-white">
+                                Tecnologia
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-800 dark:text-white mb-3">
+                                5 Tendências Tecnológicas para 2026
+                            </h4>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                                Explore as principais inovações que estão moldando o futuro da tecnologia este ano.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-500 dark:text-gray-400 text-sm">12 de Fevereiro, 2026</span>
+                                <a href="#" class="text-orange-500 hover:text-orange-600 font-semibold text-sm">
+                                    Ler Mais →
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Post 2 -->
+                    <article class="bg-white dark:bg-gray-700 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=200&fit=crop" 
+                                 alt="Desenvolvimento Web" class="w-full h-48 object-cover">
+                            <div class="absolute top-4 right-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold text-gray-800 dark:text-white">
+                                Desenvolvimento
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-800 dark:text-white mb-3">
+                                Por Que seu Negócio Precisa de um Site
+                            </h4>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                                Saiba como um site profissional pode impulsionar suas vendas e melhorar sua presença online.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-500 dark:text-gray-400 text-sm">10 de Fevereiro, 2026</span>
+                                <a href="#" class="text-orange-500 hover:text-orange-600 font-semibold text-sm">
+                                    Ler Mais →
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Post 3 -->
+                    <article class="bg-white dark:bg-gray-700 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=200&fit=crop" 
+                                 alt="Manutenção" class="w-full h-48 object-cover">
+                            <div class="absolute top-4 right-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold text-gray-800 dark:text-white">
+                                Manutenção
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-800 dark:text-white mb-3">
+                                Manutenção de Computadores: Guia Completo
+                            </h4>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                                Aprenda a cuidar melhor do seu computador e evitar problemas comuns de desempenho.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-500 dark:text-gray-400 text-sm">8 de Fevereiro, 2026</span>
+                                <a href="#" class="text-orange-500 hover:text-orange-600 font-semibold text-sm">
+                                    Ler Mais →
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                </div>
+            </div>
+            
+            <!-- Newsletter Section -->
+            <div class="bg-gradient-to-r from-blue-600 to-orange-500 rounded-3xl p-8 text-center text-white" data-aos="fade-up">
+                <i class="fas fa-envelope text-4xl mb-4"></i>
+                <h3 class="text-2xl font-bold mb-4">Assine Nossa Newsletter</h3>
+                <p class="text-blue-100 mb-6 max-w-2xl mx-auto">
+                    Receba semanalmente os melhores artigos sobre tecnologia, automação e desenvolvimento web diretamente no seu email.
+                </p>
+                <form class="max-w-md mx-auto flex gap-4">
+                    <input type="email" placeholder="Seu melhor email" 
+                           class="flex-1 px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-white">
+                    <button type="submit" class="px-6 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                        Assinar
+                    </button>
+                </form>
+            </div>
+            
+        </div>
+    </section>
+    
+    <!-- Footer Component -->
+    <div id="footer"></div>
+    
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+        
+        // Load header and footer
+        document.addEventListener('DOMContentLoaded', function() {
+            loadComponent('header', 'components/header.html');
+            loadComponent('footer', 'components/footer.html');
+        });
+        
+        // Newsletter form
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            mostrarNotificacao('✅ Inscrição realizada com sucesso! Verifique seu email.', 'success');
+            this.reset();
+        });
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,441 @@
+/**
+ * Xerfan Tech Lab - Animações Avançadas
+ * Micro-interações e animações modernas
+ */
+
+/* ===== Animações de Partículas ===== */
+.particles-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    animation: float 15s infinite linear;
+}
+
+.particle.small {
+    width: 4px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.particle.medium {
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 165, 0, 0.4);
+}
+
+.particle.large {
+    width: 12px;
+    height: 12px;
+    background: rgba(59, 130, 246, 0.5);
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ===== Animações de Hover Aprimoradas ===== */
+.hover-lift {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.hover-glow:hover {
+    box-shadow: 0 0 30px rgba(255, 165, 0, 0.3);
+}
+
+.hover-gradient {
+    position: relative;
+    overflow: hidden;
+}
+
+.hover-gradient::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.hover-gradient:hover::before {
+    left: 100%;
+}
+
+/* ===== Animações de Texto ===== */
+.text-gradient-animated {
+    background: linear-gradient(45deg, #3b82f6, #f97316, #10b981, #3b82f6);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-shift 3s ease infinite;
+}
+
+@keyframes gradient-shift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* ===== Animações de Loading Criativas ===== */
+.loading-dots {
+    display: inline-flex;
+    gap: 4px;
+}
+
+.loading-dots span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: dot-pulse 1.4s infinite ease-in-out both;
+}
+
+.loading-dots span:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.loading-dots span:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes dot-pulse {
+    0%, 80%, 100% {
+        transform: scale(0);
+        opacity: 0.5;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ===== Animações de Cards ===== */
+.card-3d {
+    perspective: 1000px;
+}
+
+.card-3d-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.card-3d:hover .card-3d-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.card-back {
+    transform: rotateY(180deg);
+}
+
+/* ===== Animações de Botões ===== */
+.btn-magic {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.btn-magic::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-magic:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-ripple::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%);
+    animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 1;
+    }
+    100% {
+        width: 300px;
+        height: 300px;
+        opacity: 0;
+    }
+}
+
+/* ===== Animações de Ícones ===== */
+.icon-bounce {
+    animation: icon-bounce 2s infinite;
+}
+
+@keyframes icon-bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+.icon-spin {
+    animation: icon-spin 2s linear infinite;
+}
+
+@keyframes icon-spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* ===== Animações de Formulários ===== */
+.input-float {
+    position: relative;
+}
+
+.input-float input,
+.input-float textarea {
+    border: 2px solid #e5e7eb;
+    transition: all 0.3s ease;
+}
+
+.input-float input:focus,
+.input-float textarea:focus {
+    border-color: #f97316;
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+    transform: translateY(-2px);
+}
+
+.input-float label {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    color: #6b7280;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.input-float input:focus ~ label,
+.input-float input:not(:placeholder-shown) ~ label,
+.input-float textarea:focus ~ label,
+.input-float textarea:not(:placeholder-shown) ~ label {
+    top: -0.5rem;
+    left: 0.75rem;
+    font-size: 0.875rem;
+    color: #f97316;
+    background: white;
+    padding: 0 0.25rem;
+}
+
+/* ===== Animações de Notificações ===== */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    transform: translateX(400px);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+}
+
+.notification.show {
+    transform: translateX(0);
+}
+
+.notification.success {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.notification.error {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.notification.info {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+/* ===== Animações de Progresso ===== */
+.progress-bar {
+    width: 100%;
+    height: 4px;
+    background: #e5e7eb;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #f97316, #3b82f6);
+    border-radius: 2px;
+    animation: progress-fill 2s ease-out;
+}
+
+@keyframes progress-fill {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+/* ===== Animações de Modal ===== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+}
+
+.modal-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.show .modal-content {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* ===== Responsividade ===== */
+@media (max-width: 768px) {
+    .particles-container {
+        display: none;
+    }
+    
+    .hover-lift:hover {
+        transform: translateY(-4px) scale(1.01);
+    }
+    
+    .notification {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        transform: translateY(-100px);
+    }
+    
+    .notification.show {
+        transform: translateY(0);
+    }
+}
+
+/* ===== Utilitários ===== */
+.animate-delay-100 {
+    animation-delay: 100ms;
+}
+
+.animate-delay-200 {
+    animation-delay: 200ms;
+}
+
+.animate-delay-300 {
+    animation-delay: 300ms;
+}
+
+.animate-delay-500 {
+    animation-delay: 500ms;
+}
+
+.animate-duration-1000 {
+    animation-duration: 1000ms;
+}
+
+.animate-duration-1500 {
+    animation-duration: 1500ms;
+}
+
+.animate-duration-2000 {
+    animation-duration: 2000ms;
+}

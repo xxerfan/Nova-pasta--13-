@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatBot - Xerfan Tech Lab</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    
+    <style>
+        .chat-messages {
+            max-height: 400px;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+        
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .chat-messages::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+        
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 3px;
+        }
+        
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+        
+        .dark .chat-messages::-webkit-scrollbar-track {
+            background: #374151;
+        }
+        
+        .dark .chat-messages::-webkit-scrollbar-thumb {
+            background: #6b7280;
+        }
+        
+        .message {
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 12px 16px;
+            background: #f3f4f6;
+            border-radius: 18px;
+            width: fit-content;
+        }
+        
+        .dark .typing-indicator {
+            background: #374151;
+        }
+        
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: #9ca3af;
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+        
+        .typing-indicator span:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+        
+        .typing-indicator span:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+        
+        @keyframes typing {
+            0%, 80%, 100% {
+                opacity: 0.3;
+                transform: scale(0.8);
+            }
+            40% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    
+    <!-- ChatBot Widget -->
+    <div id="chatbot-widget" class="fixed bottom-6 right-6 z-50">
+        
+        <!-- Chat Button -->
+        <button id="chatbot-button" 
+                class="w-14 h-14 bg-gradient-to-r from-blue-600 to-orange-500 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-4 focus:ring-blue-300">
+            <i class="fas fa-comments text-xl"></i>
+        </button>
+        
+        <!-- Chat Window -->
+        <div id="chatbot-window" 
+             class="hidden fixed bottom-20 right-0 w-96 h-[500px] bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden"
+             style="max-height: calc(100vh - 120px);">
+            
+            <!-- Chat Header -->
+            <div class="bg-gradient-to-r from-blue-600 to-orange-500 px-6 py-4 text-white">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Assistente Virtual</h3>
+                            <p class="text-sm text-blue-100">Online</p>
+                        </div>
+                    </div>
+                    <button id="close-chat" class="text-white hover:text-gray-200 transition-colors">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Chat Messages -->
+            <div id="chat-messages" class="chat-messages p-4 space-y-4">
+                <div class="message flex items-start gap-3">
+                    <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center text-white text-sm flex-shrink-0">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="bg-gray-100 dark:bg-gray-700 rounded-2xl px-4 py-3 max-w-xs">
+                        <p class="text-gray-800 dark:text-gray-200 text-sm">
+                            Olá! 👋 Sou o assistente virtual da Xerfan Tech Lab. Como posso ajudar você hoje?
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="flex flex-wrap gap-2 mt-4">
+                    <button class="quick-action bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 px-3 py-2 rounded-full text-sm hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors">
+                        💻 Manutenção
+                    </button>
+                    <button class="quick-action bg-orange-100 dark:bg-orange-900 text-orange-600 dark:text-orange-400 px-3 py-2 rounded-full text-sm hover:bg-orange-200 dark:hover:bg-orange-800 transition-colors">
+                        🏠 Automação
+                    </button>
+                    <button class="quick-action bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 px-3 py-2 rounded-full text-sm hover:bg-green-200 dark:hover:bg-green-800 transition-colors">
+                        🌐 Desenvolvimento
+                    </button>
+                    <button class="quick-action bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-400 px-3 py-2 rounded-full text-sm hover:bg-purple-200 dark:hover:bg-purple-800 transition-colors">
+                        📞 Contato
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Chat Input -->
+            <div class="p-4 border-t border-gray-200 dark:border-gray-700">
+                <div class="flex gap-3">
+                    <input type="text" 
+                           id="chat-input" 
+                           placeholder="Digite sua mensagem..." 
+                           class="flex-1 px-4 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-800 dark:text-gray-200"
+                           maxlength="500">
+                    <button id="send-button" 
+                            class="px-4 py-2 bg-gradient-to-r from-blue-600 to-orange-500 text-white rounded-lg hover:from-blue-700 hover:to-orange-600 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="text-center">
+            <h1 class="text-4xl font-bold text-gray-800 dark:text-white mb-4">
+                Assistente Virtual
+            </h1>
+            <p class="text-xl text-gray-600 dark:text-gray-300 mb-8">
+                Converse com nosso assistente virtual para tirar dúvidas e obter informações sobre nossos serviços.
+            </p>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script>
+        // ChatBot System
+        class ChatBot {
+            constructor() {
+                this.isOpen = false;
+                this.messages = [];
+                this.responses = {
+                    'manutencao': {
+                        keywords: ['manutencao', 'computador', 'notebook', 'conserto', 'reparo', 'pcdesktop'],
+                        response: 'Oferecemos manutenção especializada para computadores, notebooks e impressoras. Serviços preventivos e corretivos com garantia de qualidade. Deseja agendar uma visita?'
+                    },
+                    'automacao': {
+                        keywords: ['automacao', 'casa inteligente', 'smart home', 'iot', 'automatizacao'],
+                        response: 'Transformamos sua casa em um lar inteligente! Instalamos sistemas de automação para iluminação, cortinas, ar condicionado e segurança. Temos soluções personalizadas para cada necessidade.'
+                    },
+                    'desenvolvimento': {
+                        keywords: ['desenvolvimento', 'site', 'web', 'programacao', 'sistema', 'aplicativo'],
+                        response: 'Desenvolvemos sites profissionais, landing pages e sistemas web modernos e responsivos. Trabalhamos com as últimas tecnologias do mercado. Solicite um orçamento!'
+                    },
+                    'contato': {
+                        keywords: ['contato', 'telefone', 'whatsapp', 'email', 'endereco', 'localizacao'],
+                        response: 'Você pode nos contatar pelo WhatsApp (11) 9XXXX-XXXX, email contato@xerfantechlab.com.br ou através do formulário em nosso site. Atendemos toda a região!'
+                    },
+                    'precos': {
+                        keywords: ['preco', 'valor', 'custo', 'orçamento', 'dinheiro', 'barato'],
+                        response: 'Nossos preços são competitivos e transparentes. O valor varia conforme o serviço necessário. Solicite um orçamento gratuito sem compromisso!'
+                    },
+                    'horarios': {
+                        keywords: ['horario', 'funcionamento', 'atendimento', 'aberto', 'horas'],
+                        response: 'Atendemos de segunda a sexta das 8h às 18h, e sábados das 8h às 12h. Também atendemos emergências fora do horário comercial.'
+                    }
+                };
+                
+                this.init();
+            }
+            
+            init() {
+                this.setupEventListeners();
+                this.loadChatHistory();
+            }
+            
+            setupEventListeners() {
+                const chatButton = document.getElementById('chatbot-button');
+                const closeButton = document.getElementById('close-chat');
+                const sendButton = document.getElementById('send-button');
+                const chatInput = document.getElementById('chat-input');
+                const quickActions = document.querySelectorAll('.quick-action');
+                
+                chatButton.addEventListener('click', () => this.toggleChat());
+                closeButton.addEventListener('click', () => this.closeChat());
+                sendButton.addEventListener('click', () => this.sendMessage());
+                chatInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') this.sendMessage();
+                });
+                
+                quickActions.forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const text = e.target.textContent.trim();
+                        this.handleQuickAction(text);
+                    });
+                });
+            }
+            
+            toggleChat() {
+                const window = document.getElementById('chatbot-window');
+                const button = document.getElementById('chatbot-button');
+                
+                if (this.isOpen) {
+                    window.classList.add('hidden');
+                    button.innerHTML = '<i class="fas fa-comments text-xl"></i>';
+                } else {
+                    window.classList.remove('hidden');
+                    button.innerHTML = '<i class="fas fa-times text-xl"></i>';
+                    this.focusInput();
+                }
+                
+                this.isOpen = !this.isOpen;
+            }
+            
+            closeChat() {
+                const window = document.getElementById('chatbot-window');
+                const button = document.getElementById('chatbot-button');
+                
+                window.classList.add('hidden');
+                button.innerHTML = '<i class="fas fa-comments text-xl"></i>';
+                this.isOpen = false;
+            }
+            
+            sendMessage() {
+                const input = document.getElementById('chat-input');
+                const message = input.value.trim();
+                
+                if (!message) return;
+                
+                this.addMessage(message, 'user');
+                input.value = '';
+                
+                // Show typing indicator
+                this.showTypingIndicator();
+                
+                // Simulate response delay
+                setTimeout(() => {
+                    this.hideTypingIndicator();
+                    const response = this.generateResponse(message);
+                    this.addMessage(response, 'bot');
+                }, 1000 + Math.random() * 1000);
+            }
+            
+            addMessage(text, sender) {
+                const messagesContainer = document.getElementById('chat-messages');
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message flex items-start gap-3 ${sender === 'user' ? 'justify-end' : ''}`;
+                
+                if (sender === 'user') {
+                    messageDiv.innerHTML = `
+                        <div class="bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-2xl px-4 py-3 max-w-xs">
+                            <p class="text-sm">${text}</p>
+                        </div>
+                    `;
+                } else {
+                    messageDiv.innerHTML = `
+                        <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center text-white text-sm flex-shrink-0">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-700 rounded-2xl px-4 py-3 max-w-xs">
+                            <p class="text-gray-800 dark:text-gray-200 text-sm">${text}</p>
+                        </div>
+                    `;
+                }
+                
+                // Remove quick actions after first user message
+                const quickActions = messagesContainer.querySelector('.flex.flex-wrap.gap-2');
+                if (quickActions && sender === 'user') {
+                    quickActions.remove();
+                }
+                
+                messagesContainer.appendChild(messageDiv);
+                this.scrollToBottom();
+                this.saveChatHistory();
+            }
+            
+            showTypingIndicator() {
+                const messagesContainer = document.getElementById('chat-messages');
+                const typingDiv = document.createElement('div');
+                typingDiv.id = 'typing-indicator';
+                typingDiv.className = 'typing-indicator';
+                typingDiv.innerHTML = `
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                `;
+                messagesContainer.appendChild(typingDiv);
+                this.scrollToBottom();
+            }
+            
+            hideTypingIndicator() {
+                const indicator = document.getElementById('typing-indicator');
+                if (indicator) {
+                    indicator.remove();
+                }
+            }
+            
+            generateResponse(userMessage) {
+                const message = userMessage.toLowerCase();
+                
+                // Check for keyword matches
+                for (const [key, data] of Object.entries(this.responses)) {
+                    for (const keyword of data.keywords) {
+                        if (message.includes(keyword)) {
+                            return data.response;
+                        }
+                    }
+                }
+                
+                // Default responses
+                const defaultResponses = [
+                    'Interessante! Para melhor atendê-lo, você prefere falar sobre manutenção, automação ou desenvolvimento web?',
+                    'Posso ajudar você com informações sobre nossos serviços. O que você gostaria de saber?',
+                    'Tem alguma dúvida específica sobre manutenção de computadores, automação residencial ou desenvolvimento web?',
+                    'Estou aqui para ajudar! Você prefere conversar sobre tecnologia, automação ou manutenção?'
+                ];
+                
+                return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+            }
+            
+            handleQuickAction(action) {
+                let message = '';
+                
+                switch(action) {
+                    case '💻 Manutenção':
+                        message = 'Quero saber sobre manutenção de computadores';
+                        break;
+                    case '🏠 Automação':
+                        message = 'Quero saber sobre automação residencial';
+                        break;
+                    case '🌐 Desenvolvimento':
+                        message = 'Quero saber sobre desenvolvimento web';
+                        break;
+                    case '📞 Contato':
+                        message = 'Como posso entrar em contato?';
+                        break;
+                }
+                
+                if (message) {
+                    this.addMessage(message, 'user');
+                    this.showTypingIndicator();
+                    
+                    setTimeout(() => {
+                        this.hideTypingIndicator();
+                        const response = this.generateResponse(message);
+                        this.addMessage(response, 'bot');
+                    }, 1000);
+                }
+            }
+            
+            focusInput() {
+                setTimeout(() => {
+                    document.getElementById('chat-input').focus();
+                }, 100);
+            }
+            
+            scrollToBottom() {
+                const messagesContainer = document.getElementById('chat-messages');
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+            
+            saveChatHistory() {
+                const messages = Array.from(document.getElementById('chat-messages').children)
+                    .filter(el => !el.id.includes('typing-indicator'))
+                    .map(el => el.outerHTML);
+                localStorage.setItem('chatHistory', JSON.stringify(messages));
+            }
+            
+            loadChatHistory() {
+                const history = localStorage.getItem('chatHistory');
+                if (history) {
+                    const messages = JSON.parse(history);
+                    const container = document.getElementById('chat-messages');
+                    messages.forEach(msg => {
+                        container.insertAdjacentHTML('beforeend', msg);
+                    });
+                }
+            }
+        }
+        
+        // Initialize chatbot
+        document.addEventListener('DOMContentLoaded', function() {
+            new ChatBot();
+        });
+    </script>
+    
+</body>
+</html>

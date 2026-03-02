@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio - Xerfan Tech Lab</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo-container">
+                <img src="./img/logo.png" alt="Logo" class="logo-img" onerror="this.style.display='none'">
+            </a>
+            <div style="display: flex; align-items: center; gap: 1.5rem;">
+                <nav class="nav-menu">
+                    <a href="index.html" class="nav-link">Início</a>
+                    <a href="produtos.html" class="nav-link">Produtos</a>
+                    <a href="servicos.html" class="nav-link">Serviços</a>
+                    <a href="portfolio.html" class="nav-link text-orange">Portfólio</a>
+                    <a href="sobre.html" class="nav-link">Sobre</a>
+                    <a href="contato.html" class="nav-link">Contato</a>
+                    <a href="agendamento.html" class="nav-link" style="font-weight: bold;">Agendar</a>
+                </nav>
+                <button id="themeToggle" class="theme-toggle" aria-label="Alternar Tema">🌙</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero-page" style="background: linear-gradient(to right, var(--blue-900), var(--blue-800), var(--orange-600));">
+        <div class="container">
+            <h1 class="hero-page-title">Nosso Portfólio</h1>
+            <p class="hero-page-desc">Conheça alguns dos projetos que já realizamos para nossos clientes</p>
+        </div>
+    </section>
+
+    <section class="section-padding">
+        <div class="container">
+            
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2.5rem; align-items: center;">
+                <span style="color: var(--text-secondary); margin-right: 1rem;">Filtros:</span>
+                <span class="badge" style="background: var(--orange-500); color: white; padding: 0.5rem 1.5rem; font-size: 0.875rem;">Todos</span>
+                <span class="badge" style="background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border-color); padding: 0.5rem 1.5rem; font-size: 0.875rem;">Manutenção</span>
+                <span class="badge" style="background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border-color); padding: 0.5rem 1.5rem; font-size: 0.875rem;">Automação</span>
+                <span class="badge" style="background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border-color); padding: 0.5rem 1.5rem; font-size: 0.875rem;">CFTV</span>
+            </div>
+
+            <div class="grid-cards">
+                
+                <div class="card card-body-no-padding" style="position: relative;">
+                    <div class="card-image-box">
+                        <img src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=600" class="card-image" alt="Manutenção">
+                    </div>
+                    <span class="badge" style="position: absolute; top: 1rem; left: 1rem; background: #3b82f6; color: white;">Manutenção</span>
+                    <span class="badge" style="position: absolute; top: 1rem; right: 1rem; background: #eab308; color: white;">⭐ Destaque</span>
+                    
+                    <div class="card-content-padding">
+                        <h3 class="card-title">Setup Gamer Profissional</h3>
+                        <p class="card-desc" style="margin-bottom: 1rem;">Limpeza extrema, organização de cabos e upgrade de refrigeração líquida. Computador voltou a parecer novo de fábrica.</p>
+                        <div style="display: flex; gap: 1rem; font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+                            <span>📍 Niterói, RJ</span>
+                            <span>📅 10 Nov 2025</span>
+                            <span>👁️ 1.2k views</span>
+                        </div>
+                        <a href="agendamento.html" class="btn-primary" style="padding: 0.75rem 1rem;">Solicitar Serviço Semelhante</a>
+                    </div>
+                </div>
+
+                <div class="card card-body-no-padding" style="position: relative;">
+                    <div class="card-image-box">
+                        <img src="https://images.unsplash.com/photo-1558002038-1055907df827?w=600" class="card-image" alt="Automação">
+                    </div>
+                    <span class="badge" style="position: absolute; top: 1rem; left: 1rem; background: #22c55e; color: white;">Automação</span>
+                    
+                    <div class="card-content-padding">
+                        <h3 class="card-title">Integração Smart Home</h3>
+                        <p class="card-desc" style="margin-bottom: 1rem;">Instalação de lâmpadas inteligentes, fechadura digital e configuração de assistente virtual em toda a residência.</p>
+                        <div style="display: flex; gap: 1rem; font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+                            <span>📍 Rio de Janeiro, RJ</span>
+                            <span>📅 22 Out 2025</span>
+                            <span>👁️ 850 views</span>
+                        </div>
+                        <a href="agendamento.html" class="btn-primary" style="padding: 0.75rem 1rem;">Solicitar Serviço Semelhante</a>
+                    </div>
+                </div>
+
+                <div class="card card-body-no-padding" style="position: relative;">
+                    <div class="card-image-box">
+                        <img src="https://images.unsplash.com/photo-1555255707-c07966088b7b?w=600" class="card-image" alt="CFTV">
+                    </div>
+                    <span class="badge" style="position: absolute; top: 1rem; left: 1rem; background: #ef4444; color: white;">CFTV</span>
+                    
+                    <div class="card-content-padding">
+                        <h3 class="card-title">Segurança Comercial</h3>
+                        <p class="card-desc" style="margin-bottom: 1rem;">Instalação de 8 câmeras IP Full HD com visão noturna e gravação em nuvem para escritório corporativo.</p>
+                        <div style="display: flex; gap: 1rem; font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+                            <span>📍 São Gonçalo, RJ</span>
+                            <span>📅 05 Set 2025</span>
+                            <span>👁️ 540 views</span>
+                        </div>
+                        <a href="agendamento.html" class="btn-primary" style="padding: 0.75rem 1rem;">Solicitar Serviço Semelhante</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" style="background: linear-gradient(to right, var(--blue-900), var(--orange-600)); color: white;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; text-align: center;">
+                <div><h3 style="font-size: 3rem; font-weight: bold;">500+</h3><p style="font-size: 1.125rem; color: var(--blue-100);">Projetos Realizados</p></div>
+                <div><h3 style="font-size: 3rem; font-weight: bold;">1000+</h3><p style="font-size: 1.125rem; color: var(--blue-100);">Clientes Satisfeitos</p></div>
+                <div><h3 style="font-size: 3rem; font-weight: bold;">5+</h3><p style="font-size: 1.125rem; color: var(--blue-100);">Anos de Experiência</p></div>
+                <div><h3 style="font-size: 3rem; font-weight: bold;">98%</h3><p style="font-size: 1.125rem; color: var(--blue-100);">Taxa de Satisfação</p></div>
+            </div>
+        </div>
+    </section>
+
+<footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                
+                <div>
+                    <img src="./img/logo.png" alt="Xerfan Tech Lab" style="height: 3rem; margin-bottom: 1rem; filter: brightness(0) invert(1);" onerror="this.style.display='none'">
+                    <p class="footer-text">
+                        Inovação em tecnologia ao seu alcance. Oferecemos os melhores serviços e produtos para facilitar o seu dia a dia e transformar o seu negócio.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">Links Rápidos</h4>
+                    <ul class="footer-list">
+                        <li><a href="index.html" class="footer-link">Início</a></li>
+                        <li><a href="produtos.html" class="footer-link">Produtos</a></li>
+                        <li><a href="servicos.html" class="footer-link">Serviços</a></li>
+                        <li><a href="portfolio.html" class="footer-link">Portfólio</a></li>
+                        <li><a href="sobre.html" class="footer-link">Sobre Nós</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">Nossos Serviços</h4>
+                    <ul class="footer-list">
+                        <li>💻 Manutenção de PCs</li>
+                        <li>📱 Reparo de Smartphones</li>
+                        <li>🏠 Automação Residencial</li>
+                        <li>📷 Câmeras CFTV</li>
+                        <li>🎮 Conserto de Videogames</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">Contato</h4>
+                    <ul class="footer-list">
+                        <li>📍 Rio de Janeiro, RJ - Brasil</li>
+                        <li>📞 <a href="tel:+5521984197719" class="footer-link">(21) 98419-7719</a></li>
+                        <li>📧 <a href="mailto:xxerfan@gmail.com" class="footer-link">xxerfan@gmail.com</a></li>
+                    </ul>
+                    
+                    <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                        <a href="https://instagram.com/xerfantechlab" target="_blank" class="footer-link" style="font-size: 1.5rem; background: rgba(255,255,255,0.1); padding: 0.5rem; border-radius: 0.5rem;">📷</a>
+                        <a href="https://wa.me/5521984197719" target="_blank" class="footer-link" style="font-size: 1.5rem; background: rgba(255,255,255,0.1); padding: 0.5rem; border-radius: 0.5rem;">💬</a>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2026 Xerfan Tech Lab. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/5521984197719" target="_blank" class="whatsapp-float">
+        <svg class="whatsapp-icon" viewBox="0 0 24 24"><path d="M12.031 21.033c-1.636 0-3.238-.439-4.636-1.27l-.333-.198-3.447.904.92-3.361-.217-.345A8.937 8.937 0 0 1 3.031 12c0-4.962 4.038-9 9-9s9 4.038 9-9 4.038 9-9 9zm4.846-6.19c-.265-.133-1.57-.775-1.815-.864-.244-.089-.422-.133-.599.133-.178.266-.688.864-.843 1.04-.155.178-.31.2-.576.067a7.288 7.288 0 0 1-2.148-1.325 8.01 8.01 0 0 1-1.487-1.865c-.155-.266-.016-.41.116-.543.118-.118.265-.31.398-.465.133-.155.178-.266.265-.443.089-.178.045-.333-.022-.465-.067-.133-.599-1.443-.82-1.975-.215-.515-.434-.445-.599-.453-.155-.008-.333-.008-.51-.008-.178 0-.466.067-.71.333-.244.266-.932.91-.932 2.218s.954 2.574 1.087 2.752c.133.178 1.876 2.863 4.545 4.016 2.669 1.154 2.669.776 3.157.732.488-.044 1.57-.643 1.792-1.264.222-.621.222-1.154.155-1.265-.066-.11-.243-.177-.509-.31z"/></svg>
+    </a>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle'); const body = document.body; 
+        if (localStorage.getItem('theme') === 'dark') { body.classList.add('dark-theme'); themeToggle.textContent = '☀️'; }
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-theme'); 
+            if (body.classList.contains('dark-theme')) { localStorage.setItem('theme', 'dark'); themeToggle.textContent = '☀️'; } 
+            else { localStorage.setItem('theme', 'light'); themeToggle.textContent = '🌙'; }
+        });
+    </script>
+</body>
+</html>

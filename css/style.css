@@ -1,0 +1,673 @@
+/* ==========================================================================
+   1. VARIÁVEIS GLOBAIS E CORES (TEMA CLARO PADRÃO)
+   Define as cores base da Xerfan Tech Lab. Alterar uma cor aqui 
+   muda-a em todo o site instantaneamente.
+   ========================================================================== */
+:root {
+    /* Cores da Marca */
+    --orange-400: #fb923c;
+    --orange-500: #f97316; /* Cor principal */
+    --orange-600: #ea580c;
+    --blue-100: #e0e7ff;
+    --blue-800: #1e40af;
+    --blue-900: #1e3a8a; /* Azul escuro corporativo */
+    
+    /* Cores de Fundo e Texto (Modo Claro) */
+    --bg-page: #f9fafb; /* Cinzento super claro para o fundo do site */
+    --bg-card: #ffffff; /* Branco puro para as caixas */
+    --text-primary: #111827; /* Quase preto para melhor leitura */
+    --text-secondary: #4b5563; /* Cinzento médio para descrições */
+    --border-color: #e5e7eb; /* Cor das linhas de separação */
+    
+    /* Sombras e Transições */
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease; /* Suaviza todas as animações de hover */
+}
+
+/* ==========================================================================
+   2. TEMA ESCURO (Controlado pelo botão da Lua/Sol)
+   Quando o utilizador clica no botão, o JavaScript adiciona a classe 
+   'dark-theme' ao body, e estas variáveis substituem as de cima.
+   ========================================================================== */
+body.dark-theme {
+    --bg-page: #111827; /* Fundo quase preto */
+    --bg-card: #1f2937; /* Fundo das caixas ligeiramente mais claro que a página */
+    --text-primary: #ffffff; /* Textos passam a branco */
+    --text-secondary: #9ca3af; /* Descrições passam a cinzento claro */
+    --border-color: #374151; /* Bordas mais escuras */
+}
+
+/* ==========================================================================
+   3. RESET BÁSICO E CLASSES DE ESTRUTURA
+   Limpa as margens padrão dos navegadores e define a fonte do sistema.
+   ========================================================================== */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: system-ui, -apple-system, sans-serif; 
+}
+
+body { 
+    background-color: var(--bg-page); 
+    color: var(--text-primary); 
+    scroll-behavior: smooth; 
+}
+
+/* Limita a largura do site no PC e adiciona margens de segurança no telemóvel */
+.container { 
+    max-width: 1280px; 
+    margin: 0 auto; 
+    padding: 0 1.5rem; 
+}
+
+/* Utilitários de Texto */
+.text-orange { color: var(--orange-500); }
+
+/* Cria um efeito de degradê no texto (Laranja para Amarelo) */
+.text-gradient { 
+    background: linear-gradient(to right, #fb923c, #facc15); 
+    -webkit-background-clip: text; 
+    color: transparent; 
+}
+
+/* Espaçamento padrão acima e abaixo das secções principais */
+.section-padding { padding: 5rem 0; }
+
+.section-title { 
+    font-size: 2.5rem; 
+    font-weight: bold; 
+    margin-bottom: 1rem; 
+    color: var(--text-primary); 
+    text-align: center; 
+}
+
+.section-subtitle { 
+    text-align: center; 
+    color: var(--text-secondary); 
+    margin-bottom: 3rem; 
+    font-size: 1.25rem; 
+    max-width: 800px; 
+    margin-left: auto; 
+    margin-right: auto;
+}
+
+/* ==========================================================================
+   4. BOTÕES PRINCIPAIS
+   ========================================================================== */
+.btn-primary { 
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 0.5rem; 
+    padding: 1rem 2rem; 
+    background: linear-gradient(to right, var(--orange-500), var(--orange-600)); 
+    color: #fff; 
+    border-radius: 0.75rem; 
+    text-decoration: none; 
+    font-weight: 600; 
+    transition: var(--transition); 
+    border: none; 
+    cursor: pointer; 
+    width: 100%; /* Em telemóvel ocupa 100% */
+}
+
+/* Efeito ao passar o rato (aumenta ligeiramente e ganha sombra laranja) */
+.btn-primary:hover { 
+    transform: scale(1.05); 
+    box-shadow: 0 10px 15px -3px rgba(249, 115, 22, 0.4); 
+}
+
+/* Botão transparente apenas com contorno branco (usado no Hero) */
+.btn-outline { 
+    background: transparent; 
+    border: 2px solid rgba(255,255,255,0.3); 
+    color: #fff; 
+}
+.btn-outline:hover { 
+    background: rgba(255,255,255,0.1); 
+}
+
+/* Para impedir que o botão ocupe 100% da largura no PC */
+.btn-auto { width: auto; }
+
+/* ==========================================================================
+   5. CABEÇALHO E MENU DE NAVEGAÇÃO (NAVBAR)
+   ========================================================================== */
+.header { 
+    position: fixed; 
+    top: 0; 
+    width: 100%; 
+    z-index: 50; 
+    background-color: var(--bg-card); 
+    box-shadow: var(--shadow-md); 
+    opacity: 0.95; 
+    backdrop-filter: blur(8px); /* Efeito de vidro esbatido */
+}
+
+.header-content { 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    height: 5rem; 
+}
+
+/* Configuração da Logo e efeito de Hover */
+.logo-container { 
+    display: flex; 
+    align-items: center; 
+    gap: 0.75rem; 
+    text-decoration: none; 
+    transition: var(--transition); 
+}
+
+.logo-img { 
+    height: 3.5rem; 
+    max-height: 60px; 
+    width: auto; 
+    transition: var(--transition); 
+}
+
+.logo-container:hover .logo-img { 
+    transform: scale(1.05); 
+}
+
+/* Correção super importante: Fundo branco protetor na logo quando o modo escuro está ativo */
+body.dark-theme .logo-container { 
+    background-color: rgba(255, 255, 255, 0.95); 
+    padding: 0.2rem 0.5rem; 
+    border-radius: 0.5rem; 
+}
+
+/* Estilos dos Links do Menu */
+.nav-menu { display: flex; gap: 1rem; align-items: center; }
+.nav-link { 
+    text-decoration: none; 
+    color: var(--text-primary); 
+    font-weight: 500; 
+    transition: var(--transition); 
+    padding: 0.5rem 1rem; 
+    border-radius: 0.5rem; 
+}
+.nav-link:hover { 
+    background-color: rgba(249, 115, 22, 0.1); 
+    color: var(--orange-500); 
+}
+
+/* Botão que alterna o Modo Claro/Escuro */
+.theme-toggle { 
+    background: transparent; 
+    border: none; 
+    font-size: 1.5rem; 
+    cursor: pointer; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 0.5rem; 
+    border-radius: 50%; 
+    transition: var(--transition); 
+}
+.theme-toggle:hover { 
+    background-color: rgba(156, 163, 175, 0.2); 
+    transform: scale(1.1); 
+}
+
+/* ==========================================================================
+   6. BANNERS PRINCIPAIS E ANIMAÇÕES DO HERO
+   ========================================================================== */
+/* Banner gigante da Home (Ecrã inteiro) */
+.hero-home { 
+    min-height: 100vh; 
+    display: flex; 
+    align-items: center; 
+    background: linear-gradient(to bottom right, var(--blue-900), var(--blue-800), var(--orange-600)); 
+    padding-top: 5rem; 
+    color: #fff; 
+}
+
+/* Banner mais curto usado nas páginas internas (Sobre, Serviços, etc) */
+.hero-page { 
+    background: linear-gradient(to right, var(--blue-900), var(--orange-600)); 
+    color: #fff; 
+    padding: 10rem 0 5rem 0; 
+    text-align: center; 
+}
+.hero-page-title { font-size: 3.5rem; font-weight: bold; margin-bottom: 1rem; }
+.hero-page-desc { font-size: 1.25rem; color: var(--blue-100); }
+
+/* --- EFEITOS ESPECIAIS DA IMAGEM DA HOME --- */
+/* Faz a imagem subir e descer lentamente */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+/* A marca d'água gigante desfocada que fica no fundo da Home */
+.hero-bg-watermark {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 0;
+}
+.hero-bg-watermark img {
+    width: 100%;
+    max-width: 56rem; 
+    opacity: 0.1; 
+    filter: blur(4px) drop-shadow(0 0 30px rgba(208, 84, 18, 0.6)) drop-shadow(0 0 60px rgba(255, 255, 255, 0.2));
+}
+
+/* A imagem da logo que fica à direita nos textos */
+.hero-image-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 28rem;
+    margin: 0 auto;
+}
+.hero-image {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5)); /* Sombra forte */
+}
+
+/* A "aura" colorida que fica por trás da imagem flutuante */
+.hero-image-glow {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(249, 115, 22, 0.2), rgba(59, 130, 246, 0.2));
+    filter: blur(60px); 
+    z-index: -1;
+}
+
+/* ==========================================================================
+   7. GRELHAS E CARTÕES (CARDS) GERAIS
+   Sistemas automáticos que alinham os blocos lado a lado no PC 
+   e uns debaixo dos outros no telemóvel.
+   ========================================================================== */
+.grid-cards { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 2rem; 
+}
+
+.grid-stats { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+    gap: 1.5rem; 
+    margin-top: 2rem; 
+}
+
+.grid-features { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 2rem; 
+}
+
+/* O "Corpo" de cada caixa de serviço, produto, etc. */
+.card { 
+    background-color: var(--bg-card); 
+    border-radius: 1rem; 
+    padding: 2rem; 
+    box-shadow: var(--shadow-md); 
+    transition: var(--transition); 
+    border: 1px solid var(--border-color); 
+    overflow: hidden; 
+}
+.card:hover { 
+    box-shadow: var(--shadow-lg); 
+    transform: translateY(-0.5rem); /* Efeito de elevação */
+}
+
+.card-title { 
+    font-size: 1.25rem; 
+    font-weight: bold; 
+    margin-bottom: 0.5rem; 
+    color: var(--text-primary); 
+}
+.card-desc { 
+    color: var(--text-secondary); 
+    line-height: 1.6; 
+}
+
+/* O quadrado colorido com o Emoji/Ícone dentro do Card */
+.card-icon { 
+    width: 4rem; 
+    height: 4rem; 
+    border-radius: 1rem; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 1.8rem; 
+    margin-bottom: 1.5rem; 
+    color: #fff; 
+    background: linear-gradient(to right, var(--orange-500), var(--orange-600)); 
+}
+
+/* Classes para lidar com imagens dentro de Cards (Produtos e Portfólio) */
+.card-body-no-padding { padding: 0; }
+.card-content-padding { padding: 1.5rem; }
+
+.card-image-box { 
+    width: 100%; 
+    height: 15rem; 
+    overflow: hidden; 
+    background-color: var(--bg-page);
+}
+.card-image { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    transition: var(--transition); 
+}
+/* Dá um pequeno Zoom na imagem quando passa o rato no card todo */
+.card:hover .card-image { 
+    transform: scale(1.1); 
+}
+
+/* ==========================================================================
+   8. COMPONENTES VISUAIS EXTRAS (Listas, Badges e Depoimentos)
+   ========================================================================== */
+/* Listas com o "Visto" (usadas na página de Serviços) */
+.feature-list { list-style: none; margin: 1.5rem 0; }
+.feature-list li { 
+    display: flex; 
+    align-items: center; 
+    gap: 0.5rem; 
+    margin-bottom: 0.5rem; 
+    color: var(--text-secondary); 
+}
+.feature-list li span { color: var(--orange-500); font-weight: bold; }
+
+/* Cartões de Depoimento (Fundo transparente tipo vidro) */
+.testimonial-card { 
+    background: rgba(255,255,255,0.1); 
+    backdrop-filter: blur(10px); 
+    padding: 2rem; 
+    border-radius: 1rem; 
+    color: #fff; 
+}
+.stars { color: #facc15; font-size: 1.25rem; margin-bottom: 1rem; }
+
+/* Etiquetas flutuantes (ex: Categoria do produto) */
+.badge { 
+    display: inline-block; 
+    padding: 0.25rem 0.75rem; 
+    border-radius: 999px; 
+    font-size: 0.75rem; 
+    font-weight: 600; 
+}
+.badge-orange { 
+    background: rgba(249,115,22,0.1); 
+    color: var(--orange-500); 
+}
+
+/* ==========================================================================
+   9. FORMULÁRIOS AVANÇADOS (Páginas de Contato e Agendamento)
+   ========================================================================== */
+/* Caixa principal que segura o formulário inteiro */
+.form-container {
+    background-color: var(--bg-card);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+}
+
+/* Permite colocar 2 inputs lado a lado (ex: Nome e E-mail) */
+.form-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-group { margin-bottom: 1.5rem; }
+
+/* Texto acima das caixas de input */
+.form-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+/* Caixa onde o utilizador escreve */
+.form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    transition: var(--transition);
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+/* Efeito laranja ao clicar na caixa para escrever */
+.form-input:focus {
+    outline: none;
+    border-color: var(--orange-500);
+    box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.2);
+}
+
+/* ==========================================================================
+   10. CAIXAS LATERAIS DE INFORMAÇÃO (Contato e Agendamento)
+   ========================================================================== */
+/* Caixas retangulares (usadas nos contactos) */
+.contact-info-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.5rem;
+    background-color: var(--bg-card);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+    margin-bottom: 1rem;
+    text-decoration: none;
+    border: 1px solid var(--border-color);
+}
+.contact-info-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Caixas quadradas centradas (usadas por baixo do form de agendamento) */
+.info-box-center {
+    background-color: var(--bg-card);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+}
+
+/* Fundo colorido apenas para o ícone */
+.icon-box {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.25rem;
+}
+.info-box-center .icon-box {
+    margin: 0 auto 1rem auto;
+    border-radius: 50%;
+}
+
+/* Cores específicas para os icones de informação */
+.bg-orange-light { background-color: rgba(249, 115, 22, 0.1); color: var(--orange-500); }
+.bg-blue-light { background-color: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+.bg-green-light { background-color: rgba(34, 197, 94, 0.1); color: #22c55e; }
+.bg-purple-light { background-color: rgba(168, 85, 247, 0.1); color: #a855f7; }
+
+/* ==========================================================================
+   11. RODAPÉ COMPLETO (FOOTER)
+   ========================================================================== */
+.footer { 
+    background: linear-gradient(to bottom right, #111827, #1e3a8a, #111827); 
+    color: #fff; 
+    padding: 4rem 0 2rem 0; 
+}
+
+/* Grelha de 4 colunas */
+.footer-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    gap: 2.5rem; 
+    margin-bottom: 3rem; 
+}
+
+.footer-title { 
+    color: var(--orange-400); 
+    font-weight: bold; 
+    margin-bottom: 1rem; 
+    font-size: 1.125rem; 
+}
+
+.footer-text { 
+    color: #d1d5db; 
+    font-size: 0.875rem; 
+    line-height: 1.6; 
+    margin-bottom: 1rem; 
+}
+
+.footer-list { 
+    list-style: none; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 0.75rem; 
+}
+
+.footer-list li { 
+    display: flex; 
+    align-items: center; 
+    gap: 0.5rem; 
+    color: #d1d5db; 
+    font-size: 0.875rem; 
+}
+
+.footer-link { 
+    color: #d1d5db; 
+    text-decoration: none; 
+    transition: var(--transition); 
+}
+
+.footer-link:hover { 
+    color: var(--orange-400); 
+}
+
+/* Linha de Copyright */
+.footer-bottom { 
+    border-top: 1px solid rgba(255,255,255,0.1); 
+    padding-top: 1.5rem; 
+    text-align: center; 
+    color: #9ca3af; 
+    font-size: 0.875rem; 
+    margin-top: 2rem; 
+}
+
+/* ==========================================================================
+   12. BOTÃO FLUTUANTE DO WHATSAPP (Com Efeitos Avançados)
+   Replica exatamente a animação de "ping" e "pulse" do Tailwind original.
+   ========================================================================== */
+/* Fixa o botão no ecrã */
+.whatsapp-container {
+    position: fixed;
+    bottom: 1.5rem; 
+    right: 1.5rem;  
+    z-index: 50;
+}
+
+/* Estilo do botão verde principal */
+.whatsapp-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;  
+    height: 4rem; 
+    background: linear-gradient(to right, #22c55e, #16a34a); 
+    color: white;
+    border-radius: 50%;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); 
+    transition: all 0.3s ease;
+    text-decoration: none;
+    animation: wa-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; /* Pulsa a opacidade */
+}
+
+/* Efeito ao passar o rato (para a animação e aumenta um pouco) */
+.whatsapp-button:hover {
+    background: linear-gradient(to right, #16a34a, #15803d); 
+    transform: scale(1.1); 
+    box-shadow: 0 20px 25px -5px rgba(34, 197, 94, 0.5); 
+    animation: none; 
+}
+
+/* A "onda" verde que expande por trás do botão (animate-ping) */
+.whatsapp-ping {
+    position: absolute;
+    display: inline-flex;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    background-color: #4ade80; 
+    opacity: 0.75;
+    animation: wa-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+    z-index: -1;
+}
+
+.whatsapp-icon {
+    position: relative;
+    width: 2rem; 
+    height: 2rem; 
+    z-index: 10;
+}
+
+/* A bolinha de notificação com ponto de exclamação (animate-bounce) */
+.whatsapp-badge {
+    position: absolute;
+    top: -0.25rem; 
+    right: -0.25rem; 
+    background-color: #ef4444; 
+    color: white;
+    font-size: 0.75rem; 
+    font-weight: bold;
+    border-radius: 50%;
+    width: 1.25rem; 
+    height: 1.25rem; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: wa-bounce 1s infinite; /* Faz a bolinha saltar */
+    z-index: 20;
+}
+
+/* --- KEYFRAMES (Motores de Animação do WhatsApp) --- */
+@keyframes wa-ping {
+    75%, 100% { transform: scale(1.8); opacity: 0; }
+}
+@keyframes wa-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .8; }
+}
+@keyframes wa-bounce {
+    0%, 100% { transform: translateY(-25%); animation-timing-function: cubic-bezier(0.8,0,1,1); }
+    50% { transform: none; animation-timing-function: cubic-bezier(0,0,0.2,1); }
+}
