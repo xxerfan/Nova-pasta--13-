@@ -1,145 +1,170 @@
-<!-- Header Component para Xerfan Tech Lab -->
-<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-lg">
-    <div class="container mx-auto px-4">
-        <div class="flex items-center justify-between h-20">
-            
-            <!-- Logo -->
-            <a href="index.html" class="flex items-center group">
-                <div class="relative">
-                    <img src="img/logo.png" 
-                         alt="Logomarca Xerfan Tech Lab" 
-                         class="h-10 w-auto group-hover:scale-110 transition-all duration-300"
-                         onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iOCIgZmlsbD0iI0Y5NzMxNiIvPgo8dGV4dCB4PSIyMCIgeT0iMjUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5YVEw8L3RleHQ+Cjwvc3ZnPgo='"
-                    >
-                    <div class="absolute inset-0 bg-gradient-to-r from-orange-400 to-blue-600 rounded-full blur-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
-                </div>
-                <div class="ml-3">
-                    <h1 class="text-xl font-bold text-gray-800 dark:text-white">Xerfan Tech Lab</h1>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Soluções Tecnológicas</p>
-                </div>
-            </a>
+<div id="scroll-progress"></div>
 
-            <!-- Desktop Navigation -->
-            <nav class="hidden lg:flex items-center space-x-1">
-                <a href="index.html" class="px-4 py-2 rounded-lg font-medium transition-all duration-200 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-orange-500">
-                    <i class="fas fa-home mr-1"></i> Início
-                </a>
-                <a href="produtos.html" class="px-4 py-2 rounded-lg font-medium transition-all duration-200 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-orange-500">
-                    <i class="fas fa-box mr-1"></i> Produtos
-                </a>
-                <a href="servicos.html" class="px-4 py-2 rounded-lg font-medium transition-all duration-200 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-orange-500">
-                    <i class="fas fa-cogs mr-1"></i> Serviços
-                </a>
-                <a href="portfolio.html" class="px-4 py-2 rounded-lg font-medium transition-all duration-200 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-orange-500">
-                    <i class="fas fa-briefcase mr-1"></i> Portfólio
-                </a>
-                <a href="blog.html" class="px-4 py-2 rounded-lg font-medium transition-all duration-200 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-orange-500">
-                    <i class="fas fa-blog mr-1"></i> Blog
-                </a>
-                <a href="sobre.html" class="px-4 py-2 rounded-lg font-medium transition-all duration-200 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-orange-500">
-                    <i class="fas fa-info-circle mr-1"></i> Sobre
-                </a>
-                <a href="contato.html" class="px-4 py-2 rounded-lg font-medium transition-all duration-200 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-orange-500">
-                    <i class="fas fa-envelope mr-1"></i> Contato
-                </a>
-                <a href="agendamento.html" class="px-4 py-2 rounded-lg font-medium transition-all duration-200 bg-orange-500 text-white hover:bg-orange-600 transform hover:scale-105">
-                    <i class="fas fa-calendar-alt mr-1"></i> Agendar
-                </a>
-                <a href="chatbot.html" class="px-4 py-2 rounded-lg font-medium transition-all duration-200 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-orange-500">
-                    <i class="fas fa-robot mr-1"></i> Assistente
-                </a>
-            </nav>
-
-            <!-- Theme Toggle & Mobile Menu -->
-            <div class="flex items-center space-x-4">
-                <!-- Theme Toggle -->
-                <button id="themeToggle" 
-                        onclick="toggleTheme()" 
-                        class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
-                        aria-label="Alternar tema">
-                    <span id="themeIcon">🌙</span>
-                </button>
+<header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    
+    <div id="top-bar" class="hidden lg:block bg-gradient-to-r from-blue-950 via-blue-900 to-orange-700 text-white transition-all duration-300 overflow-hidden">
+        <div class="container mx-auto px-4 max-w-screen-xl">
+            <div class="flex items-center justify-between py-1.5 text-xs">
                 
-                <!-- Mobile Menu Button -->
-                <button id="mobile-menu-button" 
-                        class="lg:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
-                        aria-label="Menu mobile">
-                    <i class="fas fa-bars text-gray-700 dark:text-gray-300"></i>
-                </button>
+                <div class="flex items-center gap-4">
+                    <a href="tel:+5521999999999" class="flex items-center gap-1.5 text-white/80 hover:text-orange-300 transition-colors duration-200 group">
+                        <span class="w-4 h-4 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-orange-400/20 transition-colors">
+                            <i class="fas fa-phone text-[9px]"></i>
+                        </span>
+                        <span class="font-medium">(21) 99999-9999</span>
+                    </a>
+                    <a href="mailto:contato@xerfantechlab.com.br" class="flex items-center gap-1.5 text-white/80 hover:text-orange-300 transition-colors duration-200 group">
+                        <span class="w-4 h-4 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-orange-400/20 transition-colors">
+                            <i class="fas fa-envelope text-[9px]"></i>
+                        </span>
+                        <span class="font-medium">contato@xerfantechlab.com.br</span>
+                    </a>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <span class="flex items-center gap-1.5 text-emerald-300">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+                        </span>
+                        <span class="font-medium">Online agora</span>
+                    </span>
+                    <div class="w-px h-3 bg-white/20"></div>
+                    <a href="https://wa.me/5521999999999" target="_blank" class="flex items-center gap-1.5 text-white/80 hover:text-emerald-300 transition-colors duration-200 font-medium">
+                        <i class="fab fa-whatsapp text-emerald-400"></i>
+                        <span>WhatsApp</span>
+                    </a>
+                </div>
             </div>
         </div>
+    </div>
 
-        <!-- Mobile Navigation -->
-        <nav id="mobile-menu" class="hidden lg:hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
-            <div class="container mx-auto px-4 py-4">
-                <div class="grid grid-cols-2 gap-2">
-                    <a href="index.html" class="flex items-center justify-center p-3 rounded-lg bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
-                        <i class="fas fa-home mr-2 text-orange-500"></i>
-                        <span class="text-gray-700 dark:text-gray-300">Início</span>
-                    </a>
-                    <a href="produtos.html" class="flex items-center justify-center p-3 rounded-lg bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
-                        <i class="fas fa-box mr-2 text-blue-500"></i>
-                        <span class="text-gray-700 dark:text-gray-300">Produtos</span>
-                    </a>
-                    <a href="servicos.html" class="flex items-center justify-center p-3 rounded-lg bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
-                        <i class="fas fa-cogs mr-2 text-green-500"></i>
-                        <span class="text-gray-700 dark:text-gray-300">Serviços</span>
-                    </a>
-                    <a href="portfolio.html" class="flex items-center justify-center p-3 rounded-lg bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
-                        <i class="fas fa-briefcase mr-2 text-purple-500"></i>
-                        <span class="text-gray-700 dark:text-gray-300">Portfólio</span>
-                    </a>
-                    <a href="blog.html" class="flex items-center justify-center p-3 rounded-lg bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
-                        <i class="fas fa-blog mr-2 text-pink-500"></i>
-                        <span class="text-gray-700 dark:text-gray-300">Blog</span>
-                    </a>
-                    <a href="sobre.html" class="flex items-center justify-center p-3 rounded-lg bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
-                        <i class="fas fa-info-circle mr-2 text-indigo-500"></i>
-                        <span class="text-gray-700 dark:text-gray-300">Sobre</span>
-                    </a>
-                    <a href="contato.html" class="flex items-center justify-center p-3 rounded-lg bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
-                        <i class="fas fa-envelope mr-2 text-red-500"></i>
-                        <span class="text-gray-700 dark:text-gray-300">Contato</span>
-                    </a>
-                    <a href="chatbot.html" class="flex items-center justify-center p-3 rounded-lg bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
-                        <i class="fas fa-robot mr-2 text-cyan-500"></i>
-                        <span class="text-gray-700 dark:text-gray-300">Assistente</span>
+    <div class="bg-gray-900/95 backdrop-blur-xl border-b border-gray-800/80 shadow-sm transition-all duration-300" id="nav-wrapper">
+        <div class="container mx-auto px-4 max-w-screen-xl">
+            <div class="flex items-center justify-between h-24 lg:h-28">
+
+                <div class="logo-area flex-shrink-0">
+                    <a href="index.html" class="flex items-center group py-2" aria-label="Xerfan Tech Lab - Página Inicial">
+                        <img src="img/logo.png"
+                             alt="Logomarca Xerfan Tech Lab"
+                             class="h-14 sm:h-16 lg:h-20 w-auto object-contain transition-all duration-300 group-hover:scale-105 drop-shadow-[0_0_4px_rgba(249,115,22,0.4)] group-hover:drop-shadow-[0_0_8px_rgba(249,115,22,0.6)]"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        
+                        <div class="hidden w-16 h-16 bg-gradient-to-br from-orange-500 via-orange-600 to-blue-700 rounded-xl items-center justify-center text-white font-black text-xl shadow-lg">XTL</div>
                     </a>
                 </div>
-                <div class="mt-4">
-                    <a href="agendamento.html" class="block w-full text-center p-4 rounded-lg bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold hover:from-orange-600 hover:to-orange-700 transition-all transform hover:scale-105">
-                        <i class="fas fa-calendar-alt mr-2"></i>
-                        Agendar Visita
-                    </a>
+
+                <nav class="hidden xl:flex items-center gap-1" role="navigation">
+                    <a href="index.html"     class="nav-item-pro" data-page="index.html"><i class="fas fa-home text-[11px] opacity-70"></i> Início</a>
+                    <a href="produtos.html"  class="nav-item-pro" data-page="produtos.html"><i class="fas fa-box text-[11px] opacity-70"></i> Produtos</a>
+                    <a href="servicos.html"  class="nav-item-pro" data-page="servicos.html"><i class="fas fa-cogs text-[11px] opacity-70"></i> Serviços</a>
+                    <a href="portfolio.html" class="nav-item-pro" data-page="portfolio.html"><i class="fas fa-briefcase text-[11px] opacity-70"></i> Portfólio</a>
+                    <a href="blog.html"      class="nav-item-pro" data-page="blog.html"><i class="fas fa-newspaper text-[11px] opacity-70"></i> Blog</a>
+                    <a href="sobre.html"     class="nav-item-pro" data-page="sobre.html"><i class="fas fa-info-circle text-[11px] opacity-70"></i> Sobre</a>
+                    <a href="contato.html"   class="nav-item-pro" data-page="contato.html"><i class="fas fa-envelope text-[11px] opacity-70"></i> Contato</a>
+                    <a href="agendamento.html" class="btn-header-cta ml-2"><i class="fas fa-calendar-check text-xs"></i> Agendar</a>
+                </nav>
+
+                <div class="flex items-center gap-2">
+                    <button id="mobile-menu-button" class="xl:hidden flex items-center justify-center w-10 h-10 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-orange-500 transition-all duration-200">
+                        <i class="fas fa-bars text-base" id="menu-icon"></i>
+                    </button>
                 </div>
             </div>
-        </nav>
+
+            <nav id="mobile-menu" class="hidden xl:hidden border-t border-gray-800">
+                <div class="py-4 space-y-3">
+                    <div class="grid grid-cols-3 gap-2">
+                        <a href="index.html" class="mobile-nav-item group"><span class="mobile-nav-icon bg-orange-900/20 text-orange-500"><i class="fas fa-home"></i></span><span class="mobile-nav-label">Início</span></a>
+                        <a href="produtos.html" class="mobile-nav-item group"><span class="mobile-nav-icon bg-blue-900/20 text-blue-500"><i class="fas fa-box"></i></span><span class="mobile-nav-label">Produtos</span></a>
+                        <a href="servicos.html" class="mobile-nav-item group"><span class="mobile-nav-icon bg-green-900/20 text-green-500"><i class="fas fa-cogs"></i></span><span class="mobile-nav-label">Serviços</span></a>
+                        <a href="portfolio.html" class="mobile-nav-item group"><span class="mobile-nav-icon bg-purple-900/20 text-purple-500"><i class="fas fa-briefcase"></i></span><span class="mobile-nav-label">Portfólio</span></a>
+                        <a href="blog.html" class="mobile-nav-item group"><span class="mobile-nav-icon bg-pink-900/20 text-pink-500"><i class="fas fa-newspaper"></i></span><span class="mobile-nav-label">Blog</span></a>
+                        <a href="sobre.html" class="mobile-nav-item group"><span class="mobile-nav-icon bg-indigo-900/20 text-indigo-500"><i class="fas fa-info-circle"></i></span><span class="mobile-nav-label">Sobre</span></a>
+                        <a href="contato.html" class="mobile-nav-item group"><span class="mobile-nav-icon bg-red-900/20 text-red-500"><i class="fas fa-envelope"></i></span><span class="mobile-nav-label">Contato</span></a>
+                    </div>
+                    <a href="agendamento.html" class="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold text-sm shadow-lg">
+                        <i class="fas fa-calendar-check"></i> Agendar Visita Técnica
+                    </a>
+                </div>
+            </nav>
+        </div>
     </div>
 </header>
 
-<!-- Back to Top Button -->
-<a href="#" id="back-to-top" class="fixed bottom-8 right-8 w-12 h-12 bg-orange-500 hover:bg-orange-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 opacity-0 invisible z-50 flex items-center justify-center transform hover:scale-110">
-    <i class="fas fa-chevron-up"></i>
-</a>
+<div id="header-spacer" style="height: 100px;"></div>
 
-<!-- Script de tema -->
+<a href="#" id="back-to-top" class="fixed bottom-24 right-6 w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-full shadow-lg opacity-0 invisible z-40 flex items-center justify-center transform hover:scale-110"><i class="fas fa-chevron-up"></i></a>
+<div id="whatsapp-float" class="fixed bottom-6 right-6 z-[998]">
+    <a href="https://wa.me/5521999999999" target="_blank" class="wa-btn"><i class="fab fa-whatsapp"></i><span class="wa-tooltip">Fale pelo WhatsApp!</span></a>
+</div>
+
+<style>
+.mobile-nav-item { display: flex; flex-direction: column; align-items: center; gap: 0.375rem; padding: 0.75rem 0.5rem; border-radius: 14px; background: #1e293b; transition: all 0.25s ease; cursor: pointer; }
+.mobile-nav-item:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+.mobile-nav-icon { width: 38px; height: 38px; border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+.mobile-nav-label { font-size: 0.7rem; font-weight: 600; color: #94a3b8; }
+#main-header.scrolled #nav-wrapper { box-shadow: 0 4px 20px rgba(0,0,0,0.25); }
+</style>
+
 <script>
-    // Atualiza ícone do tema baseado no estado atual
-    function updateThemeIcon() {
-        const themeIcon = document.getElementById('themeIcon');
-        if (!themeIcon) return;
-        
-        const isDark = document.documentElement.classList.contains('dark');
-        themeIcon.textContent = isDark ? '☀️' : '🌙';
+(function() {
+    const header = document.getElementById('main-header');
+    const topBar = document.getElementById('top-bar');
+    const spacer = document.getElementById('header-spacer');
+    const backTop = document.getElementById('back-to-top');
+
+    function updateSpacerHeight() { if (header && spacer) spacer.style.height = header.offsetHeight + 'px'; }
+
+    let ticking = false;
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            requestAnimationFrame(function() {
+                const scrollY = window.pageYOffset;
+                if (topBar) {
+                    if (scrollY > 60) { topBar.style.maxHeight = '0'; topBar.style.padding = '0'; } 
+                    else { topBar.style.maxHeight = ''; topBar.style.padding = ''; }
+                }
+                if (header) scrollY > 60 ? header.classList.add('scrolled') : header.classList.remove('scrolled');
+                if (backTop) {
+                    if (scrollY > 400) { backTop.classList.remove('opacity-0', 'invisible'); backTop.classList.add('opacity-100', 'visible'); } 
+                    else { backTop.classList.add('opacity-0', 'invisible'); backTop.classList.remove('opacity-100', 'visible'); }
+                }
+                updateSpacerHeight();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+
+    function setActiveLink() {
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.nav-item-pro[data-page]').forEach(l => {
+            if (l.getAttribute('data-page') === currentPage) l.classList.add('active');
+        });
     }
-    
-    // Atualiza ícone quando o tema mudar
-    const observer = new MutationObserver(updateThemeIcon);
-    observer.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ['class']
-    });
-    
-    // Atualiza ícone no carregamento
-    updateThemeIcon();
+
+    const mobileBtn = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+    let menuOpen = false;
+
+    if (mobileBtn && mobileMenu) {
+        mobileBtn.addEventListener('click', function() {
+            menuOpen = !menuOpen;
+            if (menuOpen) {
+                mobileMenu.classList.remove('hidden');
+                if (menuIcon) menuIcon.className = 'fas fa-times text-base';
+            } else {
+                mobileMenu.classList.add('hidden');
+                if (menuIcon) menuIcon.className = 'fas fa-bars text-base';
+            }
+        });
+    }
+
+    if (backTop) backTop.addEventListener('click', e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+    updateSpacerHeight(); setActiveLink();
+    window.addEventListener('resize', updateSpacerHeight, { passive: true });
+})();
 </script>

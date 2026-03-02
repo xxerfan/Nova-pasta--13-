@@ -1,297 +1,379 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Xerfan Tech Lab - Soluções Tecnológicas</title>
     
-    <!-- Tailwind CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- AOS Animate On Scroll -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/enhancements.css">
     
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Xerfan Tech Lab - Soluções tecnológicas completas: manutenção, automação, desenvolvimento web e infraestrutura de TI.">
-    <meta name="keywords" content="tecnologia, manutenção, automação, desenvolvimento web, infraestrutura TI">
+    <meta name="description" content="Xerfan Tech Lab - Soluções tecnológicas completas: manutenção, automação, desenvolvimento web e infraestrutura de TI em Niterói e região.">
+    <meta name="keywords" content="tecnologia, manutenção computadores, automação residencial, desenvolvimento web, infraestrutura TI, Niterói, Rio de Janeiro">
     <meta name="author" content="Xerfan Tech Lab">
     
-    <!-- Open Graph -->
     <meta property="og:title" content="Xerfan Tech Lab - Soluções Tecnológicas">
-    <meta property="og:description" content="Transforme seu negócio com nossas soluções tecnológicas completas.">
+    <meta property="og:description" content="Transforme seu negócio com nossas soluções tecnológicas completas em Niterói.">
     <meta property="og:type" content="website">
+    <meta property="og:image" content="img/logo.png">
     
-    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="img/logo.png">
-</head>
-<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
     
-    <!-- Header Component -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Xerfan Tech Lab",
+      "image": "https://www.xerfantechlab.com.br/img/logo.png",
+      "description": "Especialistas em manutenção de computadores, automação residencial, desenvolvimento web e infraestrutura de TI em Niterói e região metropolitana.",
+      "@id": "https://www.xerfantechlab.com.br",
+      "url": "https://www.xerfantechlab.com.br",
+      "telephone": "+5521999999999",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Centro",
+        "addressLocality": "Niterói",
+        "addressRegion": "RJ",
+        "postalCode": "24000-000",
+        "addressCountry": "BR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -22.8833,
+        "longitude": -43.1036
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "08:00",
+          "closes": "18:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Saturday",
+          "opens": "09:00",
+          "closes": "14:00"
+        }
+      ],
+      "sameAs": [
+        "https://www.instagram.com/xerfantechlab",
+        "https://www.linkedin.com/company/xerfantechlab"
+      ],
+      "priceRange": "$$"
+    }
+    </script>
+</head>
+<body class="bg-gray-950 transition-colors duration-300">
+
     <div id="header"></div>
     
-    <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center bg-gradient-to-br from-blue-900 via-blue-800 to-orange-600 overflow-hidden">
+    <div id="reading-progress" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-orange-500 to-blue-500 z-[9999] transition-all duration-100" style="width:0%"></div>
+
+    <section class="relative min-h-screen flex items-center bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 overflow-hidden">
         
-        <!-- Background Pattern -->
-        <div class="absolute inset-0 opacity-10">
-            <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_50%)]"></div>
-        </div>
-        
-        <!-- Particles Container -->
         <div id="particles-container" class="particles-container"></div>
         
-        <!-- Reading Progress Bar -->
-        <div id="reading-progress" class="fixed top-0 left-0 h-1 bg-orange-500 z-50 transition-all duration-300" style="width: 0%"></div>
+        <div class="hero-spotlight" style="top:20%; left:15%;"></div>
+        <div class="hero-spotlight" style="bottom:20%; right:20%; background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%); animation-delay: -4s;"></div>
         
-        <!-- Floating Elements -->
-        <div class="absolute inset-0 overflow-hidden">
-            <div class="absolute top-1/4 left-1/4 w-20 h-20 bg-white/10 rounded-full animate-pulse"></div>
-            <div class="absolute top-1/3 right-1/4 w-16 h-16 bg-orange-400/20 rounded-full animate-bounce"></div>
-            <div class="absolute bottom-1/4 left-1/3 w-12 h-12 bg-blue-400/20 rounded-full animate-ping"></div>
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute top-1/4 right-1/3 w-2 h-2 bg-orange-400 rounded-full opacity-60 animate-ping" style="animation-delay:0.5s"></div>
+            <div class="absolute top-1/2 right-1/6 w-1.5 h-1.5 bg-blue-400 rounded-full opacity-50 animate-ping" style="animation-delay:1.2s"></div>
+            <div class="absolute bottom-1/3 left-1/5 w-2 h-2 bg-yellow-400 rounded-full opacity-40 animate-ping" style="animation-delay:2s"></div>
+            <svg class="absolute top-20 right-40 opacity-5 w-72 h-72" viewBox="0 0 200 200" fill="none">
+                <polygon points="100,5 173,47 173,153 100,195 27,153 27,47" stroke="white" stroke-width="1" fill="none"/>
+                <polygon points="100,25 157,57 157,143 100,175 43,143 43,57" stroke="orange" stroke-width="0.5" fill="none"/>
+            </svg>
         </div>
         
-        <div class="container mx-auto px-4 relative z-10">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="container mx-auto px-4 relative z-10 py-24">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
                 
-                <!-- Hero Content -->
-                <div data-aos="fade-right" data-aos-duration="1000">
-                    <div class="inline-flex items-center bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 mb-6">
-                        <i class="fas fa-rocket text-orange-400 mr-3"></i>
-                        <span class="text-white font-medium">✨ Inovação em Tecnologia</span>
+                <div data-aos="fade-right" data-aos-duration="900">
+                    <div class="inline-flex items-center bg-white/10 backdrop-blur-sm border border-white/15 rounded-full px-5 py-2.5 mb-8 hover-glow cursor-default">
+                        <span class="flex h-2 w-2 mr-3">
+                            <span class="animate-ping absolute h-2 w-2 rounded-full bg-green-400 opacity-75"></span>
+                            <span class="relative rounded-full h-2 w-2 bg-green-500"></span>
+                        </span>
+                        <i class="fas fa-rocket text-orange-400 mr-2 text-sm"></i>
+                        <span class="text-white text-sm font-semibold">✨ Inovação em Tecnologia em Niterói</span>
                     </div>
                     
-                    <h1 class="text-4xl md:text-6xl font-bold text-white leading-tight mb-6">
-                        Soluções 
-                        <span class="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[1.05] tracking-tight mb-6">
+                        Soluções
+                        <span class="block bg-gradient-to-r from-orange-400 via-orange-500 to-yellow-400 bg-clip-text text-transparent">
                             Tecnológicas
                         </span>
                         ao Seu Alcance
                     </h1>
                     
-                    <p id="hero-texto-animado" class="text-xl text-blue-100 mb-8 leading-relaxed">
-                        Transforme o seu dia a dia com os melhores serviços de tecnologia. 
-                        Da manutenção à automação, estamos aqui para você!
+                    <p class="text-lg text-blue-200/80 mb-10 leading-relaxed max-w-xl">
+                        <span id="hero-texto-animado" class="typewriter-cursor">Transforme seu negócio com tecnologia de ponta</span>
                     </p>
                     
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="servicos.html" class="px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl btn-magic">
-                            <i class="fas fa-cogs mr-2"></i>
-                            Nossos Serviços
+                    <div class="flex flex-col sm:flex-row gap-4 mb-12">
+                        <a href="servicos.html" class="btn btn-magic flex items-center justify-center gap-2.5 px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold rounded-xl hover:shadow-[0_12px_32px_rgba(249,115,22,0.45)] transform hover:-translate-y-1 transition-all duration-300 text-base">
+                            <i class="fas fa-cogs"></i> Nossos Serviços
                         </a>
-                        <a href="agendamento.html" class="px-8 py-4 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white font-bold rounded-lg transform hover:scale-105 transition-all duration-300 border border-white/30 hover-glow">
-                            <i class="fas fa-calendar-alt mr-2"></i>
-                            Agendar Visita
+                        <a href="agendamento.html" class="flex items-center justify-center gap-2.5 px-8 py-4 bg-white/10 hover:bg-white/18 backdrop-blur-sm text-white font-bold rounded-xl border border-white/25 hover:border-white/40 transform hover:-translate-y-1 transition-all duration-300 text-base hover-shine">
+                            <i class="fas fa-calendar-alt text-orange-300"></i> Agendar Visita
                         </a>
+                    </div>
+                    
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="text-center bg-white/5 border border-white/10 rounded-xl p-3.5 backdrop-blur-sm">
+                            <div class="text-2xl font-black text-orange-400 counter-value" data-counter="500">0</div>
+                            <div class="text-xs text-blue-200/70 mt-0.5 font-medium">Clientes</div>
+                        </div>
+                        <div class="text-center bg-white/5 border border-white/10 rounded-xl p-3.5 backdrop-blur-sm">
+                            <div class="text-2xl font-black text-blue-400 counter-value" data-counter="1200">0</div>
+                            <div class="text-xs text-blue-200/70 mt-0.5 font-medium">Projetos</div>
+                        </div>
+                        <div class="text-center bg-white/5 border border-white/10 rounded-xl p-3.5 backdrop-blur-sm">
+                            <div class="text-2xl font-black text-green-400">4.9★</div>
+                            <div class="text-xs text-blue-200/70 mt-0.5 font-medium">Avaliação</div>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- Hero Image -->
-                <div data-aos="fade-left" data-aos-duration="1000" class="relative" data-parallax="0.5">
-                    <div class="relative z-10">
-                        <img src="img/logo.png" alt="Xerfan Tech Lab" class="w-full max-w-md mx-auto drop-shadow-2xl">
+                <div data-aos="fade-left" data-aos-duration="900" data-aos-delay="200" class="relative hidden lg:flex justify-center items-center w-full h-full min-h-[500px]">
+                    
+                    <div class="relative z-10 w-full max-w-[550px] aspect-square flex justify-center items-center group">
+                        
+                        <img src="img/logo.png" alt="Xerfan Tech Lab" 
+                             class="relative z-10 w-[85%] h-auto max-h-[450px] object-contain animate-float transition-all duration-500 group-hover:scale-105 drop-shadow-[0_0_6px_rgba(249,115,22,0.35)] group-hover:drop-shadow-[0_0_12px_rgba(249,115,22,0.5)]"
+                             onerror="this.closest('div').innerHTML='<div class=\'w-64 h-64 mx-auto bg-gradient-to-br from-orange-500 to-blue-700 rounded-3xl flex items-center justify-center text-white text-6xl font-black shadow-2xl\'>XTL</div>'">
+                        
+                        <div class="absolute top-12 right-0 bg-gray-800/90 backdrop-blur-md border border-gray-600 rounded-2xl p-4 shadow-2xl animate-bounce z-20" style="animation-delay: 0.5s; animation-duration: 3.5s;">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-check text-white text-sm"></i>
+                                </div>
+                                <div>
+                                    <div class="text-white text-sm font-bold">+25 projetos</div>
+                                    <div class="text-gray-400 text-[10px] uppercase tracking-wider font-semibold">este mês</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="absolute bottom-16 left-0 bg-gray-800/90 backdrop-blur-md border border-gray-600 rounded-2xl p-4 shadow-2xl animate-bounce z-20" style="animation-delay: 1.5s; animation-duration: 4s;">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-star text-white text-sm"></i>
+                                </div>
+                                <div>
+                                    <div class="text-white text-sm font-bold">4.9/5 estrelas</div>
+                                    <div class="text-gray-400 text-[10px] uppercase tracking-wider font-semibold">avaliação média</div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-                    <div class="absolute inset-0 bg-gradient-to-r from-orange-400/20 to-blue-600/20 rounded-3xl blur-3xl"></div>
                 </div>
                 
             </div>
         </div>
         
-        <!-- Scroll Indicator -->
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <i class="fas fa-chevron-down text-white text-2xl"></i>
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 scroll-indicator" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">
+            <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+            <span class="text-white/50 text-xs font-medium">Rolar</span>
+        </div>
+        
+        <div class="wave-container">
+            <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path class="wave-path-1 fill-gray-950" d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z"/>
+            </svg>
+        </div>
+    </section>
+
+    <section id="features" class="py-24 bg-gray-950">
+        <div class="container mx-auto px-4">
+            
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="badge badge-orange mb-4"><i class="fas fa-bolt mr-1"></i> Por que nos escolher</span>
+                <h2 class="section-title mb-4">
+                    Por Que Escolher a <span class="text-gradient">Xerfan Tech Lab</span>?
+                </h2>
+                <div class="divider-orange"></div>
+                <p class="section-subtitle mt-6">Oferecemos soluções completas e personalizadas para transformar sua experiência tecnológica com qualidade e agilidade.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-7 stagger-children" data-reveal>
+                
+                <div class="group feature-card card-hover" data-aos="fade-up" data-aos-delay="50">
+                    <div class="service-card-accent"></div>
+                    <div class="card-icon mb-5"><i class="fas fa-tools"></i></div>
+                    <h3 class="card-title text-xl mb-3">Manutenção Especializada</h3>
+                    <p class="card-desc text-sm">Manutenção preventiva e corretiva de computadores, notebooks e impressoras com garantia de qualidade e prazo.</p>
+                    <div class="mt-5 pt-4 border-t border-gray-700 flex items-center justify-between">
+                        <span class="text-xs text-gray-500">Tempo médio: 24h</span>
+                        <a href="servicos.html#manutencao" class="text-orange-500 text-sm font-semibold hover:text-orange-600 flex items-center gap-1 group-hover:gap-2 transition-all">Saiba mais <i class="fas fa-arrow-right text-xs"></i></a>
+                    </div>
+                </div>
+                
+                <div class="group feature-card card-hover" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-card-accent"></div>
+                    <div class="card-icon card-icon-blue mb-5"><i class="fas fa-robot"></i></div>
+                    <h3 class="card-title text-xl mb-3">Automação Residencial</h3>
+                    <p class="card-desc text-sm">Transforme sua casa em um lar inteligente com automação personalizada de iluminação, segurança e conforto.</p>
+                    <div class="mt-5 pt-4 border-t border-gray-700 flex items-center justify-between">
+                        <span class="text-xs text-gray-500">Instalação inclusa</span>
+                        <a href="servicos.html#automacao" class="text-orange-500 text-sm font-semibold hover:text-orange-600 flex items-center gap-1 group-hover:gap-2 transition-all">Saiba mais <i class="fas fa-arrow-right text-xs"></i></a>
+                    </div>
+                </div>
+                
+                <div class="group feature-card card-hover" data-aos="fade-up" data-aos-delay="150">
+                    <div class="service-card-accent"></div>
+                    <div class="card-icon card-icon-green mb-5"><i class="fas fa-code"></i></div>
+                    <h3 class="card-title text-xl mb-3">Desenvolvimento Web</h3>
+                    <p class="card-desc text-sm">Sites profissionais, landing pages e sistemas web modernos, responsivos e otimizados para SEO.</p>
+                    <div class="mt-5 pt-4 border-t border-gray-700 flex items-center justify-between">
+                        <span class="text-xs text-gray-500">100% responsivo</span>
+                        <a href="servicos.html#desenvolvimento" class="text-orange-500 text-sm font-semibold hover:text-orange-600 flex items-center gap-1 group-hover:gap-2 transition-all">Saiba mais <i class="fas fa-arrow-right text-xs"></i></a>
+                    </div>
+                </div>
+                
+                <div class="group feature-card card-hover" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-card-accent"></div>
+                    <div class="card-icon card-icon-purple mb-5"><i class="fas fa-network-wired"></i></div>
+                    <h3 class="card-title text-xl mb-3">Infraestrutura de TI</h3>
+                    <p class="card-desc text-sm">Redes cabeadas e Wi-Fi, servidores, backup em nuvem e segurança da informação para empresas.</p>
+                    <div class="mt-5 pt-4 border-t border-gray-700 flex items-center justify-between">
+                        <span class="text-xs text-gray-500">Suporte 24/7</span>
+                        <a href="servicos.html#infraestrutura" class="text-orange-500 text-sm font-semibold hover:text-orange-600 flex items-center gap-1 group-hover:gap-2 transition-all">Saiba mais <i class="fas fa-arrow-right text-xs"></i></a>
+                    </div>
+                </div>
+                
+                <div class="group feature-card card-hover" data-aos="fade-up" data-aos-delay="250">
+                    <div class="service-card-accent"></div>
+                    <div class="card-icon mb-5" style="background: linear-gradient(135deg, #f59e0b, #d97706); box-shadow: 0 6px 16px rgba(245,158,11,0.35);"><i class="fas fa-shield-alt"></i></div>
+                    <h3 class="card-title text-xl mb-3">Segurança Digital</h3>
+                    <p class="card-desc text-sm">Proteção completa contra vírus, malware e ameaças digitais. Backup e recuperação de dados.</p>
+                    <div class="mt-5 pt-4 border-t border-gray-700 flex items-center justify-between">
+                        <span class="text-xs text-gray-500">Certificado</span>
+                        <a href="servicos.html#seguranca" class="text-orange-500 text-sm font-semibold hover:text-orange-600 flex items-center gap-1 group-hover:gap-2 transition-all">Saiba mais <i class="fas fa-arrow-right text-xs"></i></a>
+                    </div>
+                </div>
+                
+                <div class="group feature-card card-hover" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-card-accent"></div>
+                    <div class="card-icon mb-5" style="background: linear-gradient(135deg, #06b6d4, #0891b2); box-shadow: 0 6px 16px rgba(6,182,212,0.35);"><i class="fas fa-headset"></i></div>
+                    <h3 class="card-title text-xl mb-3">Suporte Remoto</h3>
+                    <p class="card-desc text-sm">Assistência técnica remota ágil e eficiente. Resolvemos problemas sem sair de casa ou escritório.</p>
+                    <div class="mt-5 pt-4 border-t border-gray-700 flex items-center justify-between">
+                        <span class="text-xs text-gray-500">Resposta: 30 min</span>
+                        <a href="servicos.html#suporte" class="text-orange-500 text-sm font-semibold hover:text-orange-600 flex items-center gap-1 group-hover:gap-2 transition-all">Saiba mais <i class="fas fa-arrow-right text-xs"></i></a>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="text-center mt-12" data-aos="fade-up" data-aos-delay="300">
+                <a href="servicos.html" class="btn btn-primary btn-lg btn-auto mx-auto inline-flex gap-2.5">
+                    <i class="fas fa-th-large"></i> Ver Todos os Serviços
+                </a>
+            </div>
         </div>
     </section>
     
-    <!-- Features Section -->
-    <section class="py-20 bg-white dark:bg-gray-800">
+    <section class="py-24 bg-gray-900">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl font-bold text-gray-800 dark:text-white mb-4">
-                    Por Que Escolher a <span class="text-orange-500">Xerfan Tech Lab</span>?
-                </h2>
-                <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                    Oferecemos soluções completas e personalizadas para transformar sua experiência tecnológica
-                </p>
+                <span class="badge badge-blue mb-4"><i class="fas fa-list-ol mr-1"></i> Processo</span>
+                <h2 class="section-title mb-4">Como Funciona?</h2>
+                <div class="divider-orange"></div>
+                <p class="section-subtitle mt-6">Em apenas 4 passos simples você tem seu problema resolvido e sua tecnologia funcionando perfeitamente.</p>
             </div>
             
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+                <div class="hidden lg:block absolute top-14 left-[calc(12.5%+2rem)] right-[calc(12.5%+2rem)] h-0.5 bg-gradient-to-r from-orange-400 via-orange-300 to-blue-400 opacity-30 z-0"></div>
                 
-                <!-- Feature 1 -->
-                <div data-aos="fade-up" data-aos-delay="100" class="bg-white dark:bg-gray-700 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 dark:border-gray-600 card-hover">
-                    <div class="w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-600 rounded-2xl flex items-center justify-center mb-6">
-                        <i class="fas fa-tools text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">Manutenção Especializada</h3>
-                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
-                        Manutenção preventiva e corretiva de computadores, notebooks e impressoras com garantia de qualidade.
-                    </p>
+                <div class="step-card text-center relative z-10" data-aos="fade-up" data-aos-delay="50">
+                    <div class="step-number mx-auto">1</div>
+                    <div class="w-14 h-14 mx-auto -mt-2 mb-5 bg-orange-900/20 rounded-2xl flex items-center justify-center"><i class="fas fa-comments text-orange-500 text-xl"></i></div>
+                    <h3 class="card-title mb-2">Contato Inicial</h3>
+                    <p class="card-desc text-sm">Entre em contato via WhatsApp, telefone ou formulário online. Resposta em até 30 minutos.</p>
                 </div>
                 
-                <!-- Feature 2 -->
-                <div data-aos="fade-up" data-aos-delay="200" class="bg-white dark:bg-gray-700 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 dark:border-gray-600 card-hover">
-                    <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center mb-6">
-                        <i class="fas fa-robot text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">Automação Residencial</h3>
-                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
-                        Transforme sua casa em um lar inteligente com automação personalizada e eficiente.
-                    </p>
+                <div class="step-card text-center relative z-10" data-aos="fade-up" data-aos-delay="100">
+                    <div class="step-number mx-auto">2</div>
+                    <div class="w-14 h-14 mx-auto -mt-2 mb-5 bg-blue-900/20 rounded-2xl flex items-center justify-center"><i class="fas fa-search text-blue-500 text-xl"></i></div>
+                    <h3 class="card-title mb-2">Diagnóstico</h3>
+                    <p class="card-desc text-sm">Analisamos o problema presencialmente ou remotamente e elaboramos um orçamento sem surpresas.</p>
                 </div>
                 
-                <!-- Feature 3 -->
-                <div data-aos="fade-up" data-aos-delay="300" class="bg-white dark:bg-gray-700 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 dark:border-gray-600 card-hover">
-                    <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-700 rounded-2xl flex items-center justify-center mb-6">
-                        <i class="fas fa-code text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">Desenvolvimento Web</h3>
-                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
-                        Criação de sites profissionais, landing pages e sistemas web modernos e responsivos.
-                    </p>
+                <div class="step-card text-center relative z-10" data-aos="fade-up" data-aos-delay="150">
+                    <div class="step-number mx-auto">3</div>
+                    <div class="w-14 h-14 mx-auto -mt-2 mb-5 bg-green-900/20 rounded-2xl flex items-center justify-center"><i class="fas fa-wrench text-green-500 text-xl"></i></div>
+                    <h3 class="card-title mb-2">Execução</h3>
+                    <p class="card-desc text-sm">Nossa equipe executa o serviço com precisão, utilizando peças originais e ferramentas profissionais.</p>
                 </div>
                 
+                <div class="step-card text-center relative z-10" data-aos="fade-up" data-aos-delay="200">
+                    <div class="step-number mx-auto">4</div>
+                    <div class="w-14 h-14 mx-auto -mt-2 mb-5 bg-purple-900/20 rounded-2xl flex items-center justify-center"><i class="fas fa-thumbs-up text-purple-500 text-xl"></i></div>
+                    <h3 class="card-title mb-2">Entrega + Garantia</h3>
+                    <p class="card-desc text-sm">Entregamos com garantia e suporte pós-atendimento. Seu problema resolvido de verdade!</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="py-20 bg-gray-50 dark:bg-gray-900">
+    <section class="py-24 bg-gray-950">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl font-bold text-gray-800 dark:text-white mb-4">
-                    O Que Nossos <span class="text-orange-500">Clientes Dizem</span>
-                </h2>
-                <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                    A satisfação de nossos clientes é nossa maior recompensa
-                </p>
+                <span class="badge badge-orange mb-4"><i class="fas fa-star mr-1"></i> Depoimentos</span>
+                <h2 class="section-title mb-4">O Que Nossos <span class="text-gradient">Clientes Dizem</span></h2>
+                <div class="divider-orange"></div>
+                <p class="section-subtitle mt-6">A satisfação de nossos clientes é nossa maior recompensa e motivação diária.</p>
             </div>
             
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                <!-- Testimonial 1 -->
-                <div data-aos="fade-up" data-aos-delay="100" class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                    <div class="flex items-center mb-6">
-                        <div class="flex text-yellow-400 text-xl">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <span class="ml-2 text-gray-600 dark:text-gray-300 font-medium">5.0</span>
-                    </div>
-                    <p class="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                        "Excelente serviço! Resolveram o problema do meu computador em tempo recorde. Profissionais muito competentes e atenciosos."
-                    </p>
-                    <div class="flex items-center">
-                        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center text-white font-bold">
-                            M
-                        </div>
-                        <div class="ml-4">
-                            <h4 class="font-bold text-gray-800 dark:text-white">Maria Silva</h4>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm">Cliente particular</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
+                <div data-aos="fade-up" data-aos-delay="50" class="bg-gray-800 p-7 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-700 relative group">
+                    <div class="absolute top-5 right-6 text-4xl text-orange-900 font-serif leading-none">"</div>
+                    <div class="stars text-lg mb-4">★★★★★</div>
+                    <p class="text-gray-300 mb-6 leading-relaxed text-sm relative z-10">"Excelente serviço! Resolveram o problema do meu computador em tempo recorde. Profissionais muito competentes e atenciosos. Super recomendo!"</p>
+                    <div class="flex items-center gap-3 pt-4 border-t border-gray-700">
+                        <div class="w-11 h-11 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">M</div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm">Maria Silva</h4>
+                            <p class="text-gray-400 text-xs">Cliente Particular • Niterói</p>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Testimonial 2 -->
-                <div data-aos="fade-up" data-aos-delay="200" class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                    <div class="flex items-center mb-6">
-                        <div class="flex text-yellow-400 text-xl">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <span class="ml-2 text-gray-600 dark:text-gray-300 font-medium">5.0</span>
-                    </div>
-                    <p class="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                        "A automação residencial que instalaram transformou completamente minha casa. Agora posso controlar tudo pelo celular!"
-                    </p>
-                    <div class="flex items-center">
-                        <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-700 rounded-full flex items-center justify-center text-white font-bold">
-                            J
-                        </div>
-                        <div class="ml-4">
-                            <h4 class="font-bold text-gray-800 dark:text-white">João Oliveira</h4>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm">Proprietário</p>
+                <div data-aos="fade-up" data-aos-delay="100" class="bg-gray-800 p-7 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-700 relative group">
+                    <div class="absolute top-5 right-6 text-4xl text-orange-900 font-serif leading-none">"</div>
+                    <div class="stars text-lg mb-4">★★★★★</div>
+                    <p class="text-gray-300 mb-6 leading-relaxed text-sm relative z-10">"A automação residencial que instalaram transformou completamente minha casa! Agora controlo tudo pelo celular. Investimento que valeu demais!"</p>
+                    <div class="flex items-center gap-3 pt-4 border-t border-gray-700">
+                        <div class="w-11 h-11 bg-gradient-to-br from-green-500 to-green-700 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">J</div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm">João Oliveira</h4>
+                            <p class="text-gray-400 text-xs">Proprietário • São Gonçalo</p>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Testimonial 3 -->
-                <div data-aos="fade-up" data-aos-delay="300" class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                    <div class="flex items-center mb-6">
-                        <div class="flex text-yellow-400 text-xl">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <span class="ml-2 text-gray-600 dark:text-gray-300 font-medium">5.0</span>
-                    </div>
-                    <p class="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                        "Desenvolveram o site da minha empresa e ficou incrível! Muito profissionais e criativos. Super recomendo!"
-                    </p>
-                    <div class="flex items-center">
-                        <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-700 rounded-full flex items-center justify-center text-white font-bold">
-                          A
-                        </div>
-                        <div class="ml-4">
-                            <h4 class="font-bold text-gray-800 dark:text-white">Ana Costa</h4>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm">Empresária</p>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-            
-            <!-- Rating Summary -->
-            <div class="text-center mt-12" data-aos="fade-up" data-aos-delay="400">
-                <div class="inline-flex items-center bg-white dark:bg-gray-800 px-8 py-4 rounded-2xl shadow-lg">
-                    <div class="text-center mr-8">
-                        <div class="text-4xl font-bold text-orange-500 mb-2">4.9</div>
-                        <div class="flex text-yellow-400 text-2xl mb-2">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <p class="text-gray-600 dark:text-gray-400">Classificação média</p>
-                    </div>
-                    <div class="text-left">
-                        <div class="flex items-center mb-2">
-                            <span class="text-gray-600 dark:text-gray-400 mr-2">5 estrelas</span>
-                            <div class="w-32 h-2 bg-gray-200 dark:bg-gray-600 rounded-full overflow-hidden">
-                                <div class="h-full bg-yellow-400 rounded-full" style="width: 95%"></div>
-                            </div>
-                            <span class="ml-2 text-gray-600 dark:text-gray-400">95%</span>
-                        </div>
-                        <div class="flex items-center mb-2">
-                            <span class="text-gray-600 dark:text-gray-400 mr-2">4 estrelas</span>
-                            <div class="w-32 h-2 bg-gray-200 dark:bg-gray-600 rounded-full overflow-hidden">
-                                <div class="h-full bg-yellow-400 rounded-full" style="width: 4%"></div>
-                            </div>
-                            <span class="ml-2 text-gray-600 dark:text-gray-400">4%</span>
-                        </div>
-                        <div class="flex items-center">
-                            <span class="text-gray-600 dark:text-gray-400 mr-2">3 estrelas</span>
-                            <div class="w-32 h-2 bg-gray-200 dark:bg-gray-600 rounded-full overflow-hidden">
-                                <div class="h-full bg-yellow-400 rounded-full" style="width: 1%"></div>
-                            </div>
-                            <span class="ml-2 text-gray-600 dark:text-gray-400">1%</span>
+                <div data-aos="fade-up" data-aos-delay="150" class="bg-gray-800 p-7 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-700 relative group">
+                    <div class="absolute top-5 right-6 text-4xl text-orange-900 font-serif leading-none">"</div>
+                    <div class="stars text-lg mb-4">★★★★★</div>
+                    <p class="text-gray-300 mb-6 leading-relaxed text-sm relative z-10">"Desenvolveram o site da minha empresa e ficou incrível! Profissionais, criativos e entregaram antes do prazo. Resultado superou expectativas!"</p>
+                    <div class="flex items-center gap-3 pt-4 border-t border-gray-700">
+                        <div class="w-11 h-11 bg-gradient-to-br from-orange-500 to-orange-700 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">A</div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm">Ana Costa</h4>
+                            <p class="text-gray-400 text-xs">Empresária • Rio de Janeiro</p>
                         </div>
                     </div>
                 </div>
@@ -299,60 +381,48 @@
         </div>
     </section>
     
-    <!-- CTA Section -->
-    <section class="py-16 bg-gradient-to-r from-orange-500 to-orange-600">
-        <div class="container mx-auto px-4 text-center">
+    <section class="py-20 bg-gradient-to-r from-orange-500 to-orange-600 relative overflow-hidden">
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.08)_0%,transparent_70%)]"></div>
+            <div class="absolute -top-10 -right-10 w-80 h-80 rounded-full bg-orange-400/20 blur-3xl"></div>
+            <div class="absolute -bottom-10 -left-10 w-80 h-80 rounded-full bg-orange-700/30 blur-3xl"></div>
+        </div>
+        <div class="container mx-auto px-4 text-center relative z-10">
             <div data-aos="zoom-in">
-                <h2 class="text-3xl font-bold text-white mb-4">
-                    Pronto para Inovar?
+                <div class="inline-flex items-center bg-white/15 rounded-full px-5 py-2 mb-6 text-white text-sm font-semibold">
+                    <i class="fas fa-bolt mr-2 text-yellow-300"></i>
+                    Pronto para Transformar seu Negócio?
+                </div>
+                <h2 class="text-4xl md:text-5xl font-black text-white mb-5 tracking-tight">
+                    Vamos Trabalhar Juntos!
                 </h2>
-                <p class="text-orange-100 text-xl mb-8 max-w-2xl mx-auto">
-                    Entre em contato conosco e descubra como podemos transformar sua experiência tecnológica
+                <p class="text-orange-100 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
+                    Entre em contato agora mesmo e descubra como podemos levar sua empresa para o próximo nível com tecnologia de ponta.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="contato.html" class="inline-flex items-center px-8 py-4 bg-white text-orange-600 font-bold rounded-lg hover:bg-gray-100 transition-colors duration-300 transform hover:scale-105">
-                        <i class="fas fa-envelope mr-2"></i>
-                        Fale Conosco
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="contato.html" class="inline-flex items-center gap-2.5 px-8 py-4 bg-white text-orange-600 font-black rounded-xl hover:bg-gray-200 transition-all transform hover:scale-105 shadow-xl text-base">
+                        <i class="fas fa-envelope"></i> Fale Conosco
                     </a>
-                    <div class="flex gap-4 justify-center">
-                        <a href="https://wa.me/5511999999999" target="_blank" class="inline-flex items-center px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors duration-300 transform hover:scale-105">
-                            <i class="fab fa-whatsapp mr-2"></i>
-                            WhatsApp
-                        </a>
-                        <a href="https://www.instagram.com/xerfantechlab" target="_blank" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg transition-colors duration-300 transform hover:scale-105">
-                            <i class="fab fa-instagram mr-2"></i>
-                            Instagram
-                        </a>
-                        <a href="https://www.facebook.com/xerfantechlab" target="_blank" class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-300 transform hover:scale-105">
-                            <i class="fab fa-facebook mr-2"></i>
-                            Facebook
-                        </a>
-                    </div>
+                    <a href="https://wa.me/5521999999999?text=Olá! Quero saber mais sobre os serviços da Xerfan Tech Lab." target="_blank" 
+                       class="inline-flex items-center gap-2.5 px-8 py-4 bg-green-500 hover:bg-green-400 text-white font-bold rounded-xl transition-all transform hover:scale-105 shadow-xl text-base">
+                        <i class="fab fa-whatsapp text-lg"></i> WhatsApp
+                    </a>
                 </div>
             </div>
         </div>
     </section>
-    
-    <!-- Footer Component -->
+
     <div id="footer"></div>
     
-    <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="js/main.js"></script>
     <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 800,
-            once: true,
-            offset: 100
-        });
-        
-        // Load header and footer
+        AOS.init({ duration: 750, once: true, offset: 80 });
         document.addEventListener('DOMContentLoaded', function() {
             loadComponent('header', 'components/header.html');
             loadComponent('footer', 'components/footer.html');
         });
     </script>
-    
+
 </body>
 </html>

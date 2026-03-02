@@ -1,176 +1,240 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Produtos - Xerfan Tech Lab</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/enhancements.css">
+    <meta name="description" content="Catálogo de produtos tecnológicos da Xerfan Tech Lab: computadores, periféricos e smart home.">
+    <link rel="icon" type="image/x-icon" href="img/logo.png">
+    <style>
+        .product-card .add-cart-btn {
+            transform: translateY(100%);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        .product-card:hover .add-cart-btn {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .price-tag { font-variant-numeric: tabular-nums; }
+    </style>
 </head>
-<body>
+<body class="bg-gray-950 transition-colors duration-300">
 
-    <header class="header">
-        <div class="container header-content">
-            <a href="index.html" class="logo-container">
-                <img src="./img/logo.png" alt="Logo" class="logo-img" onerror="this.style.display='none'">
-            </a>
-            <div style="display: flex; align-items: center; gap: 1.5rem;">
-                <nav class="nav-menu">
-                    <a href="index.html" class="nav-link">Início</a>
-                    <a href="produtos.html" class="nav-link text-orange">Produtos</a>
-                    <a href="servicos.html" class="nav-link">Serviços</a>
-                    <a href="portfolio.html" class="nav-link">Portfólio</a>
-                    <a href="sobre.html" class="nav-link">Sobre</a>
-                    <a href="contato.html" class="nav-link">Contato</a>
-                    <a href="agendamento.html" class="nav-link" style="font-weight: bold;">Agendar</a>
-                </nav>
-                <button id="themeToggle" class="theme-toggle" aria-label="Alternar Tema">🌙</button>
+    <div id="header"></div>
+
+    <section class="hero-page relative">
+        <div class="container mx-auto px-4 relative z-10" data-aos="fade-up">
+            <div class="inline-flex items-center bg-white/10 border border-white/20 rounded-full px-5 py-2 mb-6 text-sm font-semibold text-white">
+                <i class="fas fa-box mr-2 text-orange-300"></i> Nossa loja
             </div>
-        </div>
-    </header>
-
-    <section class="hero-page" style="background: linear-gradient(to right, var(--blue-900), var(--orange-600));">
-        <div class="container">
-            <h1 class="hero-page-title">Nossos Produtos</h1>
-            <p class="hero-page-desc">Encontre os melhores equipamentos e periféricos de tecnologia</p>
+            <h1 class="hero-page-title">Nossos <span class="text-gradient-multi">Produtos</span></h1>
+            <p class="hero-page-desc mt-3">Os melhores equipamentos e periféricos com preço justo e entrega rápida em Niterói e região.</p>
         </div>
     </section>
 
-    <section class="section-padding" style="padding-bottom: 2rem;">
-        <div class="container">
-            <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem;">
-                <input type="text" placeholder="Buscar produtos..." style="width: 100%; max-width: 400px; padding: 1rem; border-radius: 0.5rem; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-primary); font-size: 1rem;">
-                
-                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
-                    <span style="color: var(--text-secondary); margin-right: 0.5rem;">Categorias:</span>
-                    <span class="badge" style="background: var(--orange-500); color: white; padding: 0.5rem 1rem; cursor: pointer;">Todos</span>
-                    <span class="badge" style="background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-primary); padding: 0.5rem 1rem; cursor: pointer;">Computadores</span>
-                    <span class="badge" style="background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-primary); padding: 0.5rem 1rem; cursor: pointer;">Acessórios</span>
-                    <span class="badge" style="background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-primary); padding: 0.5rem 1rem; cursor: pointer;">Casa Inteligente</span>
+    <section class="py-8 bg-gray-900 border-b border-gray-800 sticky top-[100px] z-20 shadow-sm">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row gap-4 items-center">
+                <div class="relative flex-1 max-w-md">
+                    <input type="text" 
+                           id="search-products" 
+                           placeholder="Buscar produtos..." 
+                           class="w-full pl-11 pr-4 py-2.5 bg-gray-800 rounded-xl border border-gray-700 focus:border-orange-400 focus:outline-none text-gray-200 text-sm transition-all">
+                    <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                </div>
+                <div class="filter-tabs" id="product-filters">
+                    <button class="filter-tab active" data-cat="all">Todos</button>
+                    <button class="filter-tab" data-cat="computadores">💻 Computadores</button>
+                    <button class="filter-tab" data-cat="acessorios">🖱️ Acessórios</button>
+                    <button class="filter-tab" data-cat="smarthome">🏠 Smart Home</button>
+                    <button class="filter-tab" data-cat="seguranca">🔒 Segurança</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section-padding" style="padding-top: 0;">
-        <div class="container grid-cards">
+    <section class="py-20 bg-gray-950">
+        <div class="container mx-auto px-4">
             
-            <div class="card card-body-no-padding">
-                <div class="card-image-box">
-                    <img src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=500" class="card-image" alt="Notebook">
-                </div>
-                <div class="card-content-padding">
-                    <span class="badge badge-orange" style="margin-bottom: 0.5rem;">Computadores</span>
-                    <h3 class="card-title">Notebook Dell Inspiron Core i7</h3>
-                    <p class="card-desc" style="margin-bottom: 1rem;">Notebook alta performance com SSD 512GB e 16GB RAM. Ideal para trabalho e programas pesados.</p>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                        <h2 class="text-orange" style="font-size: 1.5rem; font-weight: bold;">R$ 3.500,00</h2>
-                        <span style="font-size: 0.75rem; color: var(--text-secondary);">Estoque: 5</span>
-                    </div>
-                    <a href="https://wa.me/5521984197719?text=Olá, tenho interesse no Notebook Dell Core i7 de R$3.500,00." target="_blank" class="btn-primary" style="padding: 0.75rem;">Comprar no WhatsApp 🛒</a>
-                </div>
+            <div id="search-result" class="hidden mb-6 text-center md:text-left">
+                <p class="text-gray-400 text-sm">Mostrando resultados para: <strong id="search-term" class="text-orange-500"></strong></p>
             </div>
-
-            <div class="card card-body-no-padding">
-                <div class="card-image-box">
-                    <img src="https://images.unsplash.com/photo-1558002038-1055907df827?w=500" class="card-image" alt="Automação">
-                </div>
-                <div class="card-content-padding">
-                    <span class="badge badge-orange" style="margin-bottom: 0.5rem;">Casa Inteligente</span>
-                    <h3 class="card-title">Kit Automação Residencial Básico</h3>
-                    <p class="card-desc" style="margin-bottom: 1rem;">Kit completo com 3 lâmpadas smart Wi-Fi e um assistente virtual (Alexa Echo Dot).</p>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                        <h2 class="text-orange" style="font-size: 1.5rem; font-weight: bold;">R$ 599,00</h2>
-                        <span style="font-size: 0.75rem; color: var(--text-secondary);">Estoque: 12</span>
-                    </div>
-                    <a href="https://wa.me/5521984197719?text=Olá, tenho interesse no Kit Automação de R$599,00." target="_blank" class="btn-primary" style="padding: 0.75rem;">Comprar no WhatsApp 🛒</a>
-                </div>
-            </div>
-
-            <div class="card card-body-no-padding">
-                <div class="card-image-box">
-                    <img src="https://images.unsplash.com/photo-1555255707-c07966088b7b?w=500" class="card-image" alt="Câmera CFTV">
-                </div>
-                <div class="card-content-padding">
-                    <span class="badge badge-orange" style="margin-bottom: 0.5rem;">Acessórios</span>
-                    <h3 class="card-title">Câmera de Segurança IP Full HD</h3>
-                    <p class="card-desc" style="margin-bottom: 1rem;">Câmera Wi-Fi com visão noturna, áudio bidirecional e acesso remoto pelo celular.</p>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                        <h2 class="text-orange" style="font-size: 1.5rem; font-weight: bold;">R$ 250,00</h2>
-                        <span style="font-size: 0.75rem; color: var(--text-secondary);">Estoque: 8</span>
-                    </div>
-                    <a href="https://wa.me/5521984197719?text=Olá, tenho interesse na Câmera de Segurança de R$250,00." target="_blank" class="btn-primary" style="padding: 0.75rem;">Comprar no WhatsApp 🛒</a>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-<footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="products-grid">
                 
-                <div>
-                    <img src="./img/logo.png" alt="Xerfan Tech Lab" style="height: 3rem; margin-bottom: 1rem; filter: brightness(0) invert(1);" onerror="this.style.display='none'">
-                    <p class="footer-text">
-                        Inovação em tecnologia ao seu alcance. Oferecemos os melhores serviços e produtos para facilitar o seu dia a dia e transformar o seu negócio.
-                    </p>
+                <div class="card bg-gray-800 border-gray-700 card-body-no-padding product-card group rounded-2xl overflow-hidden" data-cat="computadores" data-name="notebook gamer" data-aos="fade-up" data-aos-delay="50">
+                    <div class="card-image-box relative">
+                        <div class="w-full h-48 bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center">
+                            <i class="fas fa-laptop text-6xl text-gray-500"></i>
+                        </div>
+                        <div class="card-image-overlay"></div>
+                        <span class="absolute top-3 left-3 badge badge-new text-xs">Novo</span>
+                        <a href="https://wa.me/5521999999999?text=Olá! Tenho interesse no Notebook Gamer i5." target="_blank" class="add-cart-btn absolute bottom-3 left-3 right-3 py-2.5 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl text-sm flex items-center justify-center gap-2">
+                            <i class="fab fa-whatsapp"></i> Pedir via WhatsApp
+                        </a>
+                    </div>
+                    <div class="card-content-padding">
+                        <span class="badge badge-orange text-xs mb-2">Computadores</span>
+                        <h3 class="font-bold text-white text-sm leading-snug mb-2">Notebook Gamer i5 16GB RAM SSD 512GB</h3>
+                        <div class="flex items-end gap-2 mb-3">
+                            <span class="text-xl font-black text-orange-500 price-tag">R$ 3.499,00</span>
+                        </div>
+                        <div class="flex items-center gap-1 text-yellow-400 text-xs">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <span class="text-gray-400 ml-1">5.0</span>
+                        </div>
+                    </div>
                 </div>
-
-                <div>
-                    <h4 class="footer-title">Links Rápidos</h4>
-                    <ul class="footer-list">
-                        <li><a href="index.html" class="footer-link">Início</a></li>
-                        <li><a href="produtos.html" class="footer-link">Produtos</a></li>
-                        <li><a href="servicos.html" class="footer-link">Serviços</a></li>
-                        <li><a href="portfolio.html" class="footer-link">Portfólio</a></li>
-                        <li><a href="sobre.html" class="footer-link">Sobre Nós</a></li>
-                    </ul>
+                
+                <div class="card bg-gray-800 border-gray-700 card-body-no-padding product-card group rounded-2xl overflow-hidden" data-cat="computadores" data-name="computador desktop" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-image-box relative">
+                        <div class="w-full h-48 bg-gradient-to-br from-blue-900/40 to-blue-800/40 flex items-center justify-center">
+                            <i class="fas fa-desktop text-6xl text-blue-500"></i>
+                        </div>
+                        <div class="card-image-overlay"></div>
+                        <span class="absolute top-3 left-3 badge bg-blue-500 text-white text-xs">Popular</span>
+                        <a href="https://wa.me/5521999999999?text=Olá! Tenho interesse no Desktop Gamer Ryzen 5." target="_blank" class="add-cart-btn absolute bottom-3 left-3 right-3 py-2.5 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl text-sm flex items-center justify-center gap-2">
+                            <i class="fab fa-whatsapp"></i> Pedir via WhatsApp
+                        </a>
+                    </div>
+                    <div class="card-content-padding">
+                        <span class="badge badge-blue text-xs mb-2">Computadores</span>
+                        <h3 class="font-bold text-white text-sm leading-snug mb-2">Desktop Gamer Ryzen 5 RTX 3060 16GB</h3>
+                        <div class="flex items-end gap-2 mb-3">
+                            <span class="text-xl font-black text-orange-500 price-tag">R$ 5.200,00</span>
+                        </div>
+                        <div class="flex items-center gap-1 text-yellow-400 text-xs">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                            <span class="text-gray-400 ml-1">4.8</span>
+                        </div>
+                    </div>
                 </div>
-
-                <div>
-                    <h4 class="footer-title">Nossos Serviços</h4>
-                    <ul class="footer-list">
-                        <li>💻 Manutenção de PCs</li>
-                        <li>📱 Reparo de Smartphones</li>
-                        <li>🏠 Automação Residencial</li>
-                        <li>📷 Câmeras CFTV</li>
-                        <li>🎮 Conserto de Videogames</li>
-                    </ul>
+                
+                <div class="card bg-gray-800 border-gray-700 card-body-no-padding product-card group rounded-2xl overflow-hidden" data-cat="acessorios" data-name="teclado mecânico" data-aos="fade-up" data-aos-delay="150">
+                    <div class="card-image-box relative">
+                        <div class="w-full h-48 bg-gradient-to-br from-gray-900 to-black flex items-center justify-center">
+                            <i class="fas fa-keyboard text-6xl text-orange-500"></i>
+                        </div>
+                        <div class="card-image-overlay"></div>
+                        <a href="https://wa.me/5521999999999?text=Olá! Tenho interesse no Teclado Mecânico RGB." target="_blank" class="add-cart-btn absolute bottom-3 left-3 right-3 py-2.5 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl text-sm flex items-center justify-center gap-2">
+                            <i class="fab fa-whatsapp"></i> Pedir via WhatsApp
+                        </a>
+                    </div>
+                    <div class="card-content-padding">
+                        <span class="badge badge-orange text-xs mb-2">Acessórios</span>
+                        <h3 class="font-bold text-white text-sm leading-snug mb-2">Teclado Mecânico RGB Switch Red Gamer</h3>
+                        <div class="flex items-end gap-2 mb-3">
+                            <span class="text-xl font-black text-orange-500 price-tag">R$ 299,00</span>
+                        </div>
+                        <div class="flex items-center gap-1 text-yellow-400 text-xs">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <span class="text-gray-400 ml-1">5.0</span>
+                        </div>
+                    </div>
                 </div>
-
-                <div>
-                    <h4 class="footer-title">Contato</h4>
-                    <ul class="footer-list">
-                        <li>📍 Rio de Janeiro, RJ - Brasil</li>
-                        <li>📞 <a href="tel:+5521984197719" class="footer-link">(21) 98419-7719</a></li>
-                        <li>📧 <a href="mailto:xxerfan@gmail.com" class="footer-link">xxerfan@gmail.com</a></li>
-                    </ul>
-                    
-                    <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-                        <a href="https://instagram.com/xerfantechlab" target="_blank" class="footer-link" style="font-size: 1.5rem; background: rgba(255,255,255,0.1); padding: 0.5rem; border-radius: 0.5rem;">📷</a>
-                        <a href="https://wa.me/5521984197719" target="_blank" class="footer-link" style="font-size: 1.5rem; background: rgba(255,255,255,0.1); padding: 0.5rem; border-radius: 0.5rem;">💬</a>
+                
+                <div class="card bg-gray-800 border-gray-700 card-body-no-padding product-card group rounded-2xl overflow-hidden" data-cat="smarthome" data-name="lâmpada inteligente" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card-image-box relative">
+                        <div class="w-full h-48 bg-gradient-to-br from-yellow-900/30 to-orange-900/30 flex items-center justify-center">
+                            <i class="fas fa-lightbulb text-6xl text-yellow-500"></i>
+                        </div>
+                        <div class="card-image-overlay"></div>
+                        <span class="absolute top-3 left-3 badge bg-yellow-600 text-white text-xs">Oferta</span>
+                        <a href="https://wa.me/5521999999999?text=Olá! Tenho interesse na Lâmpada Inteligente Wi-Fi." target="_blank" class="add-cart-btn absolute bottom-3 left-3 right-3 py-2.5 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl text-sm flex items-center justify-center gap-2">
+                            <i class="fab fa-whatsapp"></i> Pedir via WhatsApp
+                        </a>
+                    </div>
+                    <div class="card-content-padding">
+                        <span class="badge badge-orange text-xs mb-2">Smart Home</span>
+                        <h3 class="font-bold text-white text-sm leading-snug mb-2">Lâmpada LED Inteligente Wi-Fi RGB 10W</h3>
+                        <div class="flex items-end gap-2 mb-3">
+                            <span class="text-sm text-gray-500 line-through">R$ 89,00</span>
+                            <span class="text-xl font-black text-orange-500 price-tag">R$ 59,00</span>
+                        </div>
+                        <div class="flex items-center gap-1 text-yellow-400 text-xs">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <span class="text-gray-400 ml-1">4.9</span>
+                        </div>
                     </div>
                 </div>
 
             </div>
             
-            <div class="footer-bottom">
-                <p>© 2026 Xerfan Tech Lab. Todos os direitos reservados.</p>
+            <div id="no-results" class="hidden text-center py-16">
+                <div class="w-20 h-20 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4 border border-gray-700">
+                    <i class="fas fa-search text-gray-500 text-3xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">Nenhum produto encontrado</h3>
+                <p class="text-gray-400 text-sm mb-6">Tente outros termos ou entre em contato para produtos específicos.</p>
+                <a href="https://wa.me/5521999999999?text=Olá! Estou procurando um produto específico." target="_blank"
+                   class="btn btn-primary btn-auto mx-auto inline-flex gap-2">
+                    <i class="fab fa-whatsapp"></i> Solicitar Produto
+                </a>
             </div>
+            
         </div>
-    </footer>
+    </section>
+    
+    <div id="footer"></div>
 
-    <a href="https://wa.me/5521984197719" target="_blank" class="whatsapp-float">
-        <svg class="whatsapp-icon" viewBox="0 0 24 24"><path d="M12.031 21.033c-1.636 0-3.238-.439-4.636-1.27l-.333-.198-3.447.904.92-3.361-.217-.345A8.937 8.937 0 0 1 3.031 12c0-4.962 4.038-9 9-9s9 4.038 9-9 4.038 9-9 9zm4.846-6.19c-.265-.133-1.57-.775-1.815-.864-.244-.089-.422-.133-.599.133-.178.266-.688.864-.843 1.04-.155.178-.31.2-.576.067a7.288 7.288 0 0 1-2.148-1.325 8.01 8.01 0 0 1-1.487-1.865c-.155-.266-.016-.41.116-.543.118-.118.265-.31.398-.465.133-.155.178-.266.265-.443.089-.178.045-.333-.022-.465-.067-.133-.599-1.443-.82-1.975-.215-.515-.434-.445-.599-.453-.155-.008-.333-.008-.51-.008-.178 0-.466.067-.71.333-.244.266-.932.91-.932 2.218s.954 2.574 1.087 2.752c.133.178 1.876 2.863 4.545 4.016 2.669 1.154 2.669.776 3.157.732.488-.044 1.57-.643 1.792-1.264.222-.621.222-1.154.155-1.265-.066-.11-.243-.177-.509-.31z"/></svg>
-    </a>
-
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
     <script>
-        const themeToggle = document.getElementById('themeToggle'); const body = document.body; 
-        if (localStorage.getItem('theme') === 'dark') { body.classList.add('dark-theme'); themeToggle.textContent = '☀️'; }
-        themeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-theme'); 
-            if (body.classList.contains('dark-theme')) { localStorage.setItem('theme', 'dark'); themeToggle.textContent = '☀️'; } 
-            else { localStorage.setItem('theme', 'light'); themeToggle.textContent = '🌙'; }
+        AOS.init({ duration: 750, once: true, offset: 80 });
+        document.addEventListener('DOMContentLoaded', function() {
+            loadComponent('header', 'components/header.html');
+            loadComponent('footer', 'components/footer.html');
+            
+            // Filtro por categoria
+            document.getElementById('product-filters')?.addEventListener('click', e => {
+                const tab = e.target.closest('.filter-tab');
+                if (!tab) return;
+                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                filterProducts();
+            });
+            
+            // Busca
+            document.getElementById('search-products')?.addEventListener('input', function() {
+                const term = this.value.trim();
+                const result = document.getElementById('search-result');
+                const termEl = document.getElementById('search-term');
+                if (term) {
+                    result.classList.remove('hidden');
+                    termEl.textContent = term;
+                } else {
+                    result.classList.add('hidden');
+                }
+                filterProducts();
+            });
+            
+            function filterProducts() {
+                const cat = document.querySelector('.filter-tab.active')?.dataset.cat || 'all';
+                const term = document.getElementById('search-products')?.value.toLowerCase() || '';
+                const cards = document.querySelectorAll('#products-grid > div[data-cat]');
+                let visible = 0;
+                
+                cards.forEach(card => {
+                    const matchCat = cat === 'all' || card.dataset.cat === cat;
+                    const matchTerm = !term || card.dataset.name?.toLowerCase().includes(term) || card.querySelector('h3')?.textContent.toLowerCase().includes(term);
+                    if (matchCat && matchTerm) {
+                        card.style.display = '';
+                        visible++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                document.getElementById('no-results').classList.toggle('hidden', visible > 0);
+            }
         });
     </script>
 </body>

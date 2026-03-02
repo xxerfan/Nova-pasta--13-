@@ -1,368 +1,187 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contato - Xerfan Tech Lab</title>
-    
-    <!-- Tailwind CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- AOS Animate On Scroll -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
-    
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Entre em contato com a Xerfan Tech Lab. Solicite orçamentos, agende visitas ou tire suas dúvidas sobre nossos serviços tecnológicos.">
-    <meta name="keywords" content="contato, orçamento, agendamento, suporte técnico">
-    <meta name="author" content="Xerfan Tech Lab">
-    
-    <!-- Open Graph -->
-    <meta property="og:title" content="Contato - Xerfan Tech Lab">
-    <meta property="og:description" content="Estamos aqui para ajudar! Entre em contato conosco.">
-    <meta property="og:type" content="website">
-    
-    <!-- Favicon -->
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/enhancements.css">
+    <meta name="description" content="Entre em contato com a Xerfan Tech Lab. Solicite orçamentos, agende visitas ou tire suas dúvidas em Niterói e região.">
     <link rel="icon" type="image/x-icon" href="img/logo.png">
+    <script>(function(){const s=localStorage.getItem('theme');if(s==='dark'||(!s&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark');})()</script>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-    
-    <!-- Header Component -->
+<body class="bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
+
     <div id="header"></div>
-    
-    <!-- Page Header -->
-    <section class="py-32 bg-gradient-to-br from-blue-900 via-blue-800 to-orange-600 relative overflow-hidden">
-        
-        <!-- Background Elements -->
-        <div class="absolute inset-0 opacity-10">
-            <div class="absolute top-1/4 right-1/4 w-20 h-20 bg-white/10 rounded-full blur-2xl"></div>
-            <div class="absolute bottom-1/4 left-1/4 w-16 h-16 bg-orange-400/20 rounded-full blur-xl"></div>
+
+    <section class="hero-page relative">
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute top-1/3 left-1/4 w-48 h-48 bg-orange-500/10 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-1/3 right-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
         </div>
-        
-        <div class="container mx-auto px-4 text-center relative z-10">
-            <div data-aos="fade-up">
-                <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
-                    Entre em <span class="text-orange-400">Contato</span>
-                </h1>
-                <p class="text-xl text-blue-100 max-w-2xl mx-auto leading-relaxed">
-                    Estamos aqui para ajudar! Preencha o formulário ou use uma das outras formas de contato.
-                </p>
+        <div class="container mx-auto px-4 relative z-10" data-aos="fade-up">
+            <div class="inline-flex items-center bg-white/10 border border-white/20 rounded-full px-5 py-2 mb-6 text-sm font-semibold text-white">
+                <i class="fas fa-envelope mr-2 text-orange-300"></i> Fale com a gente
             </div>
-        </div>
-        
-        <!-- Scroll Indicator -->
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <i class="fas fa-chevron-down text-white text-2xl"></i>
+            <h1 class="hero-page-title">Entre em <span class="text-gradient-multi">Contato</span></h1>
+            <p class="hero-page-desc mt-3">Estamos prontos para atender você. Resposta garantida em até 30 minutos!</p>
         </div>
     </section>
-    
-    <!-- Contact Section -->
-    <section class="py-20 bg-white dark:bg-gray-800">
+
+    <section class="py-12 bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800">
         <div class="container mx-auto px-4">
-            <div class="grid lg:grid-cols-2 gap-16 items-start">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 
-                <!-- Contact Form -->
-                <div data-aos="fade-right">
-                    <div class="bg-white dark:bg-gray-700 rounded-2xl shadow-xl p-8 border border-gray-100 dark:border-gray-600">
-                        <div class="text-center mb-8">
-                            <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-4">Envie sua Mensagem</h2>
-                            <p class="text-gray-600 dark:text-gray-300">Preencha o formulário e entraremos em contato o mais breve possível.</p>
+                <a href="https://wa.me/5521999999999?text=Olá! Vim pelo site e gostaria de um orçamento." 
+                   target="_blank"
+                   class="contact-method flex flex-col items-center p-5 rounded-2xl bg-green-50 dark:bg-green-900/20 border border-green-100 dark:border-green-800 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group text-center">
+                    <div class="method-icon w-14 h-14 bg-green-500 rounded-2xl flex items-center justify-center mb-3 transition-transform duration-300 shadow-lg shadow-green-500/30">
+                        <i class="fab fa-whatsapp text-white text-2xl"></i>
+                    </div>
+                    <span class="font-bold text-gray-800 dark:text-white text-sm">WhatsApp</span>
+                    <span class="text-gray-500 dark:text-gray-400 text-xs mt-0.5">(21) 99999-9999</span>
+                </a>
+                
+                <a href="tel:+5521999999999"
+                   class="contact-method flex flex-col items-center p-5 rounded-2xl bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group text-center">
+                    <div class="method-icon w-14 h-14 bg-blue-500 rounded-2xl flex items-center justify-center mb-3 transition-transform duration-300 shadow-lg shadow-blue-500/30">
+                        <i class="fas fa-phone text-white text-xl"></i>
+                    </div>
+                    <span class="font-bold text-gray-800 dark:text-white text-sm">Telefone</span>
+                    <span class="text-gray-500 dark:text-gray-400 text-xs mt-0.5">(21) 99999-9999</span>
+                </a>
+                
+                <a href="mailto:contato@xerfantechlab.com.br"
+                   class="contact-method flex flex-col items-center p-5 rounded-2xl bg-orange-50 dark:bg-orange-900/20 border border-orange-100 dark:border-orange-800 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group text-center">
+                    <div class="method-icon w-14 h-14 bg-orange-500 rounded-2xl flex items-center justify-center mb-3 transition-transform duration-300 shadow-lg shadow-orange-500/30">
+                        <i class="fas fa-envelope text-white text-xl"></i>
+                    </div>
+                    <span class="font-bold text-gray-800 dark:text-white text-sm">Email</span>
+                    <span class="text-gray-500 dark:text-gray-400 text-xs mt-0.5 truncate max-w-full">contato@xerfantechlab</span>
+                </a>
+                
+                <a href="agendamento.html"
+                   class="contact-method flex flex-col items-center p-5 rounded-2xl bg-purple-50 dark:bg-purple-900/20 border border-purple-100 dark:border-purple-800 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group text-center">
+                    <div class="method-icon w-14 h-14 bg-purple-500 rounded-2xl flex items-center justify-center mb-3 transition-transform duration-300 shadow-lg shadow-purple-500/30">
+                        <i class="fas fa-calendar-check text-white text-xl"></i>
+                    </div>
+                    <span class="font-bold text-gray-800 dark:text-white text-sm">Agendamento</span>
+                    <span class="text-gray-500 dark:text-gray-400 text-xs mt-0.5">Visita técnica</span>
+                </a>
+                
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-gray-50 dark:bg-gray-950">
+        <div class="container mx-auto px-4">
+            <div class="grid lg:grid-cols-5 gap-10 items-start">
+                
+                <div class="lg:col-span-3" data-aos="fade-right">
+                    <div class="form-container bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700">
+                        <div class="mb-8">
+                            <h2 class="text-2xl font-black text-gray-900 dark:text-white mb-2">Envie sua Mensagem</h2>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm">Preencha o formulário e entraremos em contato em até 30 minutos.</p>
                         </div>
                         
-                        <form id="form-contato" class="space-y-6">
+                        <form id="form-contato">
+                            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
                             
-                            <!-- Name -->
-                            <div>
-                                <label for="nome" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    <i class="fas fa-user mr-2 text-orange-500"></i>Nome Completo *
-                                </label>
-                                <input type="text" 
-                                       id="nome" 
-                                       name="nome" 
-                                       required
-                                       data-format="name"
-                                       data-validation="required|min:3"
-                                       class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white transition-colors"
-                                       placeholder="Digite seu nome completo">
-                                <span class="text-red-500 text-sm mt-1 hidden field-error">Nome é obrigatório e deve ter no mínimo 3 caracteres</span>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"><i class="fas fa-user text-orange-500 mr-1"></i> Nome Completo *</label>
+                                    <input type="text" name="nome" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Seu nome" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"><i class="fas fa-envelope text-orange-500 mr-1"></i> Email *</label>
+                                    <input type="email" name="email" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="seu@email.com" required>
+                                </div>
                             </div>
                             
-                            <!-- Email -->
-                            <div>
-                                <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    <i class="fas fa-envelope mr-2 text-orange-500"></i>Email *
-                                </label>
-                                <input type="email" 
-                                       id="email" 
-                                       name="email" 
-                                       required
-                                       data-validation="required|email"
-                                       class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white transition-colors"
-                                       placeholder="seu@email.com">
-                                <span class="text-red-500 text-sm mt-1 hidden field-error">Email inválido ou obrigatório</span>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"><i class="fas fa-phone text-orange-500 mr-1"></i> Telefone</label>
+                                    <input type="tel" name="telefone" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="(21) 00000-0000">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"><i class="fas fa-tag text-orange-500 mr-1"></i> Assunto *</label>
+                                    <select name="assunto" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500" required>
+                                        <option value="">Selecione o assunto</option>
+                                        <option value="orcamento">Solicitar orçamento</option>
+                                        <option value="manutencao">Manutenção técnica</option>
+                                        <option value="automacao">Automação residencial</option>
+                                        <option value="web">Desenvolvimento web</option>
+                                    </select>
+                                </div>
                             </div>
                             
-                            <!-- Phone -->
-                            <div>
-                                <label for="telefone" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    <i class="fas fa-phone mr-2 text-orange-500"></i>Telefone
-                                </label>
-                                <input type="tel" 
-                                       id="telefone" 
-                                       name="telefone" 
-                                       data-format="phone"
-                                       data-validation="phone"
-                                       class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white transition-colors"
-                                       placeholder="(00) 00000-0000">
-                                <span class="text-red-500 text-sm mt-1 hidden field-error">Telefone inválido - use o formato (00) 00000-0000</span>
+                            <div class="mb-6">
+                                <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"><i class="fas fa-comment-alt text-orange-500 mr-1"></i> Mensagem *</label>
+                                <textarea name="mensagem" rows="4" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Descreva o que você precisa..." required></textarea>
                             </div>
                             
-                            <!-- Subject -->
-                            <div>
-                                <label for="assunto" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    <i class="fas fa-tag mr-2 text-orange-500"></i>Assunto
-                                </label>
-                                <select id="assunto" 
-                                        name="assunto" 
-                                        class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white transition-colors">
-                                    <option value="">Selecione um assunto</option>
-                                    <option value="orcamento">Solicitar Orçamento</option>
-                                    <option value="suporte">Suporte Técnico</option>
-                                    <option value="parceria">Parceria</option>
-                                    <option value="duvida">Dúvida</option>
-                                    <option value="outro">Outro</option>
-                                </select>
-                            </div>
-                            
-                            <!-- Message -->
-                            <div>
-                                <label for="mensagem" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    <i class="fas fa-comment mr-2 text-orange-500"></i>Mensagem *
-                                </label>
-                                <textarea id="mensagem" 
-                                          name="mensagem" 
-                                          rows="5" 
-                                          required
-                                          class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white transition-colors resize-none"
-                                          placeholder="Digite sua mensagem..."></textarea>
-                                <span class="text-red-500 text-sm mt-1 hidden">Mensagem é obrigatória</span>
-                            </div>
-                            
-                            <!-- Submit Button -->
-                            <button type="submit" 
-                                    class="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl focus:ring-4 focus:ring-orange-500/50">
-                                <i class="fas fa-paper-plane mr-2"></i>
-                                Enviar Mensagem
+                            <button type="submit" class="w-full py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-orange-500/30 transition-all">
+                                <i class="fas fa-paper-plane mr-2"></i> Enviar Mensagem
                             </button>
                         </form>
                     </div>
                 </div>
                 
-                <!-- Contact Info -->
-                <div data-aos="fade-left">
-                    <div class="space-y-8">
-                        
-                        <!-- Contact Cards -->
-                        <div class="bg-gradient-to-br from-blue-50 to-orange-50 dark:from-gray-700 dark:to-gray-600 p-6 rounded-2xl border border-gray-100 dark:border-gray-600">
-                            <div class="flex items-center mb-4">
-                                <div class="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center mr-4">
-                                    <i class="fas fa-phone text-white"></i>
+                <div class="lg:col-span-2 space-y-5" data-aos="fade-left">
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-md border border-gray-100 dark:border-gray-700">
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-5 flex items-center gap-2">
+                            <span class="w-1 h-5 bg-orange-500 rounded-full"></span> Contatos
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600">
+                                    <i class="fab fa-whatsapp"></i>
                                 </div>
                                 <div>
-                                    <h3 class="text-lg font-bold text-gray-800 dark:text-white">WhatsApp</h3>
-                                    <p class="text-gray-600 dark:text-gray-300">Resposta rápida</p>
+                                    <p class="text-xs text-gray-500">WhatsApp</p>
+                                    <p class="font-bold dark:text-white">(21) 99999-9999</p>
                                 </div>
                             </div>
-                            <a href="https://wa.me/5511999999999" class="text-2xl font-bold text-gray-800 dark:text-white hover:text-orange-500 transition-colors">
-                                (11) 99999-9999
-                            </a>
-                        </div>
-                        
-                        <div class="bg-gradient-to-br from-blue-50 to-orange-50 dark:from-gray-700 dark:to-gray-600 p-6 rounded-2xl border border-gray-100 dark:border-gray-600">
-                            <div class="flex items-center mb-4">
-                                <div class="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center mr-4">
-                                    <i class="fas fa-envelope text-white"></i>
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600">
+                                    <i class="fas fa-envelope"></i>
                                 </div>
                                 <div>
-                                    <h3 class="text-lg font-bold text-gray-800 dark:text-white">Email</h3>
-                                    <p class="text-gray-600 dark:text-gray-300">Resposta em 24h</p>
+                                    <p class="text-xs text-gray-500">Email</p>
+                                    <p class="font-bold text-sm dark:text-white">contato@xerfantechlab.com.br</p>
                                 </div>
                             </div>
-                            <a href="mailto:contato@xerfantechlab.com.br" class="text-lg font-bold text-gray-800 dark:text-white hover:text-blue-500 transition-colors break-all">
-                                contato@xerfantechlab.com.br
-                            </a>
-                        </div>
-                        
-                        <div class="bg-gradient-to-br from-blue-50 to-orange-50 dark:from-gray-700 dark:to-gray-600 p-6 rounded-2xl border border-gray-100 dark:border-gray-600">
-                            <div class="flex items-center mb-4">
-                                <div class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center mr-4">
-                                    <i class="fas fa-map-marker-alt text-white"></i>
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-600">
+                                    <i class="fas fa-map-marker-alt"></i>
                                 </div>
                                 <div>
-                                    <h3 class="text-lg font-bold text-gray-800 dark:text-white">Localização</h3>
-                                    <p class="text-gray-600 dark:text-gray-300">Atendimento em toda SP</p>
+                                    <p class="text-xs text-gray-500">Localização</p>
+                                    <p class="font-bold dark:text-white">Niterói – RJ</p>
                                 </div>
                             </div>
-                            <p class="text-lg font-bold text-gray-800 dark:text-white">
-                                São Paulo - SP
-                            </p>
-                        </div>
-                        
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-    </section>
-    
-    <!-- Map Section -->
-    <section class="py-16 bg-gray-100 dark:bg-gray-900">
-        <div class="container mx-auto px-4 text-center">
-            <div data-aos="fade-up">
-                <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-4">Onde Estamos</h2>
-                <p class="text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-                    Atendemos em toda a cidade de São Paulo. Entre em contato para verificar a disponibilidade na sua região.
-                </p>
-                
-                <!-- Map Placeholder -->
-                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden max-w-4xl mx-auto">
-                    <div class="aspect-video bg-gradient-to-br from-blue-100 to-orange-100 dark:from-gray-700 dark:to-gray-600 flex items-center justify-center">
-                        <div class="text-center">
-                            <div class="w-20 h-20 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-map-marker-alt text-white text-2xl"></i>
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">São Paulo - SP</h3>
-                            <p class="text-gray-600 dark:text-gray-300">Atendimento em toda a cidade</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
-    <!-- CTA Section -->
-    <section class="py-16 bg-gradient-to-r from-orange-500 to-orange-600">
-        <div class="container mx-auto px-4 text-center">
-            <div data-aos="zoom-in">
-                <h2 class="text-3xl font-bold text-white mb-4">
-                    Precisa de Urgência?
-                </h2>
-                <p class="text-orange-100 text-xl mb-8 max-w-2xl mx-auto">
-                    Para emergências técnicas, entre em contato pelo WhatsApp para atendimento imediato.
-                </p>
-                <a href="https://wa.me/5511999999999" class="inline-flex items-center px-8 py-4 bg-white text-orange-600 font-bold rounded-lg hover:bg-gray-100 transition-colors duration-300 transform hover:scale-105">
-                    <i class="fab fa-whatsapp mr-2"></i>
-                    Chamar no WhatsApp
-                </a>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Footer Component -->
+
     <div id="footer"></div>
-    
-    <!-- Scripts -->
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="js/main.js"></script>
     <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 800,
-            once: true,
-            offset: 100
-        });
-        
-        // Load header and footer
+        AOS.init({ duration: 750, once: true, offset: 80 });
         document.addEventListener('DOMContentLoaded', function() {
             loadComponent('header', 'components/header.html');
             loadComponent('footer', 'components/footer.html');
         });
-        
-        // Form validation and submission
-        document.getElementById('form-contato').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData);
-            
-            // Basic validation
-            let isValid = true;
-            const required = ['nome', 'email', 'mensagem'];
-            
-            required.forEach(field => {
-                const input = this[field];
-                const errorSpan = input.nextElementSibling;
-                
-                if (!data[field] || data[field].trim() === '') {
-                    input.classList.add('border-red-500');
-                    errorSpan.classList.remove('hidden');
-                    isValid = false;
-                } else {
-                    input.classList.remove('border-red-500');
-                    errorSpan.classList.add('hidden');
-                }
-            });
-            
-            // Email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (data.email && !emailRegex.test(data.email)) {
-                document.getElementById('email').classList.add('border-red-500');
-                document.getElementById('email').nextElementSibling.classList.remove('hidden');
-                isValid = false;
-            }
-            
-            if (!isValid) return;
-            
-            // Simulate form submission
-            const submitButton = this.querySelector('button[type="submit"]');
-            const originalText = submitButton.innerHTML;
-            
-            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Enviando...';
-            submitButton.disabled = true;
-            
-            setTimeout(() => {
-                alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
-                this.reset();
-                submitButton.innerHTML = originalText;
-                submitButton.disabled = false;
-            }, 2000);
-        });
-        
-        // Phone mask
-        document.getElementById('telefone').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length > 11) value = value.slice(0, 11);
-            
-            if (value.length > 10) {
-                value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-            } else if (value.length > 6) {
-                value = value.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
-            } else if (value.length > 2) {
-                value = value.replace(/(\d{2})(\d{0,5})/, '($1) $2');
-            } else if (value.length > 0) {
-                value = value.replace(/(\d{0,2})/, '($1');
-            }
-            
-            e.target.value = value;
-        });
     </script>
-    
-    <!-- Form Manager -->
-    <script src="js/form-manager.js"></script>
-    
-    <!-- Advanced ChatBot -->
-    <script src="js/advanced-chatbot.js"></script>
-    
-    <!-- Notification System -->
-    <script src="js/notification-system.js"></script>
-    
 </body>
 </html>

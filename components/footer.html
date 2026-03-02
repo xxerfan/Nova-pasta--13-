@@ -1,219 +1,97 @@
-<!-- Footer Component para Xerfan Tech Lab -->
-<footer class="bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white relative overflow-hidden">
-    
-    <!-- Background Pattern -->
-    <div class="absolute inset-0 opacity-5">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_50%)]"></div>
+<footer class="relative bg-gradient-to-br from-gray-950 via-blue-950 to-gray-950 text-white overflow-hidden" role="contentinfo">
+
+    <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-orange-500 via-50% to-transparent"></div>
+    <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <div class="absolute top-0 left-0 w-72 h-72 bg-orange-500/5 rounded-full blur-3xl -translate-x-1/3 -translate-y-1/3"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl translate-x-1/4 translate-y-1/4"></div>
     </div>
-    
-    <!-- Floating Elements -->
-    <div class="absolute inset-0 overflow-hidden pointer-events-none">
-        <div class="absolute top-1/4 left-1/4 w-32 h-32 bg-orange-500/10 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl"></div>
-    </div>
-    
-    <div class="container mx-auto px-4 py-16 relative z-10">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            
-            <!-- Company Info -->
-            <div class="space-y-6">
-                <div class="flex items-center space-x-4">
-                    <div class="relative">
-                        <img src="img/logo.png" 
-                             alt="Logomarca Footer" 
-                             class="h-12 w-auto bg-white/10 rounded-lg p-2"
-                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4IiByeD0iMTIiIGZpbGw9IndoaXRlIi8+Cjx0ZXh0IHg9IjI0IiB5PSIzMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE4IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI0Y5NzMxNiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+WFRMPC90ZXh0Pgo8L3N2Zz4K'"
-                        >
-                        <div class="absolute inset-0 bg-gradient-to-r from-orange-400 to-blue-600 rounded-lg blur-xl opacity-20"></div>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold">Xerfan Tech Lab</h3>
-                        <p class="text-sm text-gray-300">Soluções Tecnológicas</p>
-                    </div>
-                </div>
-                <p class="text-gray-300 text-sm leading-relaxed">
-                    Inovação em tecnologia ao seu alcance. Oferecemos os melhores serviços e produtos para transformar seu negócio.
+
+    <div class="container mx-auto px-4 max-w-screen-xl py-14 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10">
+
+            <div class="lg:col-span-4 space-y-6">
+                
+                <a href="index.html" class="inline-block group mb-4" aria-label="Xerfan Tech Lab">
+                    <img src="img/logo.png"
+                         alt="Logomarca Xerfan Tech Lab"
+                         class="h-20 lg:h-28 w-auto object-contain transition-all duration-300 group-hover:scale-105 drop-shadow-[0_0_4px_rgba(249,115,22,0.4)] group-hover:drop-shadow-[0_0_8px_rgba(249,115,22,0.6)]"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                </a>
+
+                <p class="text-gray-400 text-sm leading-relaxed max-w-xs">
+                    Inovação em tecnologia ao seu alcance. Transformamos desafios em soluções digitais modernas e eficientes para seu negócio crescer.
                 </p>
-                
-                <!-- Social Links -->
-                <div class="flex space-x-4">
-                    <a href="https://wa.me/5511999999999" target="_blank" class="w-10 h-10 bg-white/10 hover:bg-green-500 rounded-full flex items-center justify-center transition-colors duration-300 group" title="WhatsApp">
-                        <i class="fab fa-whatsapp text-lg group-hover:scale-110 transition-transform"></i>
-                    </a>
-                    <a href="https://www.facebook.com/xerfantechlab" target="_blank" class="w-10 h-10 bg-white/10 hover:bg-blue-600 rounded-full flex items-center justify-center transition-colors duration-300 group" title="Facebook">
-                        <i class="fab fa-facebook-f text-lg group-hover:scale-110 transition-transform"></i>
-                    </a>
-                    <a href="https://www.instagram.com/xerfantechlab" target="_blank" class="w-10 h-10 bg-white/10 hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 rounded-full flex items-center justify-center transition-colors duration-300 group" title="Instagram">
-                        <i class="fab fa-instagram text-lg group-hover:scale-110 transition-transform"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/company/xerfantechlab" target="_blank" class="w-10 h-10 bg-white/10 hover:bg-blue-700 rounded-full flex items-center justify-center transition-colors duration-300 group" title="LinkedIn">
-                        <i class="fab fa-linkedin-in text-lg group-hover:scale-110 transition-transform"></i>
-                    </a>
-                    <a href="https://twitter.com/xerfantechlab" target="_blank" class="w-10 h-10 bg-white/10 hover:bg-blue-400 rounded-full flex items-center justify-center transition-colors duration-300 group" title="Twitter">
-                        <i class="fab fa-twitter text-lg group-hover:scale-110 transition-transform"></i>
-                    </a>
+
+                <div>
+                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-[0.12em] mb-3">Siga-nos</p>
+                    <div class="flex gap-2">
+                        <a href="https://wa.me/5521999999999" target="_blank" rel="noopener" class="social-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://instagram.com/xerfantechlab" target="_blank" rel="noopener" class="social-btn instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://linkedin.com/company/xerfantechlab" target="_blank" rel="noopener" class="social-btn linkedin"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://youtube.com/@xerfantechlab" target="_blank" rel="noopener" class="social-btn youtube"><i class="fab fa-youtube"></i></a>
+                    </div>
                 </div>
             </div>
 
-            <!-- Quick Links -->
-            <div>
-                <h4 class="text-lg font-bold mb-4 text-orange-400">Links Rápidos</h4>
-                <ul class="space-y-3">
-                    <li>
-                        <a href="index.html" class="text-gray-300 hover:text-orange-400 transition-colors duration-300 flex items-center group">
-                            <i class="fas fa-chevron-right text-xs mr-2 group-hover:translate-x-1 transition-transform"></i>
-                            Início
-                        </a>
-                    </li>
-                    <li>
-                        <a href="produtos.html" class="text-gray-300 hover:text-orange-400 transition-colors duration-300 flex items-center group">
-                            <i class="fas fa-chevron-right text-xs mr-2 group-hover:translate-x-1 transition-transform"></i>
-                            Produtos
-                        </a>
-                    </li>
-                    <li>
-                        <a href="servicos.html" class="text-gray-300 hover:text-orange-400 transition-colors duration-300 flex items-center group">
-                            <i class="fas fa-chevron-right text-xs mr-2 group-hover:translate-x-1 transition-transform"></i>
-                            Serviços
-                        </a>
-                    </li>
-                    <li>
-                        <a href="portfolio.html" class="text-gray-300 hover:text-orange-400 transition-colors duration-300 flex items-center group">
-                            <i class="fas fa-chevron-right text-xs mr-2 group-hover:translate-x-1 transition-transform"></i>
-                            Portfólio
-                        </a>
-                    </li>
-                    <li>
-                        <a href="sobre.html" class="text-gray-300 hover:text-orange-400 transition-colors duration-300 flex items-center group">
-                            <i class="fas fa-chevron-right text-xs mr-2 group-hover:translate-x-1 transition-transform"></i>
-                            Sobre Nós
-                        </a>
-                    </li>
-                    <li>
-                        <a href="contato.html" class="text-gray-300 hover:text-orange-400 transition-colors duration-300 flex items-center group">
-                            <i class="fas fa-chevron-right text-xs mr-2 group-hover:translate-x-1 transition-transform"></i>
-                            Contato
-                        </a>
-                    </li>
+            <div class="lg:col-span-2">
+                <h4 class="footer-heading"><i class="fas fa-cogs text-orange-400 text-xs"></i> Serviços</h4>
+                <ul class="space-y-0.5">
+                    <li><a href="servicos.html" class="footer-link"><i class="fas fa-chevron-right"></i>Manutenção de Computadores</a></li>
+                    <li><a href="servicos.html" class="footer-link"><i class="fas fa-chevron-right"></i>Redes e Infraestrutura</a></li>
+                    <li><a href="servicos.html" class="footer-link"><i class="fas fa-chevron-right"></i>Desenvolvimento Web</a></li>
+                    <li><a href="servicos.html" class="footer-link"><i class="fas fa-chevron-right"></i>Automação Residencial</a></li>
+                    <li><a href="agendamento.html" class="footer-link text-orange-400 font-semibold mt-2"><i class="fas fa-calendar-check"></i>Agendar Visita</a></li>
                 </ul>
             </div>
 
-            <!-- Services -->
-            <div>
-                <h4 class="text-lg font-bold mb-4 text-orange-400">Nossos Serviços</h4>
-                <ul class="space-y-3">
-                    <li>
-                        <a href="servicos.html#manutencao" class="text-gray-300 hover:text-orange-400 transition-colors duration-300 flex items-center group">
-                            <i class="fas fa-tools text-xs mr-2"></i>
-                            Manutenção de Computadores
-                        </a>
-                    </li>
-                    <li>
-                        <a href="servicos.html#automacao" class="text-gray-300 hover:text-orange-400 transition-colors duration-300 flex items-center group">
-                            <i class="fas fa-robot text-xs mr-2"></i>
-                            Automação Residencial
-                        </a>
-                    </li>
-                    <li>
-                        <a href="servicos.html#desenvolvimento" class="text-gray-300 hover:text-orange-400 transition-colors duration-300 flex items-center group">
-                            <i class="fas fa-code text-xs mr-2"></i>
-                            Desenvolvimento Web
-                        </a>
-                    </li>
-                    <li>
-                        <a href="servicos.html#infraestrutura" class="text-gray-300 hover:text-orange-400 transition-colors duration-300 flex items-center group">
-                            <i class="fas fa-network-wired text-xs mr-2"></i>
-                            Infraestrutura de TI
-                        </a>
-                    </li>
-                    <li>
-                        <a href="servicos.html#consultoria" class="text-gray-300 hover:text-orange-400 transition-colors duration-300 flex items-center group">
-                            <i class="fas fa-lightbulb text-xs mr-2"></i>
-                            Consultoria Técnica
-                        </a>
-                    </li>
+            <div class="lg:col-span-2">
+                <h4 class="footer-heading"><i class="fas fa-building text-blue-400 text-xs"></i> Empresa</h4>
+                <ul class="space-y-0.5">
+                    <li><a href="sobre.html" class="footer-link"><i class="fas fa-chevron-right"></i>Sobre Nós</a></li>
+                    <li><a href="portfolio.html" class="footer-link"><i class="fas fa-chevron-right"></i>Portfólio</a></li>
+                    <li><a href="produtos.html" class="footer-link"><i class="fas fa-chevron-right"></i>Produtos</a></li>
+                    <li><a href="contato.html" class="footer-link"><i class="fas fa-chevron-right"></i>Contato</a></li>
+                    <li><a href="contato.html#faq" class="footer-link"><i class="fas fa-chevron-right"></i>FAQ</a></li>
                 </ul>
             </div>
 
-            <!-- Contact Info -->
-            <div>
-                <h4 class="text-lg font-bold mb-4 text-orange-400">Entre em Contato</h4>
+            <div class="lg:col-span-4">
+                <h4 class="footer-heading"><i class="fas fa-map-marker-alt text-emerald-400 text-xs"></i> Fale Conosco</h4>
                 <div class="space-y-4">
-                    <div class="flex items-start space-x-3">
-                        <div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                            <i class="fas fa-map-marker-alt text-xs"></i>
-                        </div>
-                        <div>
-                            <p class="text-gray-300 text-sm">Localização</p>
-                            <p class="text-white font-medium">São Paulo - SP</p>
-                        </div>
+                    <div class="flex items-start gap-3 group">
+                        <div class="w-8 h-8 rounded-lg bg-white/5 border border-white/8 flex items-center justify-center flex-shrink-0 mt-0.5"><i class="fas fa-map-marker-alt text-orange-400 text-xs"></i></div>
+                        <div><p class="text-xs text-gray-500 font-medium uppercase tracking-wider mb-0.5">Endereço</p><p class="text-sm text-gray-300">Niterói, RJ — Brasil</p></div>
                     </div>
-                    <div class="flex items-start space-x-3">
-                        <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                            <i class="fas fa-phone text-xs"></i>
-                        </div>
-                        <div>
-                            <p class="text-gray-300 text-sm">WhatsApp</p>
-                            <a href="https://wa.me/5511999999999" class="text-white font-medium hover:text-orange-400 transition-colors">(11) 99999-9999</a>
-                        </div>
-                    </div>
-                    <div class="flex items-start space-x-3">
-                        <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                            <i class="fas fa-envelope text-xs"></i>
-                        </div>
-                        <div>
-                            <p class="text-gray-300 text-sm">Email</p>
-                            <a href="mailto:contato@xerfantechlab.com.br" class="text-white font-medium hover:text-orange-400 transition-colors">contato@xerfantechlab.com.br</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- CTA Button -->
-                <div class="mt-6">
-                    <a href="agendamento.html" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all transform hover:scale-105 shadow-lg">
-                        <i class="fas fa-calendar-alt mr-2"></i>
-                        Agendar Visita
+                    <a href="tel:+5521999999999" class="flex items-start gap-3 group hover:text-white transition-colors">
+                        <div class="w-8 h-8 rounded-lg bg-white/5 border border-white/8 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-orange-500/20"><i class="fas fa-phone text-orange-400 text-xs"></i></div>
+                        <div><p class="text-xs text-gray-500 font-medium uppercase tracking-wider mb-0.5">Telefone</p><p class="text-sm text-gray-300 group-hover:text-white">(21) 99999-9999</p></div>
+                    </a>
+                    <a href="mailto:contato@xerfantechlab.com.br" class="flex items-start gap-3 group hover:text-white transition-colors">
+                        <div class="w-8 h-8 rounded-lg bg-white/5 border border-white/8 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-orange-500/20"><i class="fas fa-envelope text-orange-400 text-xs"></i></div>
+                        <div><p class="text-xs text-gray-500 font-medium uppercase tracking-wider mb-0.5">E-mail</p><p class="text-sm text-gray-300 group-hover:text-white">contato@xerfantechlab.com.br</p></div>
                     </a>
                 </div>
             </div>
-            
         </div>
-        
-        <!-- Bottom Bar -->
-        <div class="border-t border-gray-700 mt-12 pt-8">
-            <div class="container mx-auto px-4">
-                <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-                    <div class="text-gray-400 text-sm">
-                        © 2025 Xerfan Tech Lab. Todos os direitos reservados.
-                    </div>
-                    <div class="flex items-center space-x-6 text-sm text-gray-400">
-                        <a href="#" class="hover:text-orange-400 transition-colors">Política de Privacidade</a>
-                        <a href="#" class="hover:text-orange-400 transition-colors">Termos de Uso</a>
-                        <a href="#" class="hover:text-orange-400 transition-colors">Cookies</a>
-                    </div>
+    </div>
+
+    <div class="relative z-10 border-t border-white/5 bg-black/20">
+        <div class="container mx-auto px-4 max-w-screen-xl py-5">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+                <div class="flex items-center gap-2 text-center md:text-left">
+                    <span>© <span id="footer-year">2026</span> <strong class="text-gray-400">Xerfan Tech Lab</strong>. Todos os direitos reservados.</span>
+                </div>
+                <div class="flex items-center gap-1.5 text-gray-600">
+                    <span>Desenvolvido com</span><i class="fas fa-heart text-red-500 text-xs animate-pulse"></i><span>em Niterói</span>
                 </div>
             </div>
         </div>
     </div>
 </footer>
 
-<!-- CSS adicional para animações -->
-<style>
-    footer {
-        position: relative;
-    }
-    
-    footer::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 1px;
-        background: linear-gradient(90deg, transparent, #fb923c, transparent);
-    }
-    
-    .dark footer {
-        background: linear-gradient(180deg, #111827 0%, #1f2937 50%, #111827 100%);
-    }
-</style>
+<script>
+(function() {
+    const yearEl = document.getElementById('footer-year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+})();
+</script>

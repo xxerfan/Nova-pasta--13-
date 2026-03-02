@@ -1,441 +1,691 @@
 /**
- * Xerfan Tech Lab - Animações Avançadas
- * Micro-interações e animações modernas
+ * Xerfan Tech Lab - animations.css v2.0
+ * Micro-interações, efeitos visuais e animações avançadas
  */
 
-/* ===== Animações de Partículas ===== */
+/* ================================================================
+   1. PARTÍCULAS E ELEMENTOS FLUTUANTES
+   ================================================================ */
 .particles-container {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     overflow: hidden;
     pointer-events: none;
+    z-index: 0;
 }
 
 .particle {
     position: absolute;
     border-radius: 50%;
-    animation: float 15s infinite linear;
+    animation: particle-float linear infinite;
+}
+.particle.small  { width: 4px;  height: 4px;  background: rgba(255,255,255,0.25); }
+.particle.medium { width: 7px;  height: 7px;  background: rgba(249,115,22,0.35); }
+.particle.large  { width: 11px; height: 11px; background: rgba(59,130,246,0.4); }
+.particle.dot    { width: 3px;  height: 3px;  background: rgba(250,204,21,0.4); }
+
+@keyframes particle-float {
+    0%   { transform: translateY(100vh) translateX(0) rotate(0deg);   opacity: 0; }
+    5%   { opacity: 1; }
+    95%  { opacity: 0.8; }
+    100% { transform: translateY(-10vh)  translateX(30px) rotate(360deg); opacity: 0; }
 }
 
-.particle.small {
-    width: 4px;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.3);
+/* Formas geométricas flutuantes decorativas */
+.geo-shape {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.08;
+}
+.geo-circle {
+    border-radius: 50%;
+    border: 2px solid white;
+    animation: geo-rotate 20s linear infinite;
+}
+.geo-square {
+    border: 2px solid var(--orange-400, #fb923c);
+    animation: geo-rotate 15s linear infinite reverse;
+}
+@keyframes geo-rotate {
+    from { transform: rotate(0deg) scale(1); }
+    50%  { transform: rotate(180deg) scale(1.05); }
+    to   { transform: rotate(360deg) scale(1); }
 }
 
-.particle.medium {
-    width: 8px;
-    height: 8px;
-    background: rgba(255, 165, 0, 0.4);
-}
-
-.particle.large {
-    width: 12px;
-    height: 12px;
-    background: rgba(59, 130, 246, 0.5);
-}
-
-@keyframes float {
-    0% {
-        transform: translateY(100vh) rotate(0deg);
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-    }
-    90% {
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-100vh) rotate(360deg);
-        opacity: 0;
-    }
-}
-
-/* ===== Animações de Hover Aprimoradas ===== */
+/* ================================================================
+   2. HOVER AVANÇADO
+   ================================================================ */
 .hover-lift {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, box-shadow;
 }
-
 .hover-lift:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.12);
 }
 
 .hover-glow:hover {
-    box-shadow: 0 0 30px rgba(255, 165, 0, 0.3);
+    box-shadow: 0 0 28px rgba(249,115,22,0.4), 0 0 60px rgba(249,115,22,0.15);
 }
 
-.hover-gradient {
+.hover-glow-blue:hover {
+    box-shadow: 0 0 28px rgba(59,130,246,0.4), 0 0 60px rgba(59,130,246,0.15);
+}
+
+/* Efeito de luz deslizante */
+.hover-shine {
     position: relative;
     overflow: hidden;
 }
-
-.hover-gradient::before {
+.hover-shine::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
+    top: 0; left: -100%;
+    width: 60%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255,255,255,0.18) 50%,
+        transparent 100%
+    );
+    transform: skewX(-15deg);
+    transition: left 0.6s ease;
+    pointer-events: none;
+    z-index: 1;
 }
+.hover-shine:hover::before { left: 140%; }
 
-.hover-gradient:hover::before {
-    left: 100%;
+/* Efeito de borda animada */
+.hover-border {
+    position: relative;
+    border-radius: 1rem;
+    transition: all 0.3s ease;
 }
-
-/* ===== Animações de Texto ===== */
-.text-gradient-animated {
-    background: linear-gradient(45deg, #3b82f6, #f97316, #10b981, #3b82f6);
+.hover-border::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    background: linear-gradient(
+        135deg,
+        var(--orange-500, #f97316),
+        #facc15,
+        var(--blue-500, #3b82f6),
+        var(--orange-500, #f97316)
+    );
     background-size: 300% 300%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+    animation: border-rotate 3s linear infinite;
+}
+.hover-border:hover::before { opacity: 1; }
+@keyframes border-rotate {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ================================================================
+   3. ANIMAÇÕES DE TEXTO
+   ================================================================ */
+.text-gradient-animated {
+    background: linear-gradient(
+        270deg,
+        #3b82f6, #f97316, #10b981, #facc15, #f97316, #3b82f6
+    );
+    background-size: 400% 100%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: gradient-shift 3s ease infinite;
+    animation: text-gradient-flow 5s ease infinite;
+}
+@keyframes text-gradient-flow {
+    0%, 100% { background-position: 0% 50%; }
+    50%       { background-position: 100% 50%; }
 }
 
-@keyframes gradient-shift {
-    0%, 100% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
+/* Efeito de digitação (cursor piscando) */
+.typewriter-cursor::after {
+    content: '|';
+    color: var(--orange-500, #f97316);
+    animation: cursor-blink 0.8s step-end infinite;
+    font-weight: 300;
+    margin-left: 1px;
+}
+@keyframes cursor-blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
 }
 
-/* ===== Animações de Loading Criativas ===== */
+/* Texto com sublinhado animado */
+.text-underline-animated {
+    position: relative;
+    display: inline-block;
+}
+.text-underline-animated::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--orange-500, #f97316), #facc15);
+    border-radius: 2px;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.text-underline-animated:hover::after { width: 100%; }
+
+/* ================================================================
+   4. ANIMAÇÕES DE LOADING
+   ================================================================ */
 .loading-dots {
     display: inline-flex;
-    gap: 4px;
+    gap: 5px;
+    align-items: center;
 }
-
 .loading-dots span {
-    width: 8px;
-    height: 8px;
+    width: 8px; height: 8px;
     border-radius: 50%;
     background: currentColor;
-    animation: dot-pulse 1.4s infinite ease-in-out both;
+    animation: dot-pulse 1.4s ease-in-out infinite both;
 }
-
-.loading-dots span:nth-child(1) {
-    animation-delay: -0.32s;
-}
-
-.loading-dots span:nth-child(2) {
-    animation-delay: -0.16s;
-}
-
+.loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+.loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+.loading-dots span:nth-child(3) { animation-delay: 0s; }
 @keyframes dot-pulse {
-    0%, 80%, 100% {
-        transform: scale(0);
-        opacity: 0.5;
-    }
-    40% {
-        transform: scale(1);
-        opacity: 1;
-    }
+    0%, 80%, 100% { transform: scale(0.5); opacity: 0.4; }
+    40%            { transform: scale(1.0); opacity: 1; }
 }
 
-/* ===== Animações de Cards ===== */
-.card-3d {
-    perspective: 1000px;
+/* Spinner */
+.spinner {
+    width: 36px; height: 36px;
+    border: 3px solid rgba(249,115,22,0.15);
+    border-top-color: var(--orange-500, #f97316);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
 }
+.spinner-sm { width: 20px; height: 20px; border-width: 2px; }
+.spinner-lg { width: 56px; height: 56px; border-width: 4px; }
+@keyframes spin { to { transform: rotate(360deg); } }
 
-.card-3d-inner {
-    position: relative;
+/* Barra de progresso animada */
+.progress-bar {
     width: 100%;
+    height: 5px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 999px;
+    overflow: hidden;
+}
+.progress-fill {
     height: 100%;
-    text-align: center;
-    transition: transform 0.6s;
-    transform-style: preserve-3d;
+    background: linear-gradient(90deg, var(--orange-500, #f97316), #facc15, #3b82f6);
+    background-size: 200% 100%;
+    border-radius: inherit;
+    animation: progress-animate 2s ease-out, shimmer-bar 2s linear infinite;
+}
+@keyframes progress-animate {
+    from { width: 0%; }
+}
+@keyframes shimmer-bar {
+    0%   { background-position: 200% center; }
+    100% { background-position: -200% center; }
 }
 
-.card-3d:hover .card-3d-inner {
-    transform: rotateY(180deg);
+/* ================================================================
+   5. CARDS 3D E FLIPS
+   ================================================================ */
+.card-3d-wrapper {
+    perspective: 1200px;
 }
+.card-3d {
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    position: relative;
+}
+.card-3d:hover { transform: rotateY(180deg); }
 
 .card-front, .card-back {
     position: absolute;
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+    border-radius: inherit;
+    overflow: hidden;
+}
+.card-back { transform: rotateY(180deg); }
+
+/* Tilt 3D via JavaScript */
+.card-tilt {
+    transform-style: preserve-3d;
+    transition: transform 0.15s ease;
+    will-change: transform;
+}
+.card-tilt-inner {
+    transform: translateZ(30px);
+    transition: transform 0.15s ease;
 }
 
-.card-back {
-    transform: rotateY(180deg);
-}
-
-/* ===== Animações de Botões ===== */
+/* ================================================================
+   6. BOTÕES ESPECIAIS
+   ================================================================ */
 .btn-magic {
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
+    z-index: 0;
 }
-
 .btn-magic::before {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
+    top: 50%; left: 50%;
+    width: 0; height: 0;
+    background: rgba(255,255,255,0.22);
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
     transform: translate(-50%, -50%);
-    transition: width 0.6s, height 0.6s;
+    transition: width 0.55s ease, height 0.55s ease;
+    z-index: -1;
 }
-
 .btn-magic:hover::before {
-    width: 300px;
-    height: 300px;
+    width: 360px; height: 360px;
 }
 
+/* Botão com ripple no clique */
 .btn-ripple {
     position: relative;
     overflow: hidden;
 }
-
-.btn-ripple::after {
-    content: '';
+.ripple-wave {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.5);
-    transform: translate(-50%, -50%);
-    animation: ripple 0.6s ease-out;
+    background: rgba(255,255,255,0.4);
+    transform: scale(0);
+    animation: ripple-anim 0.65s ease-out forwards;
+    pointer-events: none;
+}
+@keyframes ripple-anim {
+    to { transform: scale(4); opacity: 0; }
 }
 
-@keyframes ripple {
-    0% {
-        width: 0;
-        height: 0;
-        opacity: 1;
-    }
-    100% {
-        width: 300px;
-        height: 300px;
-        opacity: 0;
-    }
+/* Botão pulsante */
+.btn-pulse {
+    animation: btn-pulse-anim 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes btn-pulse-anim {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(249,115,22,0.4); }
+    50%       { box-shadow: 0 0 0 12px rgba(249,115,22,0); }
 }
 
-/* ===== Animações de Ícones ===== */
+/* ================================================================
+   7. ÍCONES ANIMADOS
+   ================================================================ */
 .icon-bounce {
-    animation: icon-bounce 2s infinite;
+    animation: icon-bounce-anim 2s ease infinite;
+    display: inline-block;
+}
+@keyframes icon-bounce-anim {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-12px); }
+    60% { transform: translateY(-6px); }
 }
 
-@keyframes icon-bounce {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-    }
-    40% {
-        transform: translateY(-10px);
-    }
-    60% {
-        transform: translateY(-5px);
-    }
+.icon-spin { animation: spin 2s linear infinite; display: inline-block; }
+.icon-spin-slow { animation: spin 6s linear infinite; display: inline-block; }
+
+.icon-wiggle {
+    animation: wiggle 2s ease-in-out infinite;
+    display: inline-block;
+}
+@keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    15%       { transform: rotate(-8deg); }
+    30%       { transform: rotate(8deg); }
+    45%       { transform: rotate(-5deg); }
+    60%       { transform: rotate(5deg); }
+    75%       { transform: rotate(-2deg); }
+    90%       { transform: rotate(2deg); }
 }
 
-.icon-spin {
-    animation: icon-spin 2s linear infinite;
+.icon-heartbeat {
+    animation: heartbeat 1.5s ease infinite;
+    display: inline-block;
+}
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    14%       { transform: scale(1.25); }
+    28%       { transform: scale(1); }
+    42%       { transform: scale(1.2); }
+    70%       { transform: scale(1); }
 }
 
-@keyframes icon-spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-/* ===== Animações de Formulários ===== */
+/* ================================================================
+   8. FORMULÁRIOS COM FLOATING LABELS
+   ================================================================ */
 .input-float {
     position: relative;
 }
-
-.input-float input,
-.input-float textarea {
-    border: 2px solid #e5e7eb;
-    transition: all 0.3s ease;
+.input-float .form-input {
+    padding-top: 1.5rem;
+    padding-bottom: 0.625rem;
 }
-
-.input-float input:focus,
-.input-float textarea:focus {
-    border-color: #f97316;
-    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
-    transform: translateY(-2px);
-}
-
 .input-float label {
     position: absolute;
-    left: 1rem;
+    left: 1.125rem;
     top: 1rem;
-    color: #6b7280;
-    transition: all 0.3s ease;
+    color: #94a3b8;
+    font-size: 0.9375rem;
     pointer-events: none;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: left top;
 }
-
-.input-float input:focus ~ label,
-.input-float input:not(:placeholder-shown) ~ label,
-.input-float textarea:focus ~ label,
-.input-float textarea:not(:placeholder-shown) ~ label {
-    top: -0.5rem;
-    left: 0.75rem;
-    font-size: 0.875rem;
+.input-float .form-input:focus ~ label,
+.input-float .form-input:not(:placeholder-shown) ~ label {
+    transform: translateY(-0.625rem) scale(0.78);
     color: #f97316;
-    background: white;
-    padding: 0 0.25rem;
+    font-weight: 600;
+}
+.input-float .form-input:focus {
+    padding-top: 1.5rem;
 }
 
-/* ===== Animações de Notificações ===== */
+/* Barra de foco deslizante */
+.input-slide-border {
+    position: relative;
+}
+.input-slide-border::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    width: 0; height: 2px;
+    background: linear-gradient(90deg, var(--orange-500), #facc15);
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+    border-radius: 2px;
+}
+.input-slide-border:focus-within::after { width: 100%; }
+
+/* ================================================================
+   9. NOTIFICAÇÕES / TOAST
+   ================================================================ */
 .notification {
     position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 1rem 1.5rem;
-    border-radius: 8px;
+    top: 1.25rem;
+    right: 1.25rem;
+    padding: 0.875rem 1.25rem;
+    border-radius: 0.875rem;
     color: white;
-    font-weight: 500;
-    transform: translateX(400px);
-    transition: transform 0.3s ease;
-    z-index: 1000;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    transform: translateX(calc(100% + 2rem));
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 9999;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+    max-width: 380px;
+    min-width: 260px;
+    border: 1px solid rgba(255,255,255,0.15);
 }
+.notification.show { transform: translateX(0); }
+.notification.success { background: linear-gradient(135deg, #22c55e, #15803d); }
+.notification.error   { background: linear-gradient(135deg, #ef4444, #b91c1c); }
+.notification.info    { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+.notification.warning { background: linear-gradient(135deg, #f59e0b, #b45309); }
 
-.notification.show {
-    transform: translateX(0);
-}
-
-.notification.success {
-    background: linear-gradient(135deg, #10b981, #059669);
-}
-
-.notification.error {
-    background: linear-gradient(135deg, #ef4444, #dc2626);
-}
-
-.notification.info {
-    background: linear-gradient(135deg, #3b82f6, #2563eb);
-}
-
-/* ===== Animações de Progresso ===== */
-.progress-bar {
-    width: 100%;
-    height: 4px;
-    background: #e5e7eb;
-    border-radius: 2px;
-    overflow: hidden;
-}
-
-.progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #f97316, #3b82f6);
-    border-radius: 2px;
-    animation: progress-fill 2s ease-out;
-}
-
-@keyframes progress-fill {
-    0% {
-        width: 0%;
-    }
-    100% {
-        width: 100%;
-    }
-}
-
-/* ===== Animações de Modal ===== */
+/* ================================================================
+   10. MODAIS COM ANIMAÇÕES
+   ================================================================ */
 .modal-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(6px) saturate(1.2);
+    -webkit-backdrop-filter: blur(6px);
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
     z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
 }
-
 .modal-overlay.show {
     opacity: 1;
     visibility: visible;
 }
-
 .modal-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.9);
     background: white;
-    border-radius: 12px;
-    padding: 2rem;
+    border-radius: 1.5rem;
+    padding: 2.5rem;
     max-width: 90vw;
     max-height: 90vh;
     overflow-y: auto;
-    transition: transform 0.3s ease;
+    transform: scale(0.88) translateY(24px);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 50px 100px rgba(0,0,0,0.25);
+    position: relative;
 }
-
+.dark .modal-content { background: #1e293b; }
 .modal-overlay.show .modal-content {
-    transform: translate(-50%, -50%) scale(1);
+    transform: scale(1) translateY(0);
+}
+.modal-close {
+    position: absolute;
+    top: 1.25rem; right: 1.25rem;
+    width: 2rem; height: 2rem;
+    border-radius: 50%;
+    border: none;
+    background: #f1f5f9;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+.modal-close:hover {
+    background: #ef4444;
+    color: white;
+    transform: rotate(90deg);
 }
 
-/* ===== Responsividade ===== */
+/* ================================================================
+   11. TYPING INDICATOR (Chat)
+   ================================================================ */
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0.75rem 1rem;
+    background: #f1f5f9;
+    border-radius: 1.25rem 1.25rem 1.25rem 0;
+    width: fit-content;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.dark .typing-indicator { background: #374151; }
+.typing-indicator span {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #94a3b8;
+    animation: typing-dot 1.4s ease-in-out infinite;
+}
+.typing-indicator span:nth-child(1) { animation-delay: 0s; }
+.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing-dot {
+    0%, 60%, 100% { transform: translateY(0) scale(0.8); opacity: 0.5; }
+    30%            { transform: translateY(-8px) scale(1);  opacity: 1; }
+}
+
+/* ================================================================
+   12. SEÇÃO HERO - EFEITOS ESPECIAIS
+   ================================================================ */
+/* Ondas animadas na base do hero */
+.wave-container {
+    position: absolute;
+    bottom: -2px;
+    left: 0; right: 0;
+    overflow: hidden;
+    line-height: 0;
+}
+.wave-container svg {
+    width: 100%;
+    height: 60px;
+}
+.wave-path-1 {
+    animation: wave-anim 8s ease-in-out infinite;
+    transform-origin: center bottom;
+}
+.wave-path-2 {
+    animation: wave-anim 12s ease-in-out infinite reverse;
+    opacity: 0.5;
+}
+@keyframes wave-anim {
+    0%, 100% { transform: scaleX(1); }
+    50%       { transform: scaleX(1.05) scaleY(0.95); }
+}
+
+/* Efeito de brilho no hero */
+.hero-spotlight {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(249,115,22,0.12) 0%, transparent 70%);
+    pointer-events: none;
+    animation: spotlight-move 8s ease-in-out infinite;
+}
+@keyframes spotlight-move {
+    0%, 100% { transform: translate(0, 0); }
+    25%       { transform: translate(60px, -40px); }
+    50%       { transform: translate(-30px, 50px); }
+    75%       { transform: translate(40px, 30px); }
+}
+
+/* ================================================================
+   13. REVEALS & SCROLL ANIMATIONS
+   ================================================================ */
+/* Stagger para filhos */
+.stagger-children > * {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.stagger-children.revealed > *:nth-child(1)  { opacity: 1; transform: none; transition-delay: 0.05s; }
+.stagger-children.revealed > *:nth-child(2)  { opacity: 1; transform: none; transition-delay: 0.10s; }
+.stagger-children.revealed > *:nth-child(3)  { opacity: 1; transform: none; transition-delay: 0.15s; }
+.stagger-children.revealed > *:nth-child(4)  { opacity: 1; transform: none; transition-delay: 0.20s; }
+.stagger-children.revealed > *:nth-child(5)  { opacity: 1; transform: none; transition-delay: 0.25s; }
+.stagger-children.revealed > *:nth-child(6)  { opacity: 1; transform: none; transition-delay: 0.30s; }
+.stagger-children.revealed > *:nth-child(7)  { opacity: 1; transform: none; transition-delay: 0.35s; }
+.stagger-children.revealed > *:nth-child(8)  { opacity: 1; transform: none; transition-delay: 0.40s; }
+
+/* ================================================================
+   14. SCROLL INDICATOR
+   ================================================================ */
+.scroll-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    animation: scroll-bounce 2s ease-in-out infinite;
+    cursor: pointer;
+}
+@keyframes scroll-bounce {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(8px); }
+}
+.scroll-mouse {
+    width: 24px; height: 38px;
+    border: 2px solid rgba(255,255,255,0.6);
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    padding-top: 5px;
+}
+.scroll-wheel {
+    width: 4px; height: 8px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 2px;
+    animation: scroll-wheel-anim 1.5s ease-in-out infinite;
+}
+@keyframes scroll-wheel-anim {
+    0%, 100% { transform: translateY(0); opacity: 1; }
+    50%       { transform: translateY(10px); opacity: 0; }
+}
+
+/* ================================================================
+   15. CARD HOVER HOVER (card-hover class)
+   ================================================================ */
+.card-hover {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card-hover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(249,115,22,0.04), rgba(59,130,246,0.04));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 0;
+}
+.card-hover:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+.card-hover:hover::before { opacity: 1; }
+
+/* ================================================================
+   16. UTILITÁRIOS DE ANIMAÇÃO
+   ================================================================ */
+.animate-delay-50   { animation-delay: 50ms !important; }
+.animate-delay-100  { animation-delay: 100ms !important; }
+.animate-delay-150  { animation-delay: 150ms !important; }
+.animate-delay-200  { animation-delay: 200ms !important; }
+.animate-delay-300  { animation-delay: 300ms !important; }
+.animate-delay-400  { animation-delay: 400ms !important; }
+.animate-delay-500  { animation-delay: 500ms !important; }
+.animate-delay-700  { animation-delay: 700ms !important; }
+.animate-delay-1000 { animation-delay: 1000ms !important; }
+
+.animate-duration-300  { animation-duration: 300ms !important; }
+.animate-duration-500  { animation-duration: 500ms !important; }
+.animate-duration-700  { animation-duration: 700ms !important; }
+.animate-duration-1000 { animation-duration: 1000ms !important; }
+.animate-duration-1500 { animation-duration: 1500ms !important; }
+.animate-duration-2000 { animation-duration: 2000ms !important; }
+
+/* Pausa animação em hover */
+.pause-on-hover:hover * { animation-play-state: paused; }
+
+/* ================================================================
+   17. RESPONSIVIDADE
+   ================================================================ */
 @media (max-width: 768px) {
-    .particles-container {
-        display: none;
-    }
-    
-    .hover-lift:hover {
-        transform: translateY(-4px) scale(1.01);
-    }
-    
+    .particles-container { display: none; }
+    .hover-lift:hover    { transform: translateY(-4px); }
+    .card-3d:hover       { transform: none; }
+
     .notification {
-        top: 10px;
-        right: 10px;
-        left: 10px;
-        transform: translateY(-100px);
+        top: auto;
+        bottom: 1rem;
+        left: 1rem;
+        right: 1rem;
+        max-width: none;
+        transform: translateY(calc(100% + 2rem));
     }
+    .notification.show { transform: translateY(0); }
     
-    .notification.show {
-        transform: translateY(0);
+    .hero-spotlight { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
-}
-
-/* ===== Utilitários ===== */
-.animate-delay-100 {
-    animation-delay: 100ms;
-}
-
-.animate-delay-200 {
-    animation-delay: 200ms;
-}
-
-.animate-delay-300 {
-    animation-delay: 300ms;
-}
-
-.animate-delay-500 {
-    animation-delay: 500ms;
-}
-
-.animate-duration-1000 {
-    animation-duration: 1000ms;
-}
-
-.animate-duration-1500 {
-    animation-duration: 1500ms;
-}
-
-.animate-duration-2000 {
-    animation-duration: 2000ms;
 }
