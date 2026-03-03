@@ -29,8 +29,7 @@
                         </span>
                         <span class="font-medium">Online agora</span>
                     </span>
-                    <div class="w-px h-3 bg-white/20"></div>
-                    <a href="https://wa.me/5521999999999" target="_blank" class="flex items-center gap-1.5 text-white/80 hover:text-emerald-300 transition-colors duration-200 font-medium">
+                    <div class="w-px h-3 bg-white/20"></div> <a href="https://wa.me/5521999999999" target="_blank" class="flex items-center gap-1.5 text-white/80 hover:text-emerald-300 transition-colors duration-200 font-medium">
                         <i class="fab fa-whatsapp text-emerald-400"></i>
                         <span>WhatsApp</span>
                     </a>
@@ -41,16 +40,19 @@
 
     <div class="bg-gray-900/95 backdrop-blur-xl border-b border-gray-800/80 shadow-sm transition-all duration-300" id="nav-wrapper">
         <div class="container mx-auto px-4 max-w-screen-xl">
-            <div class="flex items-center justify-between h-24 lg:h-28">
+            
+            <div class="flex items-center justify-between h-20 lg:h-24">
 
                 <div class="logo-area flex-shrink-0">
                     <a href="index.html" class="flex items-center group py-2" aria-label="Xerfan Tech Lab - Página Inicial">
+                        
                         <img src="img/logo.png"
                              alt="Logomarca Xerfan Tech Lab"
-                             class="h-14 sm:h-16 lg:h-20 w-auto object-contain transition-all duration-300 group-hover:scale-105 drop-shadow-[0_0_4px_rgba(249,115,22,0.4)] group-hover:drop-shadow-[0_0_8px_rgba(249,115,22,0.6)]"
+                             class="h-14 sm:h-16 lg:h-20 w-auto object-contain transition-all duration-300 group-hover:scale-105"
+                             style="filter: drop-shadow(0 0 8px rgba(249,115,22,0.5));"
                              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                         
-                        <div class="hidden w-16 h-16 bg-gradient-to-br from-orange-500 via-orange-600 to-blue-700 rounded-xl items-center justify-center text-white font-black text-xl shadow-lg">XTL</div>
+                        <div class="hidden w-14 h-14 lg:w-20 lg:h-20 bg-gradient-to-br from-orange-500 via-orange-600 to-blue-700 rounded-xl items-center justify-center text-white font-black text-xl shadow-lg">XTL</div>
                     </a>
                 </div>
 
@@ -62,6 +64,7 @@
                     <a href="blog.html"      class="nav-item-pro" data-page="blog.html"><i class="fas fa-newspaper text-[11px] opacity-70"></i> Blog</a>
                     <a href="sobre.html"     class="nav-item-pro" data-page="sobre.html"><i class="fas fa-info-circle text-[11px] opacity-70"></i> Sobre</a>
                     <a href="contato.html"   class="nav-item-pro" data-page="contato.html"><i class="fas fa-envelope text-[11px] opacity-70"></i> Contato</a>
+                    
                     <a href="agendamento.html" class="btn-header-cta ml-2"><i class="fas fa-calendar-check text-xs"></i> Agendar</a>
                 </nav>
 
@@ -114,22 +117,31 @@
     const spacer = document.getElementById('header-spacer');
     const backTop = document.getElementById('back-to-top');
 
+    // Atualiza a altura do spacer para ser igual à do header dinamicamente
     function updateSpacerHeight() { if (header && spacer) spacer.style.height = header.offsetHeight + 'px'; }
 
+    // Evento de Scroll da página
     let ticking = false;
     window.addEventListener('scroll', function() {
         if (!ticking) {
             requestAnimationFrame(function() {
                 const scrollY = window.pageYOffset;
+                
+                // Se descer a página, esconde a topbar para o header ficar mais fino
                 if (topBar) {
                     if (scrollY > 60) { topBar.style.maxHeight = '0'; topBar.style.padding = '0'; } 
                     else { topBar.style.maxHeight = ''; topBar.style.padding = ''; }
                 }
+                
+                // Adiciona sombra ao header
                 if (header) scrollY > 60 ? header.classList.add('scrolled') : header.classList.remove('scrolled');
+                
+                // Mostra/Esconde o botão "Voltar ao topo"
                 if (backTop) {
                     if (scrollY > 400) { backTop.classList.remove('opacity-0', 'invisible'); backTop.classList.add('opacity-100', 'visible'); } 
                     else { backTop.classList.add('opacity-0', 'invisible'); backTop.classList.remove('opacity-100', 'visible'); }
                 }
+                
                 updateSpacerHeight();
                 ticking = false;
             });
@@ -137,6 +149,7 @@
         }
     }, { passive: true });
 
+    // Destaca a página atual no menu
     function setActiveLink() {
         const currentPage = window.location.pathname.split('/').pop() || 'index.html';
         document.querySelectorAll('.nav-item-pro[data-page]').forEach(l => {
@@ -144,6 +157,7 @@
         });
     }
 
+    // Lógica de abrir/fechar o Menu Mobile
     const mobileBtn = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
     const menuIcon = document.getElementById('menu-icon');
@@ -154,17 +168,20 @@
             menuOpen = !menuOpen;
             if (menuOpen) {
                 mobileMenu.classList.remove('hidden');
-                if (menuIcon) menuIcon.className = 'fas fa-times text-base';
+                if (menuIcon) menuIcon.className = 'fas fa-times text-base'; // Ícone de Fechar
             } else {
                 mobileMenu.classList.add('hidden');
-                if (menuIcon) menuIcon.className = 'fas fa-bars text-base';
+                if (menuIcon) menuIcon.className = 'fas fa-bars text-base'; // Ícone de Hambúrguer
             }
         });
     }
 
+    // Ação do Botão Voltar ao Topo
     if (backTop) backTop.addEventListener('click', e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
-    updateSpacerHeight(); setActiveLink();
+    // Inicialização
+    updateSpacerHeight(); 
+    setActiveLink();
     window.addEventListener('resize', updateSpacerHeight, { passive: true });
 })();
 </script>

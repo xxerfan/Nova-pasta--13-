@@ -3,357 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agendamento - Xerfan Tech Lab</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>Agendar Visita - Xerfan Tech Lab</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/enhancements.css">
-    <meta name="description" content="Agende uma visita técnica da Xerfan Tech Lab em Niterói e região. Escolha o melhor horário para você.">
+    
     <link rel="icon" type="image/x-icon" href="img/logo.png">
-    <script>(function(){const s=localStorage.getItem('theme');if(s==='dark'||(!s&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark');})()</script>
-    <style>
-        body { font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif; }
-        .step-indicator { display: flex; align-items: center; gap: 0; }
-        .step-dot {
-            width: 2.5rem; height: 2.5rem;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 800; font-size: 0.875rem;
-            transition: all 0.3s ease;
-            flex-shrink: 0;
-        }
-        .step-dot.active { background: linear-gradient(135deg, #f97316, #ea580c); color: white; box-shadow: 0 4px 14px rgba(249,115,22,0.4); }
-        .step-dot.done { background: #22c55e; color: white; }
-        .step-dot.pending { background: #e2e8f0; color: #94a3b8; }
-        .dark .step-dot.pending { background: #334155; color: #64748b; }
-        .step-line { flex: 1; height: 2px; background: #e2e8f0; transition: background 0.3s; }
-        .dark .step-line { background: #334155; }
-        .step-line.done { background: #22c55e; }
-        
-        .time-slot {
-            padding: 0.625rem 1rem;
-            border-radius: 0.875rem;
-            border: 1.5px solid #e2e8f0;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: center;
-            font-weight: 600;
-            font-size: 0.875rem;
-        }
-        .dark .time-slot { border-color: #334155; color: #94a3b8; }
-        .time-slot:hover { border-color: #f97316; color: #f97316; background: rgba(249,115,22,0.06); }
-        .time-slot.selected { background: linear-gradient(135deg, #f97316, #ea580c); border-color: transparent; color: white; box-shadow: 0 4px 12px rgba(249,115,22,0.35); }
-        .time-slot.unavailable { opacity: 0.35; cursor: not-allowed; text-decoration: line-through; }
-        .time-slot.unavailable:hover { border-color: #e2e8f0; color: inherit; background: transparent; }
-        
-        .service-option {
-            padding: 1rem;
-            border-radius: 1rem;
-            border: 1.5px solid #e2e8f0;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .dark .service-option { border-color: #334155; }
-        .service-option:hover { border-color: #f97316; }
-        .service-option.selected { border-color: #f97316; background: rgba(249,115,22,0.06); }
-        .service-option input[type="radio"] { accent-color: #f97316; }
-    </style>
 </head>
-<body class="bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
+<body class="bg-gray-950 text-gray-100 transition-colors duration-300 overflow-x-hidden">
 
     <div id="header"></div>
 
-    <section class="hero-page relative">
-        <div class="absolute inset-0 overflow-hidden pointer-events-none">
-            <div class="absolute top-1/4 right-1/4 w-48 h-48 bg-orange-500/10 rounded-full blur-3xl"></div>
-        </div>
-        <div class="container mx-auto px-4 relative z-10" data-aos="fade-up">
-            <div class="inline-flex items-center bg-white/10 border border-white/20 rounded-full px-5 py-2 mb-6 text-sm font-semibold text-white">
-                <i class="fas fa-calendar-check mr-2 text-orange-300"></i> Agendamento online
-            </div>
-            <h1 class="hero-page-title">Agendar <span class="text-gradient-multi">Visita Técnica</span></h1>
-            <p class="hero-page-desc mt-3">Escolha o serviço, a data e o horário que melhor se adapta à sua rotina em Niterói e região.</p>
+    <section class="hero-page relative py-20 border-b border-gray-800">
+        <div class="container mx-auto px-4 relative z-10 text-center" data-aos="fade-up">
+            <span class="badge badge-orange mb-4 inline-block"><i class="fas fa-calendar-check mr-2"></i> Reserva Online</span>
+            <h1 class="text-4xl md:text-6xl font-black tracking-tight">Agendar <span class="text-gradient-multi">Atendimento</span></h1>
+            <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Escolha o serviço, a data e o local. Confirmaremos tudo pelo seu WhatsApp.</p>
         </div>
     </section>
 
-    <section class="py-16 bg-gray-50 dark:bg-gray-950">
+    <section class="py-20 bg-gray-950">
         <div class="container mx-auto px-4 max-w-5xl">
-            <div class="grid lg:grid-cols-3 gap-8 items-start">
+            
+            <form action="https://api.web3forms.com/submit" method="POST" id="form-agendamento">
                 
-                <div class="lg:col-span-2">
+                <input type="hidden" name="access_key" value="7a7dcbd0-f1c5-402a-b886-6c71d0a1ee18"> <input type="hidden" name="subject" value="NOVO AGENDAMENTO - Xerfan Tech Lab"> <input type="hidden" name="redirect" value="https://alexxerfan.github.io/xerfantechlab/agendamento.html?sucesso=true">
+                <input type="checkbox" name="botcheck" class="hidden" style="display: none;"> <div class="grid lg:grid-cols-3 gap-10">
                     
-                    <div class="bg-white dark:bg-gray-800 rounded-2xl p-5 mb-6 border border-gray-100 dark:border-gray-700 shadow-sm" data-aos="fade-up">
-                        <div class="step-indicator">
-                            <div class="step-dot active" id="step-dot-1">1</div>
-                            <div class="step-line" id="step-line-1"></div>
-                            <div class="step-dot pending" id="step-dot-2">2</div>
-                            <div class="step-line" id="step-line-2"></div>
-                            <div class="step-dot pending" id="step-dot-3">3</div>
+                    <div class="lg:col-span-2 space-y-8">
+                        
+                        <div class="bg-gray-900 border border-gray-800 p-8 rounded-3xl shadow-xl" data-aos="fade-right">
+                            <h3 class="text-xl font-bold mb-6 flex items-center gap-3">
+                                <span class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-sm shadow-lg shadow-orange-500/20">1</span>
+                                Quem é você?
+                            </h3>
+                            <div class="grid md:grid-cols-2 gap-5">
+                                <div class="form-group">
+                                    <label class="text-xs font-bold text-gray-500 uppercase ml-1">Nome Completo</label>
+                                    <input type="text" name="cliente_nome" required class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3.5 mt-2 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-all">
+                                </div>
+                                <div class="form-group">
+                                    <label class="text-xs font-bold text-gray-500 uppercase ml-1">WhatsApp</label>
+                                    <input type="tel" name="cliente_whatsapp" required placeholder="(21) 99999-9999" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3.5 mt-2 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-all">
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex justify-between mt-2 text-xs text-gray-500 dark:text-gray-400 font-medium">
-                            <span>Serviço</span>
-                            <span>Data & Hora</span>
-                            <span>Seus Dados</span>
+
+                        <div class="bg-gray-900 border border-gray-800 p-8 rounded-3xl shadow-xl" data-aos="fade-right" data-aos-delay="100">
+                            <h3 class="text-xl font-bold mb-6 flex items-center gap-3">
+                                <span class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-sm shadow-lg shadow-blue-500/20">2</span>
+                                Onde será o atendimento?
+                            </h3>
+                            <div class="grid md:grid-cols-3 gap-5">
+                                <div class="md:col-span-2">
+                                    <label class="text-xs font-bold text-gray-500 uppercase ml-1">Endereço / Rua</label>
+                                    <input type="text" name="local_rua" required class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3.5 mt-2 outline-none focus:border-blue-500 transition-all">
+                                </div>
+                                <div>
+                                    <label class="text-xs font-bold text-gray-500 uppercase ml-1">Nº</label>
+                                    <input type="text" name="local_numero" required class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3.5 mt-2 outline-none focus:border-blue-500 transition-all">
+                                </div>
+                                <div class="md:col-span-3">
+                                    <label class="text-xs font-bold text-gray-500 uppercase ml-1">Bairro / Referência em Niterói ou Região</label>
+                                    <input type="text" name="local_bairro" required placeholder="Ex: Icaraí - Próximo ao campo de São Bento" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3.5 mt-2 outline-none focus:border-blue-500 transition-all">
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="form-container" data-aos="fade-up" data-aos-delay="50">
-                        <form id="form-agendamento">
+                    <div class="lg:col-span-1 space-y-8">
+                        
+                        <div class="bg-gray-900 border border-gray-800 p-8 rounded-3xl shadow-xl h-full" data-aos="fade-left">
+                            <h3 class="text-xl font-bold mb-6 flex items-center gap-3">
+                                <span class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-sm shadow-lg shadow-green-500/20">3</span>
+                                Serviço e Data
+                            </h3>
                             
-                            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
-                            
-                            <div id="step-1">
-                                <h3 class="text-xl font-black text-gray-900 dark:text-white mb-2">Qual serviço você precisa?</h3>
-                                <p class="text-gray-500 dark:text-gray-400 text-sm mb-6">Selecione a categoria do serviço desejado</p>
+                            <div class="space-y-4">
+                                <label class="text-xs font-bold text-gray-500 uppercase ml-1">O que você precisa?</label>
                                 
-                                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
-                                    <label class="service-option" id="svc-manutencao">
-                                        <input type="radio" name="servico" value="Manutenção de Computador" class="hidden" onchange="selectService(this)">
-                                        <div class="text-2xl mb-2">💻</div>
-                                        <div class="font-bold text-gray-800 dark:text-white text-sm">Manutenção PC</div>
-                                        <div class="text-xs text-gray-500 mt-0.5">A partir de R$80</div>
+                                <div class="grid gap-3">
+                                    <label class="relative flex items-center p-3 border border-gray-700 rounded-2xl cursor-pointer hover:bg-gray-800 transition-all group has-[:checked]:border-orange-500 has-[:checked]:bg-orange-500/5">
+                                        <input type="radio" name="servico_tipo" value="Manutenção" class="hidden" checked>
+                                        <div class="w-10 h-10 bg-gray-800 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform"><i class="fas fa-tools text-orange-500"></i></div>
+                                        <span class="ml-3 font-semibold text-sm text-gray-300">Manutenção PC/Celular</span>
                                     </label>
-                                    <label class="service-option" id="svc-smartphone">
-                                        <input type="radio" name="servico" value="Manutenção Smartphone" class="hidden" onchange="selectService(this)">
-                                        <div class="text-2xl mb-2">📱</div>
-                                        <div class="font-bold text-gray-800 dark:text-white text-sm">Smartphone</div>
-                                        <div class="text-xs text-gray-500 mt-0.5">A partir de R$50</div>
+                                    
+                                    <label class="relative flex items-center p-3 border border-gray-700 rounded-2xl cursor-pointer hover:bg-gray-800 transition-all group has-[:checked]:border-blue-500 has-[:checked]:bg-blue-500/5">
+                                        <input type="radio" name="servico_tipo" value="Automação" class="hidden">
+                                        <div class="w-10 h-10 bg-gray-800 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform"><i class="fas fa-robot text-blue-500"></i></div>
+                                        <span class="ml-3 font-semibold text-sm text-gray-300">Automação Residencial</span>
                                     </label>
-                                    <label class="service-option" id="svc-automacao">
-                                        <input type="radio" name="servico" value="Automação Residencial" class="hidden" onchange="selectService(this)">
-                                        <div class="text-2xl mb-2">🤖</div>
-                                        <div class="font-bold text-gray-800 dark:text-white text-sm">Automação</div>
-                                        <div class="text-xs text-gray-500 mt-0.5">A partir de R$500</div>
-                                    </label>
-                                    <label class="service-option" id="svc-web">
-                                        <input type="radio" name="servico" value="Desenvolvimento Web" class="hidden" onchange="selectService(this)">
-                                        <div class="text-2xl mb-2">🌐</div>
-                                        <div class="font-bold text-gray-800 dark:text-white text-sm">Site / Sistema</div>
-                                        <div class="text-xs text-gray-500 mt-0.5">A partir de R$800</div>
-                                    </label>
-                                    <label class="service-option" id="svc-infra">
-                                        <input type="radio" name="servico" value="Infraestrutura TI" class="hidden" onchange="selectService(this)">
-                                        <div class="text-2xl mb-2">🖧</div>
-                                        <div class="font-bold text-gray-800 dark:text-white text-sm">Infraestrutura</div>
-                                        <div class="text-xs text-gray-500 mt-0.5">Sob consulta</div>
-                                    </label>
-                                    <label class="service-option" id="svc-outro">
-                                        <input type="radio" name="servico" value="Outro" class="hidden" onchange="selectService(this)">
-                                        <div class="text-2xl mb-2">❓</div>
-                                        <div class="font-bold text-gray-800 dark:text-white text-sm">Outro</div>
-                                        <div class="text-xs text-gray-500 mt-0.5">Descreva depois</div>
+
+                                    <label class="relative flex items-center p-3 border border-gray-700 rounded-2xl cursor-pointer hover:bg-gray-800 transition-all group has-[:checked]:border-purple-500 has-[:checked]:bg-purple-500/5">
+                                        <input type="radio" name="servico_tipo" value="Redes" class="hidden">
+                                        <div class="w-10 h-10 bg-gray-800 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform"><i class="fas fa-network-wired text-purple-500"></i></div>
+                                        <span class="ml-3 font-semibold text-sm text-gray-300">Infraestrutura e Redes</span>
                                     </label>
                                 </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label"><i class="fas fa-comment-alt"></i> Descreva o problema (opcional)</label>
-                                    <textarea name="descricao" class="form-input" rows="3" placeholder="Descreva brevemente o que está acontecendo ou o que você precisa..."></textarea>
+
+                                <div class="pt-4">
+                                    <label class="text-xs font-bold text-gray-500 uppercase ml-1">Data Desejada</label>
+                                    <input type="date" name="agendamento_data" required id="date-input" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 mt-2 outline-none focus:border-green-500 text-white [color-scheme:dark]">
                                 </div>
-                                
-                                <button type="button" onclick="nextStep(2)" class="btn btn-primary btn-full btn-lg btn-magic">
-                                    Próximo: Data e Horário <i class="fas fa-arrow-right ml-2"></i>
-                                </button>
-                            </div>
-                            
-                            <div id="step-2" class="hidden">
-                                <button type="button" onclick="prevStep(1)" class="flex items-center gap-2 text-gray-500 hover:text-orange-500 text-sm font-medium mb-6 transition-colors">
-                                    <i class="fas fa-arrow-left"></i> Voltar
-                                </button>
-                                <h3 class="text-xl font-black text-gray-900 dark:text-white mb-2">Quando você prefere?</h3>
-                                <p class="text-gray-500 dark:text-gray-400 text-sm mb-6">Selecione a data e horário para a visita técnica</p>
-                                
-                                <div class="form-grid-2 mb-0">
-                                    <div class="form-group">
-                                        <label class="form-label"><i class="fas fa-calendar"></i> Data *</label>
-                                        <input type="date" name="data" class="form-input" required id="data-input">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label"><i class="fas fa-map-marker-alt"></i> Modalidade *</label>
-                                        <select name="modalidade" class="form-input" required>
-                                            <option value="">Selecione</option>
-                                            <option value="presencial">Visita presencial</option>
-                                            <option value="remoto">Suporte remoto</option>
-                                        </select>
-                                    </div>
+
+                                <div class="pt-2">
+                                    <label class="text-xs font-bold text-gray-500 uppercase ml-1">Período</label>
+                                    <select name="agendamento_periodo" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 mt-2 outline-none focus:border-green-500 text-white appearance-none">
+                                        <option value="Manhã (09h às 12h)">Manhã (09h às 12h)</option>
+                                        <option value="Tarde (13h às 18h)">Tarde (13h às 18h)</option>
+                                    </select>
                                 </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label"><i class="fas fa-clock"></i> Horário *</label>
-                                    <div class="grid grid-cols-4 gap-2" id="time-slots">
-                                        <div class="time-slot" onclick="selectTime(this, '08:00')">08:00</div>
-                                        <div class="time-slot" onclick="selectTime(this, '09:00')">09:00</div>
-                                        <div class="time-slot" onclick="selectTime(this, '10:00')">10:00</div>
-                                        <div class="time-slot" onclick="selectTime(this, '11:00')">11:00</div>
-                                        <div class="time-slot" onclick="selectTime(this, '13:00')">13:00</div>
-                                        <div class="time-slot unavailable" onclick="">14:00</div>
-                                        <div class="time-slot" onclick="selectTime(this, '15:00')">15:00</div>
-                                        <div class="time-slot" onclick="selectTime(this, '16:00')">16:00</div>
-                                        <div class="time-slot" onclick="selectTime(this, '17:00')">17:00</div>
-                                        <div class="time-slot unavailable" onclick="">17:30</div>
-                                    </div>
-                                    <input type="hidden" name="horario" id="horario-input">
-                                    <p class="text-xs text-gray-400 mt-2"><i class="fas fa-info-circle mr-1"></i> Horários em cinza já estão reservados</p>
-                                </div>
-                                
-                                <button type="button" onclick="nextStep(3)" class="btn btn-primary btn-full btn-lg btn-magic">
-                                    Próximo: Seus Dados <i class="fas fa-arrow-right ml-2"></i>
-                                </button>
-                            </div>
-                            
-                            <div id="step-3" class="hidden">
-                                <button type="button" onclick="prevStep(2)" class="flex items-center gap-2 text-gray-500 hover:text-orange-500 text-sm font-medium mb-6 transition-colors">
-                                    <i class="fas fa-arrow-left"></i> Voltar
-                                </button>
-                                <h3 class="text-xl font-black text-gray-900 dark:text-white mb-2">Seus dados de contato</h3>
-                                <p class="text-gray-500 dark:text-gray-400 text-sm mb-6">Para confirmarmos o agendamento via WhatsApp</p>
-                                
-                                <div class="form-grid-2 mb-0">
-                                    <div class="form-group">
-                                        <label class="form-label"><i class="fas fa-user"></i> Nome Completo *</label>
-                                        <input type="text" name="nome" class="form-input" placeholder="Seu nome completo" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label"><i class="fas fa-phone"></i> WhatsApp *</label>
-                                        <input type="tel" name="telefone" class="form-input" placeholder="(21) 00000-0000" required>
-                                    </div>
-                                </div>
-                                
-                                <div class="form-grid-2 mb-0">
-                                    <div class="form-group">
-                                        <label class="form-label"><i class="fas fa-envelope"></i> Email</label>
-                                        <input type="email" name="email" class="form-input" placeholder="seu@email.com">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label"><i class="fas fa-map-marker-alt"></i> Bairro / Cidade</label>
-                                        <input type="text" name="endereco" class="form-input" placeholder="Bairro, Niterói - RJ">
-                                    </div>
-                                </div>
-                                
-                                <div id="booking-summary" class="p-4 bg-orange-50 dark:bg-orange-900/15 rounded-2xl border border-orange-100 dark:border-orange-900/30 mb-6">
-                                    <h4 class="font-bold text-orange-700 dark:text-orange-400 text-sm mb-3 flex items-center gap-2">
-                                        <i class="fas fa-clipboard-check"></i> Resumo do Agendamento
-                                    </h4>
-                                    <div class="space-y-1.5 text-sm">
-                                        <div class="flex justify-between">
-                                            <span class="text-gray-600 dark:text-gray-400">Serviço:</span>
-                                            <span class="font-semibold text-gray-800 dark:text-white" id="summary-service">—</span>
-                                        </div>
-                                        <div class="flex justify-between">
-                                            <span class="text-gray-600 dark:text-gray-400">Data:</span>
-                                            <span class="font-semibold text-gray-800 dark:text-white" id="summary-date">—</span>
-                                        </div>
-                                        <div class="flex justify-between">
-                                            <span class="text-gray-600 dark:text-gray-400">Horário:</span>
-                                            <span class="font-semibold text-gray-800 dark:text-white" id="summary-time">—</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-start gap-3 mb-6 p-3 bg-gray-50 dark:bg-gray-700/30 rounded-xl">
-                                    <input type="checkbox" name="aceito" id="aceito-termos" class="mt-0.5 flex-shrink-0" required style="accent-color:#f97316;">
-                                    <label for="aceito-termos" class="text-xs text-gray-600 dark:text-gray-400 cursor-pointer">
-                                        Concordo com os <a href="#" class="text-orange-500 hover:underline font-semibold">Termos de Serviço</a> e autorizo o contato via WhatsApp para confirmar o agendamento.
-                                    </label>
-                                </div>
-                                
-                                <button type="submit" class="btn btn-primary btn-full btn-xl btn-magic font-black">
-                                    <i class="fas fa-calendar-check mr-2"></i>
-                                    Confirmar Agendamento
-                                </button>
-                            </div>
-                            
-                        </form>
-                    </div>
-                </div>
-                
-                <div class="space-y-5" data-aos="fade-left">
-                    
-                    <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 shadow-md">
-                        <h3 class="font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                            <span class="w-1 h-5 bg-orange-500 rounded-full"></span>
-                            Por que nos escolher?
-                        </h3>
-                        <div class="space-y-3">
-                            <div class="flex items-start gap-3">
-                                <div class="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
-                                    <i class="fas fa-check text-green-600 text-xs"></i>
-                                </div>
-                                <div>
-                                    <p class="font-semibold text-gray-800 dark:text-white text-sm">Orçamento Grátis</p>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400">Sem cobrança pelo diagnóstico</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
-                                    <i class="fas fa-shield-alt text-blue-600 text-xs"></i>
-                                </div>
-                                <div>
-                                    <p class="font-semibold text-gray-800 dark:text-white text-sm">90 Dias de Garantia</p>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400">Em todos os serviços realizados</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <div class="w-8 h-8 bg-orange-100 dark:bg-orange-900/30 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
-                                    <i class="fas fa-clock text-orange-600 text-xs"></i>
-                                </div>
-                                <div>
-                                    <p class="font-semibold text-gray-800 dark:text-white text-sm">Pontualidade Garantida</p>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400">Chegamos no horário combinado</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <div class="w-8 h-8 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
-                                    <i class="fas fa-star text-purple-600 text-xs"></i>
-                                </div>
-                                <div>
-                                    <p class="font-semibold text-gray-800 dark:text-white text-sm">4.9★ Avaliação</p>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400">+200 avaliações positivas</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-6 text-white">
-                        <div class="flex items-center gap-3 mb-3">
-                            <i class="fab fa-whatsapp text-3xl"></i>
-                            <div>
-                                <p class="font-black text-lg">Prefere WhatsApp?</p>
-                                <p class="text-green-100 text-sm">Respondemos em até 30 min!</p>
-                            </div>
-                        </div>
-                        <a href="https://wa.me/5521999999999?text=Olá! Gostaria de agendar uma visita técnica." 
-                           target="_blank"
-                           class="block w-full py-3 bg-white text-green-600 font-black rounded-xl text-center hover:bg-green-50 transition-all transform hover:scale-[1.02]">
-                            Chamar no WhatsApp
-                        </a>
-                    </div>
-                    
-                    <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 shadow-md">
-                        <h3 class="font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                            <span class="w-1 h-5 bg-blue-500 rounded-full"></span>
-                            Horários de Atendimento
-                        </h3>
-                        <div class="space-y-2 text-sm">
-                            <div class="flex justify-between">
-                                <span class="text-gray-600 dark:text-gray-400">Seg – Sex</span>
-                                <span class="font-bold text-gray-800 dark:text-white">8h – 18h</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600 dark:text-gray-400">Sábado</span>
-                                <span class="font-bold text-gray-800 dark:text-white">9h – 14h</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600 dark:text-gray-400">Domingo</span>
-                                <span class="font-bold text-red-500">Fechado</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-            </div>
+
+                <div class="mt-12 text-center" data-aos="zoom-in">
+                    <button type="submit" class="inline-flex items-center gap-3 px-12 py-5 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-black text-xl rounded-2xl shadow-2xl shadow-orange-500/20 transform hover:-translate-y-1 transition-all w-full md:w-auto">
+                        <i class="fas fa-paper-plane"></i> SOLICITAR AGENDAMENTO AGORA
+                    </button>
+                    <p class="text-gray-500 text-xs mt-5">Ao clicar, o Alex receberá o seu pedido e confirmará via WhatsApp.</p>
+                </div>
+
+            </form>
         </div>
     </section>
 
@@ -362,171 +143,35 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="js/main.js"></script>
     <script>
-        AOS.init({ duration: 750, once: true, offset: 80 });
-        
-        let selectedTime = '';
-        let selectedService = '';
-        let currentStep = 1;
-        
+        // Inicia as animações
+        AOS.init({ duration: 800, once: true });
+
         document.addEventListener('DOMContentLoaded', function() {
+            // Carrega Header e Footer
             loadComponent('header', 'components/header.html');
             loadComponent('footer', 'components/footer.html');
             
-            // Aplicar máscaras
-            document.querySelectorAll('[name="telefone"]').forEach(aplicarMascaraTelefone || (()=>{}));
-            
-            // Data mínima = hoje
-            const dataInput = document.getElementById('data-input');
-            if (dataInput) {
+            // Lógica de Data Mínima (não deixa escolher ontem)
+            const dateInput = document.getElementById('date-input');
+            if (dateInput) {
                 const today = new Date().toISOString().split('T')[0];
-                dataInput.min = today;
-                dataInput.value = today;
+                dateInput.setAttribute('min', today);
             }
-        });
-        
-        function nextStep(step) {
-            const current = document.getElementById(`step-${currentStep}`);
-            const next = document.getElementById(`step-${step}`);
-            
-            // Validações
-            if (currentStep === 1) {
-                const servico = document.querySelector('[name="servico"]:checked');
-                if (!servico) {
-                    if (typeof mostrarNotificacao === 'function') {
-                        mostrarNotificacao('⚠️ Selecione um serviço para continuar.', 'warning');
+
+            // Lógica de Notificação de Sucesso (após o redirect do Web3Forms)
+            const urlParams = new URLSearchParams(window.location.search);
+            if(urlParams.get('sucesso') === 'true') {
+                setTimeout(() => {
+                    // Usa a função mostrarNotificacao do seu main.js
+                    if(typeof mostrarNotificacao === 'function') {
+                        mostrarNotificacao('Agendamento enviado! O Alex vai chamar-te no WhatsApp em instantes.', 'success', 6000);
+                    } else {
+                        alert('Agendamento enviado com sucesso!');
                     }
-                    return;
-                }
-                selectedService = servico.value;
+                    // Limpa o "?sucesso=true" da barra de endereços
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }, 500);
             }
-            
-            if (currentStep === 2) {
-                const data = document.querySelector('[name="data"]').value;
-                const modalidade = document.querySelector('[name="modalidade"]').value;
-                if (!data || !selectedTime || !modalidade) {
-                    if (typeof mostrarNotificacao === 'function') {
-                        mostrarNotificacao('⚠️ Preencha a data, horário e modalidade.', 'warning');
-                    }
-                    return;
-                }
-                // Atualiza resumo
-                document.getElementById('summary-service').textContent = selectedService;
-                document.getElementById('summary-date').textContent = new Date(data + 'T00:00').toLocaleDateString('pt-BR', {weekday:'long', day:'numeric', month:'long'});
-                document.getElementById('summary-time').textContent = selectedTime + ' – ' + modalidade;
-            }
-            
-            current.classList.add('hidden');
-            next.classList.remove('hidden');
-            
-            // Atualiza indicador
-            document.getElementById(`step-dot-${currentStep}`).className = 'step-dot done';
-            document.getElementById(`step-dot-${currentStep}`).innerHTML = '<i class="fas fa-check text-xs"></i>';
-            if (currentStep < 3) document.getElementById(`step-line-${currentStep}`).classList.add('done');
-            document.getElementById(`step-dot-${step}`).classList.replace('pending', 'active');
-            
-            currentStep = step;
-            window.scrollTo({ top: 300, behavior: 'smooth' });
-        }
-        
-        function prevStep(step) {
-            const current = document.getElementById(`step-${currentStep}`);
-            const prev = document.getElementById(`step-${step}`);
-            
-            current.classList.add('hidden');
-            prev.classList.remove('hidden');
-            
-            // Reverte indicador
-            document.getElementById(`step-dot-${currentStep}`).className = 'step-dot pending';
-            document.getElementById(`step-dot-${currentStep}`).innerHTML = currentStep;
-            if (currentStep > 1) document.getElementById(`step-line-${step}`).classList.remove('done');
-            document.getElementById(`step-dot-${step}`).innerHTML = step;
-            document.getElementById(`step-dot-${step}`).classList.replace('done', 'active');
-            
-            currentStep = step;
-        }
-        
-        function selectService(radio) {
-            document.querySelectorAll('.service-option').forEach(o => o.classList.remove('selected'));
-            radio.closest('.service-option').classList.add('selected');
-        }
-        
-        function selectTime(el, time) {
-            if (el.classList.contains('unavailable')) return;
-            document.querySelectorAll('.time-slot').forEach(t => t.classList.remove('selected'));
-            el.classList.add('selected');
-            selectedTime = time;
-            document.getElementById('horario-input').value = time;
-        }
-        
-        // Submit do formulário
-        document.getElementById('form-agendamento')?.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Integração com Anti-spam (Honeypot)
-            const honeypot = this.querySelector('[name="_honey"]');
-            if (honeypot && honeypot.value) {
-                // Falso sucesso para bots
-                mostrarNotificacao('✅ Agendamento confirmado!', 'success', 3000);
-                this.reset();
-                return;
-            }
-            
-            const nome = document.querySelector('[name="nome"]')?.value;
-            const telefone = document.querySelector('[name="telefone"]')?.value;
-            const aceito = document.getElementById('aceito-termos')?.checked;
-            
-            if (!nome || !telefone) {
-                if (typeof mostrarNotificacao === 'function') {
-                    mostrarNotificacao('⚠️ Preencha nome e telefone.', 'warning');
-                }
-                return;
-            }
-            if (!aceito) {
-                if (typeof mostrarNotificacao === 'function') {
-                    mostrarNotificacao('⚠️ Aceite os Termos de Serviço para continuar.', 'warning');
-                }
-                return;
-            }
-            
-            const btn = this.querySelector('[type="submit"]');
-            const original = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Confirmando...';
-            btn.disabled = true;
-            
-            setTimeout(() => {
-                // Substitui formulário por mensagem de sucesso
-                document.querySelector('.form-container').innerHTML = `
-                    <div class="text-center py-8">
-                        <div class="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-calendar-check text-green-500 text-4xl"></i>
-                        </div>
-                        <h3 class="text-2xl font-black text-gray-900 dark:text-white mb-3">Agendamento Confirmado! 🎉</h3>
-                        <p class="text-gray-600 dark:text-gray-300 mb-6 max-w-sm mx-auto">
-                            Ótimo, <strong>${nome}</strong>! Você receberá uma confirmação via WhatsApp em breve.
-                        </p>
-                        <div class="bg-orange-50 dark:bg-orange-900/20 rounded-2xl p-5 mb-6 text-left inline-block min-w-64">
-                            <p class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"><i class="fas fa-clipboard-check text-orange-500 mr-2"></i>Resumo:</p>
-                            <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Serviço:</strong> ${selectedService}</p>
-                            <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Data:</strong> ${document.getElementById('summary-date')?.textContent || '—'}</p>
-                            <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Horário:</strong> ${selectedTime}</p>
-                        </div>
-                        <div class="flex flex-col sm:flex-row gap-3 justify-center">
-                            <a href="https://wa.me/5521999999999" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl transition-all">
-                                <i class="fab fa-whatsapp"></i> Confirmar via WhatsApp
-                            </a>
-                            <a href="index.html" class="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-bold rounded-xl transition-all hover:bg-gray-200">
-                                <i class="fas fa-home"></i> Voltar ao Início
-                            </a>
-                        </div>
-                    </div>
-                `;
-                
-                if (typeof mostrarNotificacao === 'function') {
-                    mostrarNotificacao('✅ Agendamento confirmado! Veja o resumo abaixo.', 'success', 5000);
-                }
-                
-                window.scrollTo({ top: 400, behavior: 'smooth' });
-            }, 2000);
         });
     </script>
 </body>
