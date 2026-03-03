@@ -148,13 +148,18 @@
                 
                 <div data-aos="fade-left" data-aos-duration="900" data-aos-delay="200" class="relative hidden lg:flex justify-center items-center w-full h-full min-h-[500px]">
                     
-                    <div class="relative z-10 w-full max-w-[550px] aspect-square flex justify-center items-center group">
+                    <div class="relative z-10 w-full max-w-[500px] h-[450px] flex justify-center items-center group">
                         
-                        <img src="img/logo.png" alt="Xerfan Tech Lab" 
-                             class="relative z-10 w-[85%] h-auto max-h-[450px] object-contain animate-float transition-all duration-500 group-hover:scale-105 drop-shadow-[0_0_6px_rgba(249,115,22,0.35)] group-hover:drop-shadow-[0_0_12px_rgba(249,115,22,0.5)]"
-                             onerror="this.closest('div').innerHTML='<div class=\'w-64 h-64 mx-auto bg-gradient-to-br from-orange-500 to-blue-700 rounded-3xl flex items-center justify-center text-white text-6xl font-black shadow-2xl\'>XTL</div>'">
+                        <div class="animate-float absolute inset-0 flex justify-center items-center pointer-events-none">
+                            
+                            <img src="img/logo.png" alt="Xerfan Tech Lab" 
+                                 class="relative z-10 w-[85%] max-w-[400px] h-auto object-contain transition-transform duration-500 group-hover:scale-110 pointer-events-auto"
+                                 style="filter: drop-shadow(0 0 4px rgba(249,115,22,0.4)) drop-shadow(0 0 15px rgba(249,115,22,0.8));"
+                                 onerror="this.closest('div').innerHTML='<div class=\'w-64 h-64 mx-auto bg-gradient-to-br from-orange-500 to-blue-700 rounded-3xl flex items-center justify-center text-white text-6xl font-black shadow-2xl\'>XTL</div>'">
+                                 
+                        </div>
                         
-                        <div class="absolute top-12 right-0 bg-gray-800/90 backdrop-blur-md border border-gray-600 rounded-2xl p-4 shadow-2xl animate-bounce z-20" style="animation-delay: 0.5s; animation-duration: 3.5s;">
+                        <div class="absolute top-4 right-0 bg-gray-800/90 backdrop-blur-md border border-gray-700 rounded-2xl p-4 shadow-2xl animate-bounce z-20" style="animation-delay: 0.5s; animation-duration: 3.5s;">
                             <div class="flex items-center gap-3">
                                 <div class="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center">
                                     <i class="fas fa-check text-white text-sm"></i>
@@ -166,7 +171,7 @@
                             </div>
                         </div>
                         
-                        <div class="absolute bottom-16 left-0 bg-gray-800/90 backdrop-blur-md border border-gray-600 rounded-2xl p-4 shadow-2xl animate-bounce z-20" style="animation-delay: 1.5s; animation-duration: 4s;">
+                        <div class="absolute bottom-4 left-0 bg-gray-800/90 backdrop-blur-md border border-gray-700 rounded-2xl p-4 shadow-2xl animate-bounce z-20" style="animation-delay: 1.5s; animation-duration: 4s;">
                             <div class="flex items-center gap-3">
                                 <div class="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center">
                                     <i class="fas fa-star text-white text-sm"></i>
