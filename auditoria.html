@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panfleto A4 Premium - Auditoria de Energia</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Montserrat", sans-serif;
+      }
+
+      /* Configuração estrita para folha A4 sem margens */
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      body {
+        background-color: #525659;
+        display: flex;
+        justify-content: center;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .a4-page {
+        width: 210mm;
+        height: 297mm;
+        max-height: 297mm;
+        background-color: #0b0b0b;
+        color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+      }
+
+      /* Cabeçalho */
+      header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 25px;
+        padding: 18px;
+        background-color: #000000;
+        border-bottom: 3px solid #ff7a00;
+      }
+
+      .logo-ads {
+        width: 130px;
+        height: auto;
+      }
+      .logo-xerfan {
+        width: 310px;
+        height: auto;
+      }
+
+      /* Conteúdo Principal */
+      .content {
+        flex: 1;
+        padding: 15px 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+      }
+
+      .hero {
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 26px;
+        font-weight: 800;
+        color: #ff7a00;
+        line-height: 1.2;
+        margin-bottom: 5px;
+      }
+
+      .subtitle {
+        font-size: 14px;
+        color: #dddddd;
+        font-weight: 600;
+      }
+
+      /* Novo Box de Introdução */
+      .intro-box {
+        background: rgba(255, 122, 0, 0.08);
+        border-left: 4px solid #ff7a00;
+        padding: 12px 18px;
+        border-radius: 0 8px 8px 0;
+        font-size: 12.5px;
+        line-height: 1.5;
+        color: #eeeeee;
+        text-align: justify;
+      }
+
+      .intro-box strong {
+        color: #ff7a00;
+        font-size: 13.5px;
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      /* Grid de Informações */
+      .grid-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+
+      .section-box {
+        background: #181818;
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid #222;
+      }
+
+      h2 {
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+      }
+
+      .color-orange {
+        color: #ff7a00;
+      }
+      .color-green {
+        color: #22c55e;
+      }
+      .color-blue {
+        color: #38bdf8;
+      }
+
+      ul {
+        list-style: none;
+      }
+      ul li {
+        font-size: 12px;
+        color: #dddddd;
+        margin-bottom: 6px;
+        position: relative;
+        padding-left: 18px;
+        line-height: 1.4;
+      }
+      ul li::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        color: #ff7a00;
+        font-size: 18px;
+        top: -4px;
+      }
+
+      .methodology {
+        width: 100%;
+      }
+      .methodology p {
+        font-size: 12px;
+        color: #dddddd;
+        line-height: 1.6;
+      }
+
+      /* Rodapé / CTA */
+      footer {
+        background-color: #000000;
+        padding: 15px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #222;
+      }
+
+      .cta-text h3 {
+        font-size: 18px;
+        color: #ff7a00;
+        margin-bottom: 3px;
+      }
+
+      .cta-text p {
+        font-size: 12px;
+        color: #bbbbbb;
+      }
+
+      .contact-info {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        text-align: right;
+      }
+
+      .contact-details span {
+        font-size: 11px;
+        color: #bbbbbb;
+        display: block;
+      }
+
+      .contact-details strong {
+        font-size: 18px;
+        color: #ffffff;
+        display: block;
+        margin-top: 2px;
+      }
+
+      .qr-code {
+        width: 75px;
+        height: 75px;
+        background: #ffffff;
+        padding: 4px;
+        border-radius: 8px;
+        object-fit: contain;
+      }
+
+      /* Direitos e Normas */
+      .credits {
+        text-align: center;
+        padding: 10px 15px;
+        background: #111111;
+        font-size: 9.5px;
+        color: #888;
+        line-height: 1.4;
+      }
+
+      /* Ajustes de Impressão */
+      @media print {
+        html,
+        body {
+          height: 100%;
+          margin: 0 !important;
+          padding: 0 !important;
+          background: none;
+        }
+        .a4-page {
+          box-shadow: none;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="a4-page">
+      <header>
+        <img
+          class="logo-ads"
+          src="https://customer-assets.emergentagent.com/job_92d44f32-8d43-4d5d-bf31-6c87efc62f8e/artifacts/zi1ysx8t_ynmn4d9e_301128542_474740037997909_4267223509653017477_n.png"
+          alt="ADS Elétrica"
+        />
+        <img
+          class="logo-xerfan"
+          src="https://customer-assets.emergentagent.com/job_92d44f32-8d43-4d5d-bf31-6c87efc62f8e/artifacts/mgqsz9yv_1000454433.png"
+          alt="Xerfan Tech Lab"
+        />
+      </header>
+
+      <div class="content">
+        <div class="hero">
+          <h1>Reduza até 25% da sua conta de energia sem obra</h1>
+          <div class="subtitle">
+            Auditoria técnica de contratos de energia • Engenharia elétrica
+            aplicada • Eficiência energética
+          </div>
+        </div>
+
+        <div class="intro-box">
+          <strong
+            >Você sabia que muitas empresas pagam até 25% a mais na conta de
+            energia simplesmente por não estarem na modalidade tarifária correta
+            ou por ajustes de demanda incorretos?</strong
+          >
+          Nossa equipe realiza uma auditoria completa de contratos e consumo de
+          energia, identifica cobranças indevidas, otimiza a demanda contratada
+          e apresenta soluções de eficiência energética sem precisar de
+          reformas. O resultado: economia real, segurança técnica e
+          previsibilidade financeira mensal.
+        </div>
+
+        <div class="grid-container">
+          <div class="section-box">
+            <h2 class="color-orange">🔧 Serviços Especializados</h2>
+            <ul>
+              <li>Auditoria completa de contas de energia</li>
+              <li>Análise de modalidade tarifária (GMT)</li>
+              <li>Estudo de demanda contratada × medida</li>
+              <li>Correção de cobranças indevidas</li>
+              <li>Projetos elétricos BT e MT</li>
+              <li>Eficiência energética e automação</li>
+              <li>Relatório (NBR 5410, NR-10, NBR 14039)</li>
+            </ul>
+          </div>
+
+          <div class="section-box">
+            <h2 class="color-green">📊 Resultados Comprovados</h2>
+            <ul>
+              <li>Economia real de 10% a 25%</li>
+              <li>Eliminação de multas e penalidades</li>
+              <li>Ajuste correto da demanda</li>
+              <li>Segurança técnica e jurídica</li>
+              <li>Previsibilidade financeira mensal</li>
+              <li style="color: #ff7a00; font-weight: bold">
+                Sem economia comprovada → sem cobrança
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section-box methodology">
+          <h2 class="color-blue">⚙️ Metodologia Profissional</h2>
+          <div style="display: flex; justify-content: space-between">
+            <p>
+              <strong>1.</strong> Cliente envia faturas<br />
+              <strong>2.</strong> Diagnóstico técnico detalhado<br />
+              <strong>3.</strong> Simulação tarifária completa<br />
+              <strong>4.</strong> Relatório técnico com estimativa
+            </p>
+            <p>
+              <strong>5.</strong> Aprovação e implementação<br />
+              <strong>6.</strong> Acompanhamento com concessionária<br />
+              <strong>7.</strong> Monitoramento pós-implantação
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="cta-text">
+          <h3>Estudo Preliminar Gratuito</h3>
+          <p>Envie sua última conta e receba o diagnóstico em até 48h.</p>
+        </div>
+
+        <div class="contact-info">
+          <div class="contact-details">
+            <span>Fale com um Especialista</span>
+            <strong>(21) 98701-8539</strong>
+          </div>
+          <img
+            class="qr-code"
+            src="https://customer-assets.emergentagent.com/job_92d44f32-8d43-4d5d-bf31-6c87efc62f8e/artifacts/upfdxy75_QR_WhatsApp_ADS_GMT.png"
+            alt="QR Code WhatsApp"
+          />
+        </div>
+      </footer>
+
+      <div class="credits">
+        Serviço executado conforme normas ABNT • Regulamentações ANEEL • NR-10 •
+        NBR 5410 • NBR 14039<br />
+        Eletrotécnico Alex dos Santos (ADS Elétrica) | Eletrotécnico Guilherme
+        Xerfan da Silva Lopes (Xerfan Tech Lab) © 2026
+      </div>
+    </div>
+  </body>
+</html>

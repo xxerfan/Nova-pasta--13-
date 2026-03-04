@@ -3,242 +3,347 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Serviços - Xerfan Tech Lab</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>Serviços Técnicos - Xerfan Tech Lab</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/enhancements.css">
-    <meta name="description" content="Serviços da Xerfan Tech Lab: manutenção, automação, desenvolvimento web e infraestrutura de TI em Niterói.">
+    
     <link rel="icon" type="image/x-icon" href="img/logo.png">
+    
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .modal-enter { animation: modalFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.95) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .servico-card-pro { transition: all 0.3s ease; }
+        .servico-card-pro:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5); }
+    </style>
 </head>
 <body class="bg-gray-950 transition-colors duration-300">
 
+    <div class="hidden from-blue-600 to-blue-800 from-orange-500 to-orange-700 from-purple-600 to-purple-800 from-teal-600 to-teal-800 from-blue-500 to-blue-700 from-emerald-500 to-emerald-700 from-rose-500 to-rose-700 from-indigo-500 to-indigo-700 bg-white/20"></div>
+
     <div id="header"></div>
 
-    <section class="hero-page relative">
-        <div class="absolute inset-0 overflow-hidden pointer-events-none">
-            <div class="absolute top-1/4 left-1/5 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl"></div>
-            <div class="absolute bottom-1/4 right-1/5 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl"></div>
-        </div>
-        <div class="container mx-auto px-4 relative z-10">
-            <div data-aos="fade-up">
-                <div class="inline-flex items-center bg-white/10 border border-white/20 rounded-full px-5 py-2 mb-6 text-sm font-semibold text-white">
-                    <i class="fas fa-cogs mr-2 text-orange-300"></i> O que oferecemos
-                </div>
-                <h1 class="hero-page-title">Nossos <span class="text-gradient-multi">Serviços</span></h1>
-                <p class="hero-page-desc mt-3">Soluções tecnológicas completas e personalizadas para você e sua empresa.</p>
-            </div>
+    <section class="hero-page relative py-16 border-b border-gray-800">
+        <div class="container mx-auto px-4 relative z-10 text-center" data-aos="fade-up">
+            <span class="badge badge-orange mb-4 inline-block"><i class="fas fa-tools mr-2"></i> Especialistas em Tecnologia</span>
+            <h1 class="text-4xl md:text-6xl font-black tracking-tight">Soluções & <span class="text-gradient-multi">Serviços</span></h1>
+            <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Projetos, manutenções e infraestrutura com o mais alto rigor técnico e atendimento dedicado.</p>
         </div>
     </section>
 
-    <section class="py-8 bg-gray-900 border-b border-gray-800 sticky top-[100px] z-20 shadow-sm">
+    <section class="py-6 bg-gray-900 border-b border-gray-800 sticky top-[80px] lg:top-[96px] z-30 shadow-md">
         <div class="container mx-auto px-4">
-            <div class="filter-tabs justify-center" id="service-filters">
-                <button class="filter-tab active" data-filter="all">Todos</button>
-                <button class="filter-tab" data-filter="manutencao">🔧 Manutenção</button>
-                <button class="filter-tab" data-filter="automacao">🤖 Automação</button>
-                <button class="filter-tab" data-filter="web">🌐 Web</button>
-                <button class="filter-tab" data-filter="infra">🖧 Infraestrutura</button>
-                <button class="filter-tab" data-filter="seguranca">🛡️ Segurança</button>
+            <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                <div class="filter-tabs w-full md:w-auto overflow-x-auto pb-2 md:pb-0" id="servicos-filters">
+                    <button class="filter-tab active whitespace-nowrap" data-cat="all">Carregando categorias...</button>
+                </div>
+                <div class="relative w-full md:max-w-xs">
+                    <input type="text" id="search-servicos" placeholder="Buscar serviço..." class="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-orange-500 transition-all text-sm">
+                    <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-xs"></i>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="py-20 bg-gray-950" id="services-list">
+    <section class="py-20 bg-gray-950 min-h-[50vh]">
         <div class="container mx-auto px-4">
-
-            <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-8" id="services-grid">
-
-                <div class="card bg-gray-800 border-gray-700 card-hover group overflow-hidden" id="manutencao" data-category="manutencao" data-aos="fade-up" data-aos-delay="50">
-                    <div class="-m-8 mb-6 p-6 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
-                        <div class="flex items-center gap-4 mb-3">
-                            <div class="w-14 h-14 bg-white/15 backdrop-blur-sm rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">💻</div>
-                            <div>
-                                <span class="text-blue-200 text-xs font-semibold uppercase tracking-wider">Manutenção</span>
-                                <h3 class="text-xl font-bold leading-tight">Computadores & Notebooks</h3>
-                            </div>
-                        </div>
-                        <p class="text-blue-100 text-sm opacity-90">Diagnóstico, limpeza, conserto e upgrade completo com garantia de 90 dias.</p>
-                    </div>
-                    <ul class="feature-list mb-5 space-y-2 text-gray-300">
-                        <li><i class="fas fa-check check-icon text-xs text-orange-500 mt-1 flex-shrink-0"></i> Limpeza interna e externa</li>
-                        <li><i class="fas fa-check check-icon text-xs text-orange-500 mt-1 flex-shrink-0"></i> Troca de componentes (SSD, RAM, HD)</li>
-                        <li><i class="fas fa-check check-icon text-xs text-orange-500 mt-1 flex-shrink-0"></i> Formatação e backup de dados</li>
-                        <li><i class="fas fa-check check-icon text-xs text-orange-500 mt-1 flex-shrink-0"></i> Remoção de vírus e malware</li>
-                    </ul>
-                    <div class="flex items-center justify-between pt-4 border-t border-gray-700">
-                        <div>
-                            <span class="text-xs text-gray-400">A partir de</span>
-                            <p class="text-xl font-black text-orange-500">R$ 80,00</p>
-                        </div>
-                        <a href="agendamento.html" class="btn btn-primary btn-sm"><i class="fas fa-calendar-alt text-xs"></i> Agendar</a>
-                    </div>
-                </div>
-
-                <div class="card bg-gray-800 border-gray-700 card-hover group overflow-hidden" data-category="manutencao" data-aos="fade-up" data-aos-delay="100">
-                    <div class="-m-8 mb-6 p-6 bg-gradient-to-r from-orange-500 to-orange-700 text-white">
-                        <div class="flex items-center gap-4 mb-3">
-                            <div class="w-14 h-14 bg-white/15 backdrop-blur-sm rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">📱</div>
-                            <div>
-                                <span class="text-orange-200 text-xs font-semibold uppercase tracking-wider">Manutenção</span>
-                                <h3 class="text-xl font-bold leading-tight">Smartphones & Tablets</h3>
-                            </div>
-                        </div>
-                        <p class="text-orange-100 text-sm opacity-90">Reparo profissional de celulares e tablets com peças de alta qualidade.</p>
-                    </div>
-                    <ul class="feature-list mb-5 space-y-2 text-gray-300">
-                        <li><i class="fas fa-check check-icon text-xs text-orange-500 mt-1 flex-shrink-0"></i> Troca de tela touch e LCD</li>
-                        <li><i class="fas fa-check check-icon text-xs text-orange-500 mt-1 flex-shrink-0"></i> Substituição de bateria</li>
-                        <li><i class="fas fa-check check-icon text-xs text-orange-500 mt-1 flex-shrink-0"></i> Reparo de botões e conectores</li>
-                        <li><i class="fas fa-check check-icon text-xs text-orange-500 mt-1 flex-shrink-0"></i> Desbloqueio e restauração</li>
-                    </ul>
-                    <div class="flex items-center justify-between pt-4 border-t border-gray-700">
-                        <div>
-                            <span class="text-xs text-gray-400">A partir de</span>
-                            <p class="text-xl font-black text-orange-500">R$ 50,00</p>
-                        </div>
-                        <a href="agendamento.html" class="btn btn-primary btn-sm"><i class="fas fa-calendar-alt text-xs"></i> Agendar</a>
-                    </div>
-                </div>
-
-                <div class="card bg-gray-800 border-gray-700 card-hover group overflow-hidden" id="automacao" data-category="automacao" data-aos="fade-up" data-aos-delay="150">
-                    <div class="-m-8 mb-6 p-6 bg-gradient-to-r from-purple-600 to-indigo-800 text-white">
-                        <div class="flex items-center gap-4 mb-3">
-                            <div class="w-14 h-14 bg-white/15 backdrop-blur-sm rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">🤖</div>
-                            <div>
-                                <span class="text-purple-200 text-xs font-semibold uppercase tracking-wider">Automação</span>
-                                <h3 class="text-xl font-bold leading-tight">Residencial & Empresarial</h3>
-                            </div>
-                        </div>
-                        <p class="text-purple-100 text-sm opacity-90">Transforme seu ambiente com tecnologia smart home de última geração.</p>
-                    </div>
-                    <ul class="feature-list mb-5 space-y-2 text-gray-300">
-                        <li><i class="fas fa-check check-icon text-xs text-orange-500 mt-1 flex-shrink-0"></i> Iluminação inteligente LED</li>
-                        <li><i class="fas fa-check check-icon text-xs text-orange-500 mt-1 flex-shrink-0"></i> Cortinas e persianas motorizadas</li>
-                        <li><i class="fas fa-check check-icon text-xs text-orange-500 mt-1 flex-shrink-0"></i> Controle de ar-condicionado</li>
-                        <li><i class="fas fa-check check-icon text-xs text-orange-500 mt-1 flex-shrink-0"></i> Câmeras de segurança IP</li>
-                    </ul>
-                    <div class="flex items-center justify-between pt-4 border-t border-gray-700">
-                        <div>
-                            <span class="text-xs text-gray-400">A partir de</span>
-                            <p class="text-xl font-black text-orange-500">R$ 500,00</p>
-                        </div>
-                        <a href="agendamento.html" class="btn btn-primary btn-sm"><i class="fas fa-calendar-alt text-xs"></i> Consultar</a>
-                    </div>
-                </div>
-
-                <div class="card bg-gray-800 border-gray-700 card-hover group overflow-hidden" id="desenvolvimento" data-category="web" data-aos="fade-up" data-aos-delay="200">
-                    <div class="-m-8 mb-6 p-6 bg-gradient-to-r from-green-600 to-emerald-800 text-white">
-                        <div class="flex items-center gap-4 mb-3">
-                            <div class="w-14 h-14 bg-white/15 backdrop-blur-sm rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">🌐</div>
-                            <div>
-                                <span class="text-green-200 text-xs font-semibold uppercase tracking-wider">Desenvolvimento</span>
-                                <h3 class="text-xl font-bold leading-tight">Sites & Sistemas Web</h3>
-                            </div>
-                        </div>
-                        <p class="text-green-100 text-sm opacity-90">Websites modernos, rápidos, responsivos e otimizados para SEO local e vendas.</p>
-                    </div>
-                    <ul class="feature-list mb-5 space-y-2 text-gray-300">
-                        <li><i class="fas fa-check check-icon text-xs text-orange-500 mt-1 flex-shrink-0"></i> Sites institucionais e portfólios</li>
-                        <li><i class="fas fa-check check-icon text-xs text-orange-500 mt-1 flex-shrink-0"></i> Landing pages de alta conversão</li>
-                        <li><i class="fas fa-check check-icon text-xs text-orange-500 mt-1 flex-shrink-0"></i> Lojas virtuais e e-commerces</li>
-                        <li><i class="fas fa-check check-icon text-xs text-orange-500 mt-1 flex-shrink-0"></i> SEO e otimização de velocidade</li>
-                    </ul>
-                    <div class="flex items-center justify-between pt-4 border-t border-gray-700">
-                        <div>
-                            <span class="text-xs text-gray-400">A partir de</span>
-                            <p class="text-xl font-black text-orange-500">R$ 800,00</p>
-                        </div>
-                        <a href="contato.html" class="btn btn-primary btn-sm"><i class="fas fa-comments text-xs"></i> Orçamento</a>
-                    </div>
-                </div>
-
-                <div class="card bg-gray-800 border-gray-700 card-hover group overflow-hidden" id="infraestrutura" data-category="infra" data-aos="fade-up" data-aos-delay="250">
-                    <div class="-m-8 mb-6 p-6 bg-gradient-to-r from-cyan-600 to-blue-800 text-white">
-                        <div class="flex items-center gap-4 mb-3">
-                            <div class="w-14 h-14 bg-white/15 backdrop-blur-sm rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">🖧</div>
-                            <div>
-                                <span class="text-cyan-200 text-xs font-semibold uppercase tracking-wider">Infraestrutura</span>
-                                <h3 class="text-xl font-bold leading-tight">Redes & Servidores TI</h3>
-                            </div>
-                        </div>
-                        <p class="text-cyan-100 text-sm opacity-90">Redes corporativas seguras e de alta performance para empresas de todos os portes.</p>
-                    </div>
-                    <ul class="feature-list mb-5 space-y-2 text-gray-300">
-                        <li><i class="fas fa-check check-icon text-xs text-orange-500 mt-1 flex-shrink-0"></i> Redes cabeadas estruturadas</li>
-                        <li><i class="fas fa-check check-icon text-xs text-orange-500 mt-1 flex-shrink-0"></i> Wi-Fi corporativo de longo alcance</li>
-                        <li><i class="fas fa-check check-icon text-xs text-orange-500 mt-1 flex-shrink-0"></i> Configuração de servidores locais</li>
-                        <li><i class="fas fa-check check-icon text-xs text-orange-500 mt-1 flex-shrink-0"></i> Backup automático e em nuvem</li>
-                    </ul>
-                    <div class="flex items-center justify-between pt-4 border-t border-gray-700">
-                        <div>
-                            <span class="text-xs text-gray-400">Consulte</span>
-                            <p class="text-xl font-black text-orange-500">Sob medida</p>
-                        </div>
-                        <a href="contato.html" class="btn btn-primary btn-sm"><i class="fas fa-comments text-xs"></i> Orçamento</a>
-                    </div>
-                </div>
-
-                <div class="card bg-gray-800 border-gray-700 card-hover group overflow-hidden" id="seguranca" data-category="seguranca" data-aos="fade-up" data-aos-delay="300">
-                    <div class="-m-8 mb-6 p-6 bg-gradient-to-r from-red-600 to-rose-800 text-white">
-                        <div class="flex items-center gap-4 mb-3">
-                            <div class="w-14 h-14 bg-white/15 backdrop-blur-sm rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">🛡️</div>
-                            <div>
-                                <span class="text-red-200 text-xs font-semibold uppercase tracking-wider">Segurança Digital</span>
-                                <h3 class="text-xl font-bold leading-tight">Proteção & Recovery</h3>
-                            </div>
-                        </div>
-                        <p class="text-red-100 text-sm opacity-90">Proteja seus dados vitais e sistemas contra ameaças e perda acidental de ficheiros.</p>
-                    </div>
-                    <ul class="feature-list mb-5 space-y-2 text-gray-300">
-                        <li><i class="fas fa-check check-icon text-xs text-orange-500 mt-1 flex-shrink-0"></i> Remoção de vírus e ransomware</li>
-                        <li><i class="fas fa-check check-icon text-xs text-orange-500 mt-1 flex-shrink-0"></i> Instalação de antivírus corporativo</li>
-                        <li><i class="fas fa-check check-icon text-xs text-orange-500 mt-1 flex-shrink-0"></i> Recuperação de dados (HDs e SSDs)</li>
-                        <li><i class="fas fa-check check-icon text-xs text-orange-500 mt-1 flex-shrink-0"></i> Auditoria de segurança de rede</li>
-                    </ul>
-                    <div class="flex items-center justify-between pt-4 border-t border-gray-700">
-                        <div>
-                            <span class="text-xs text-gray-400">A partir de</span>
-                            <p class="text-xl font-black text-orange-500">R$ 150,00</p>
-                        </div>
-                        <a href="agendamento.html" class="btn btn-primary btn-sm"><i class="fas fa-calendar-alt text-xs"></i> Agendar</a>
-                    </div>
-                </div>
-
+            
+            <div id="loading-spinner" class="flex flex-col justify-center items-center py-20">
+                <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500 mb-4"></div>
+                <p class="text-gray-500 text-sm font-bold uppercase tracking-wider animate-pulse">Carregando portfólio...</p>
             </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 hidden" id="servicos-grid"></div>
+            
+            <div id="no-results" class="hidden text-center py-16">
+                <div class="w-20 h-20 bg-gray-900 border border-gray-800 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg"><i class="fas fa-clipboard-list text-gray-600 text-3xl"></i></div>
+                <h3 class="text-xl font-bold text-white mb-2">Nenhum serviço encontrado</h3>
+            </div>
+            
         </div>
     </section>
-
+    
     <div id="footer"></div>
+
+    <div id="modal-detalhes" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[100] hidden items-center justify-center p-4 transition-all">
+        <div class="bg-gray-900 border border-gray-700 w-full max-w-4xl rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] modal-enter overflow-hidden flex flex-col md:flex-row max-h-[95vh] md:max-h-[80vh]">
+            
+            <div id="detalhe-img-container" class="md:w-1/2 bg-gray-900 relative flex items-center justify-center min-h-[250px] md:min-h-full overflow-hidden border-b md:border-b-0 md:border-r border-gray-800">
+                <div id="detalhe-imagem-blur" class="absolute inset-0 bg-cover bg-center opacity-30 blur-2xl transform scale-110 transition-all duration-700"></div>
+                <button onclick="fecharDetalhes()" class="absolute top-4 left-4 bg-black/60 hover:bg-black text-white w-10 h-10 rounded-full flex items-center justify-center md:hidden z-20 transition-colors"><i class="fas fa-arrow-left"></i></button>
+                <div id="detalhe-imagem" class="absolute inset-8 bg-contain bg-no-repeat bg-center transition-transform duration-700 hover:scale-105 z-10"></div>
+                <div id="detalhe-icone" class="hidden z-10"><i class="fas fa-tools text-6xl text-gray-600"></i></div>
+            </div>
+            
+            <div class="md:w-1/2 p-6 md:p-10 overflow-y-auto relative flex flex-col bg-gray-900">
+                <button onclick="fecharDetalhes()" class="absolute top-6 right-6 text-gray-400 hover:text-orange-500 transition-colors hidden md:block z-10"><i class="fas fa-times text-2xl"></i></button>
+                
+                <div class="mt-2 md:mt-0">
+                    <span id="detalhe-categoria" class="px-3 py-1 bg-gray-800 text-gray-300 border border-gray-700 rounded-md text-[10px] font-bold uppercase tracking-wider mb-4 inline-block">Categoria</span>
+                    <h2 id="detalhe-nome" class="text-2xl md:text-3xl font-black text-white mb-4 leading-tight">Nome do Serviço</h2>
+                    
+                    <div class="mb-6 border-b border-gray-800 pb-6">
+                        <p class="text-xs text-gray-500 uppercase tracking-wider font-bold mb-1" id="detalhe-preco-label">Investimento</p>
+                        <div id="detalhe-preco" class="text-3xl font-black text-orange-500">Sob Orçamento</div>
+                    </div>
+
+                    <div class="mb-8 flex-1">
+                        <p class="text-sm text-white font-bold mb-3 flex items-center gap-2"><i class="fas fa-info-circle text-orange-500"></i> Detalhes do Serviço</p>
+                        <p id="detalhe-descricao" class="text-gray-400 text-sm leading-relaxed whitespace-pre-wrap">Descrição não informada.</p>
+                    </div>
+
+                    <div class="flex flex-col gap-3 mt-auto">
+                        <a id="detalhe-wpp-btn" href="#" target="_blank" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold text-lg py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-3">
+                            <i class="fab fa-whatsapp text-xl"></i> Solicitar Orçamento
+                        </a>
+                        
+                        <a id="detalhe-link-extra" href="#" target="_blank" class="hidden w-full bg-gray-800 hover:bg-gray-700 border border-gray-700 text-white font-bold text-sm py-3.5 rounded-xl transition-all items-center justify-center gap-2">
+                            Saiba Mais em Nossa Página Especial <i class="fas fa-external-link-alt ml-1 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="js/main.js"></script>
-    <script>
-        AOS.init({ duration: 750, once: true, offset: 80 });
-        document.addEventListener('DOMContentLoaded', function() {
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, onSnapshot, query, where } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCpxfzPrj1DJpcv-bHsVtR1Y7NSVN3KRTI",
+            authDomain: "xerfan-tech-lab.firebaseapp.com",
+            projectId: "xerfan-tech-lab",
+            storageBucket: "xerfan-tech-lab.firebasestorage.app",
+            messagingSenderId: "931331197336",
+            appId: "1:931331197336:web:ca2550d7d10da44fbb43ed"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        document.addEventListener('DOMContentLoaded', () => {
             loadComponent('header', 'components/header.html');
             loadComponent('footer', 'components/footer.html');
-            
-            // Filtro de serviços
-            document.getElementById('service-filters')?.addEventListener('click', e => {
-                const tab = e.target.closest('.filter-tab');
-                if (!tab) return;
-                
-                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                
-                const filter = tab.dataset.filter;
-                document.querySelectorAll('#services-grid > div[data-category]').forEach(card => {
-                    if (filter === 'all' || card.dataset.category === filter) {
-                        card.style.display = '';
+            AOS.init({ duration: 800, once: true });
+
+            const grid = document.getElementById('servicos-grid');
+            const spinner = document.getElementById('loading-spinner');
+            const noResults = document.getElementById('no-results');
+            const filterTabsContainer = document.getElementById('servicos-filters');
+            const searchInput = document.getElementById('search-servicos');
+
+            const q = query(collection(db, "servicos"), where("status", "==", "ativo"));
+
+            onSnapshot(q, (snapshot) => {
+                spinner.classList.add('hidden');
+                grid.innerHTML = '';
+                const categoriasUnicas = new Set();
+
+                if (snapshot.empty) {
+                    noResults.classList.remove('hidden');
+                    grid.classList.add('hidden');
+                    filterTabsContainer.innerHTML = '<button class="filter-tab active whitespace-nowrap" data-cat="all">Sem Serviços</button>';
+                    return;
+                }
+
+                grid.classList.remove('hidden');
+                noResults.classList.add('hidden');
+
+                snapshot.forEach((doc) => {
+                    const s = doc.data();
+                    if(s.categoria) categoriasUnicas.add(s.categoria);
+                    
+                    // 1. CORES
+                    let corGradiente = 'from-gray-600 to-gray-800'; 
+                    let iconeBg = 'bg-white/20';
+                    let icone = 'fa-tools'; 
+                    
+                    const catL = s.categoria.toLowerCase();
+                    if(catL.includes('computador') || catL.includes('manuten')) {
+                        corGradiente = 'from-blue-600 to-blue-800'; icone = 'fa-laptop';
+                    } else if(catL.includes('smart') || catL.includes('celular') || catL.includes('tablet')) {
+                        corGradiente = 'from-orange-500 to-orange-700'; icone = 'fa-mobile-alt';
+                    } else if(catL.includes('automação') || catL.includes('smart') || catL.includes('projeto')) {
+                        corGradiente = 'from-purple-600 to-purple-800'; icone = 'fa-robot';
+                    } else if(catL.includes('rede') || catL.includes('energia')) {
+                        corGradiente = 'from-teal-600 to-teal-800'; icone = 'fa-bolt';
                     } else {
-                        card.style.display = 'none';
+                        const fallbackColors = ['from-blue-500 to-blue-700', 'from-emerald-500 to-emerald-700', 'from-rose-500 to-rose-700', 'from-indigo-500 to-indigo-700'];
+                        corGradiente = fallbackColors[s.categoria.length % fallbackColors.length];
                     }
+
+                    // 2. DESCRIÇÃO
+                    let linhas = s.descricao ? s.descricao.split('\n').filter(l => l.trim() !== '') : [];
+                    let textoTopo = linhas.length > 0 ? linhas[0] : "Serviço especializado Xerfan Tech Lab.";
+                    let bulletsHtml = '<div class="h-4"></div>'; 
+                    
+                    if (linhas.length > 1) {
+                        bulletsHtml = `<ul class="space-y-3 mb-6 flex-1 mt-6">`;
+                        for (let i = 1; i < Math.min(linhas.length, 6); i++) {
+                            bulletsHtml += `<li class="flex items-start gap-2 text-sm text-gray-300"><i class="fas fa-check text-orange-500 mt-1 shrink-0"></i> <span class="leading-snug">${linhas[i]}</span></li>`;
+                        }
+                        bulletsHtml += `</ul>`;
+                    } else if (linhas.length === 1) {
+                        bulletsHtml = `<div class="mb-6 flex-1 mt-6 text-sm text-gray-400 italic">Clique para saber mais...</div>`;
+                    }
+
+                    // 3. PREÇOS
+                    let precoHtml = s.sob_orcamento 
+                        ? `<div class="text-xl font-black text-white">Sob Consulta</div>` 
+                        : `<div class="text-2xl font-black text-orange-500">R$ ${parseFloat(s.preco_base || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</div>`;
+
+                    // 4. LÓGICA DE BOTÕES E LINKS
+                    const servicoJsonStr = encodeURIComponent(JSON.stringify(s));
+                    let btnWppTexto = s.sob_orcamento ? 'Consultar' : 'Agendar';
+                    let btnIcon = s.sob_orcamento ? 'fa-comment-dots' : 'fa-calendar-alt';
+
+                    // O botão laranja SEMPRE abre o modal (que tem o WPP). 
+                    // Se tiver link, adiciona um botão cinza menor ao lado.
+                    let botoesRodape = '';
+                    if (s.link_pagina && s.link_pagina.trim() !== "") {
+                        botoesRodape = `
+                        <div class="flex items-center gap-2">
+                            <a href="${s.link_pagina.trim()}" target="_blank" onclick="event.stopPropagation()" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2.5 px-4 rounded-xl text-xs flex items-center justify-center transition-all shadow-lg" title="Saiba mais em nova guia">
+                                Saiba Mais <i class="fas fa-external-link-alt ml-1.5"></i>
+                            </a>
+                            <button onclick="event.stopPropagation(); abrirDetalhesServico('${servicoJsonStr}')" class="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 text-white font-bold py-2.5 px-4 rounded-xl text-sm flex items-center gap-2 shadow-lg transition-all whitespace-nowrap">
+                                <i class="far ${btnIcon}"></i> ${btnWppTexto}
+                            </button>
+                        </div>
+                        `;
+                    } else {
+                        botoesRodape = `
+                        <button onclick="event.stopPropagation(); abrirDetalhesServico('${servicoJsonStr}')" class="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 text-white font-bold py-2.5 px-5 rounded-xl text-sm flex items-center gap-2 shadow-lg transition-all">
+                            <i class="far ${btnIcon}"></i> ${btnWppTexto}
+                        </button>
+                        `;
+                    }
+
+                    // O CARTÃO TODO ABRE O MODAL NO CLIQUE
+                    const cardHTML = `
+                    <div class="servico-item servico-card-pro bg-gray-800 rounded-3xl overflow-hidden flex flex-col h-full border border-gray-700/50 cursor-pointer" data-cat="${s.categoria}" onclick="abrirDetalhesServico('${servicoJsonStr}')" data-aos="fade-up">
+                        
+                        <div class="bg-gradient-to-br ${corGradiente} p-6 flex flex-col gap-4 min-h-[160px]">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-white text-2xl shrink-0 shadow-inner"><i class="fas ${icone}"></i></div>
+                                <div>
+                                    <span class="text-[10px] font-bold uppercase tracking-wider text-white/70">${s.categoria}</span>
+                                    <h3 class="text-xl font-bold text-white leading-tight line-clamp-2" title="${s.nome}">${s.nome}</h3>
+                                </div>
+                            </div>
+                            <p class="text-sm text-white/90 leading-snug line-clamp-3">${textoTopo}</p>
+                        </div>
+
+                        <div class="p-6 flex-1 flex flex-col bg-gray-800">
+                            ${bulletsHtml}
+                            <div class="flex items-end justify-between mt-auto pt-4 border-t border-gray-700/50">
+                                <div><span class="text-xs text-gray-400 block mb-1">${s.sob_orcamento ? 'Valor:' : 'A partir de'}</span>${precoHtml}</div>
+                                ${botoesRodape}
+                            </div>
+                        </div>
+                    </div>`;
+                    
+                    grid.insertAdjacentHTML('beforeend', cardHTML);
+                });
+
+                // Abas
+                filterTabsContainer.innerHTML = `<button class="filter-tab active whitespace-nowrap" data-cat="all">Todos os Serviços</button>`;
+                categoriasUnicas.forEach(cat => { filterTabsContainer.innerHTML += `<button class="filter-tab whitespace-nowrap" data-cat="${cat}">⚙️ ${cat}</button>`; });
+                
+                document.querySelectorAll('.filter-tab').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                        e.target.classList.add('active');
+                        const catAtiva = e.target.dataset.cat;
+                        document.querySelectorAll('.servico-item').forEach(c => {
+                            c.style.display = (catAtiva === 'all' || c.dataset.cat === catAtiva) ? 'flex' : 'none';
+                        });
+                    });
                 });
             });
+        });
+
+        // ==========================================
+        // JANELA DE DETALHES DO SERVIÇO
+        // ==========================================
+        window.abrirDetalhesServico = function(jsonStr) {
+            const s = JSON.parse(decodeURIComponent(jsonStr));
+            const modal = document.getElementById('modal-detalhes');
+            
+            const elImagem = document.getElementById('detalhe-imagem');
+            const elImagemBlur = document.getElementById('detalhe-imagem-blur');
+            const elIcone = document.getElementById('detalhe-icone');
+            const elCategoria = document.getElementById('detalhe-categoria');
+            const elNome = document.getElementById('detalhe-nome');
+            const elPreco = document.getElementById('detalhe-preco');
+            const elDescricao = document.getElementById('detalhe-descricao');
+            const elBtnWpp = document.getElementById('detalhe-wpp-btn');
+            const elLinkExtra = document.getElementById('detalhe-link-extra');
+
+            if (s.imagem && s.imagem.trim() !== "") {
+                elImagem.style.backgroundImage = `url('${s.imagem}')`;
+                if(elImagemBlur) elImagemBlur.style.backgroundImage = `url('${s.imagem}')`;
+                elImagem.classList.remove('hidden');
+                if(elImagemBlur) elImagemBlur.classList.remove('hidden');
+                elIcone.classList.add('hidden');
+            } else {
+                elImagem.classList.add('hidden');
+                if(elImagemBlur) elImagemBlur.classList.add('hidden');
+                elIcone.classList.remove('hidden');
+                let icoClass = 'fa-tools';
+                elIcone.innerHTML = `<i class="fas ${icoClass} text-8xl text-gray-600"></i>`;
+            }
+
+            elCategoria.innerText = s.categoria;
+            elNome.innerText = s.nome;
+            elDescricao.innerText = s.descricao && s.descricao.trim() !== "" ? s.descricao : "Para mais detalhes, entre em contato.";
+
+            if (s.sob_orcamento) {
+                elPreco.innerHTML = `Sob Orçamento <span class="text-sm font-medium text-gray-400 block mt-1">Valores variam conforme a complexidade.</span>`;
+            } else {
+                elPreco.innerText = `A partir de R$ ${parseFloat(s.preco_base || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+            }
+
+            elBtnWpp.href = `https://wa.me/5521999999999?text=${encodeURIComponent(`Olá! Gostaria de agendar ou solicitar um orçamento para o serviço: ${s.nome}`)}`;
+
+            // Verifica se tem Link Exclusivo para mostrar o botão no Modal
+            if (s.link_pagina && s.link_pagina.trim() !== "") {
+                elLinkExtra.href = s.link_pagina.trim();
+                elLinkExtra.classList.remove('hidden');
+                elLinkExtra.classList.add('flex');
+            } else {
+                elLinkExtra.classList.add('hidden');
+                elLinkExtra.classList.remove('flex');
+            }
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.fecharDetalhes = function() {
+            const modal = document.getElementById('modal-detalhes');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+        };
+
+        document.getElementById('modal-detalhes').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('modal-detalhes')) fecharDetalhes();
         });
     </script>
 </body>

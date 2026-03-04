@@ -7,9 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    </style>
+    <style> body { font-family: 'Plus Jakarta Sans', sans-serif; } </style>
 </head>
 <body class="bg-gray-950 flex items-center justify-center min-h-screen relative overflow-hidden">
 
@@ -27,13 +25,18 @@
             <p class="text-gray-400 text-sm mt-1">Acesso restrito ao sistema</p>
         </div>
 
-        <form class="bg-gray-900 border border-gray-800 p-8 rounded-3xl shadow-2xl space-y-6">
+        <form id="form-login" class="bg-gray-900 border border-gray-800 p-8 rounded-3xl shadow-2xl space-y-6">
+            
+            <div id="msg-erro" class="hidden bg-red-500/10 border border-red-500/20 text-red-500 text-sm p-3 rounded-lg text-center font-medium">
+                E-mail ou senha incorretos!
+            </div>
+
             <div>
                 <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 ml-1">E-mail Administrativo</label>
                 <div class="relative">
                     <i class="fas fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"></i>
-                    <input type="email" required placeholder="admin@xerfantechlab.com.br" 
-                           class="w-full bg-gray-800 border border-gray-700 rounded-xl py-3 pl-11 pr-4 text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all">
+                    <input type="email" id="login-email" required placeholder="admin@xerfantechlab.com.br" 
+                           class="w-full bg-gray-800 border border-gray-700 rounded-xl py-3 pl-11 pr-4 text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all outline-none">
                 </div>
             </div>
 
@@ -41,20 +44,56 @@
                 <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 ml-1">Palavra-passe</label>
                 <div class="relative">
                     <i class="fas fa-key absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"></i>
-                    <input type="password" required placeholder="••••••••" 
-                           class="w-full bg-gray-800 border border-gray-700 rounded-xl py-3 pl-11 pr-4 text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all">
+                    <input type="password" id="login-senha" required placeholder="••••••••" 
+                           class="w-full bg-gray-800 border border-gray-700 rounded-xl py-3 pl-11 pr-4 text-white focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all outline-none">
                 </div>
             </div>
 
-            <button type="button" onclick="window.location.href='dashboard.html'" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-orange-500/25 transform hover:-translate-y-0.5 transition-all">
-                Entrar no Sistema
+            <button type="submit" id="btn-entrar" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-orange-500/25 transform hover:-translate-y-0.5 transition-all flex justify-center items-center gap-2">
+                Entrar no Sistema <i class="fas fa-sign-in-alt"></i>
             </button>
         </form>
-
-        <p class="text-center text-xs text-gray-600 mt-6 flex items-center justify-center gap-1.5">
-            <i class="fas fa-shield-alt"></i> Ambiente Seguro e Criptografado
-        </p>
     </div>
 
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCpxfzPrj1DJpcv-bHsVtR1Y7NSVN3KRTI",
+            authDomain: "xerfan-tech-lab.firebaseapp.com",
+            projectId: "xerfan-tech-lab",
+            storageBucket: "xerfan-tech-lab.firebasestorage.app",
+            messagingSenderId: "931331197336",
+            appId: "1:931331197336:web:ca2550d7d10da44fbb43ed"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        document.getElementById('form-login').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btn-entrar');
+            const erroMsg = document.getElementById('msg-erro');
+            const email = document.getElementById('login-email').value;
+            const senha = document.getElementById('login-senha').value;
+
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verificando...';
+            btn.disabled = true;
+            erroMsg.classList.add('hidden');
+
+            try {
+                // Tenta fazer o login com a Google
+                await signInWithEmailAndPassword(auth, email, senha);
+                // Se der certo, manda para o dashboard
+                window.location.href = 'dashboard.html';
+            } catch (error) {
+                console.error("Erro no login:", error);
+                erroMsg.classList.remove('hidden');
+                btn.innerHTML = 'Entrar no Sistema <i class="fas fa-sign-in-alt"></i>';
+                btn.disabled = false;
+            }
+        });
+    </script>
 </body>
 </html>
