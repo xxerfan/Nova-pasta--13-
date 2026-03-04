@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Portfólio Dinâmico - Xerfan Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style> body { font-family: 'Plus Jakarta Sans', sans-serif; } </style>
+</head>
+<body class="bg-gray-950 text-gray-200 flex h-screen overflow-hidden">
+
+    <aside class="w-64 bg-gray-900 border-r border-gray-800 flex flex-col shrink-0">
+        <div class="h-20 flex items-center px-6 border-b border-gray-800">
+            <div class="w-8 h-8 bg-orange-600 rounded-lg flex items-center justify-center text-white font-black mr-3">X</div>
+            <span class="font-bold text-white tracking-wide">Xerfan Admin</span>
+        </div>
+        <nav class="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
+            <p class="px-2 text-[10px] font-bold text-gray-500 uppercase mb-2 tracking-widest">Conteúdo</p>
+            <a href="portfolio.html" class="flex items-center gap-3 px-3 py-2.5 bg-orange-500/10 text-orange-500 rounded-xl transition-all"><i class="fas fa-images w-5"></i> Portfólio</a>
+            <a href="blog.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white rounded-xl transition-all"><i class="fas fa-pen-nib w-5"></i> Blog</a>
+            <p class="px-2 text-[10px] font-bold text-gray-500 uppercase mt-6 mb-2 tracking-widest">Catálogo</p>
+            <a href="produtos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white rounded-xl transition-all"><i class="fas fa-box w-5"></i> Produtos</a>
+            <a href="servicos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white rounded-xl transition-all"><i class="fas fa-cogs w-5"></i> Serviços</a>
+        </nav>
+    </aside>
+
+    <main class="flex-1 flex flex-col h-screen overflow-hidden">
+        <header class="h-20 bg-gray-900 border-b border-gray-800 flex items-center justify-between px-8 shrink-0">
+            <div>
+                <h2 class="text-xl font-bold text-white">Portfólio</h2>
+                <p class="text-xs text-gray-400">Projetos e Obras Xerfan Tech Lab</p>
+            </div>
+            <button onclick="abrirModalNovo()" class="bg-orange-500 hover:bg-orange-600 text-white text-sm font-bold px-5 py-2.5 rounded-xl transition-all shadow-lg shadow-orange-500/20">
+                <i class="fas fa-plus mr-2"></i> Novo Projeto
+            </button>
+        </header>
+
+        <div class="flex-1 overflow-y-auto p-8">
+            <div id="grid-portfolio" class="grid md:grid-cols-3 xl:grid-cols-4 gap-6">
+                </div>
+        </div>
+    </main>
+
+    <div id="modal-portfolio" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-gray-900 border border-gray-700 w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl p-8 shadow-2xl">
+            <div class="flex justify-between items-center mb-6">
+                <h3 id="modal-titulo" class="text-2xl font-bold text-white">Cadastrar Projeto</h3>
+                <button onclick="fecharModal()" class="text-gray-500 hover:text-white"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            
+            <form id="form-portfolio" class="space-y-4">
+                <input type="hidden" id="proj-id">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-bold text-gray-500 uppercase mb-2 tracking-widest">Título do Projeto</label>
+                        <input type="text" id="proj-titulo" required class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white outline-none focus:border-orange-500 transition-all" placeholder="Ex: Automação Residencial Smart">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-gray-500 uppercase mb-2 tracking-widest">Categoria (Escolha ou Digite uma Nova)</label>
+                        <input list="lista-categorias" id="proj-categoria" required class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white outline-none focus:border-orange-500 transition-all" placeholder="Selecione ou digite...">
+                        <datalist id="lista-categorias">
+                            </datalist>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-bold text-gray-500 uppercase mb-2 tracking-widest">URL da Imagem Principal</label>
+                        <input type="text" id="proj-imagem" required class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white outline-none focus:border-orange-500 transition-all" placeholder="https://...">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-gray-500 uppercase mb-2 tracking-widest">Data de Conclusão</label>
+                        <input type="month" id="proj-data" required class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white outline-none focus:border-orange-500 [color-scheme:dark]">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-500 uppercase mb-2 tracking-widest">Descrição Técnica (Aceita Imagens via HTML)</label>
+                    <textarea id="proj-desc" rows="8" required class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white outline-none focus:border-orange-500 resize-none transition-all" placeholder="Descreva os detalhes técnicos do projeto..."></textarea>
+                    <p class="text-[10px] text-gray-600 mt-2">Dica: Use &lt;img src="..." class="w-full rounded-xl my-4"&gt; para inserir fotos no texto.</p>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-6 border-t border-gray-800">
+                    <button type="button" onclick="fecharModal()" class="text-gray-400 font-bold px-6 py-3 hover:text-white transition-all">Cancelar</button>
+                    <button type="submit" id="btn-submit" class="bg-orange-500 hover:bg-orange-600 text-white font-bold px-10 py-3 rounded-xl shadow-lg transition-all">
+                        Salvar Projeto
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc, query, orderBy, getDocs, where } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        const firebaseConfig = { apiKey: "AIzaSyCpxfzPrj1DJpcv-bHsVtR1Y7NSVN3KRTI", authDomain: "xerfan-tech-lab.firebaseapp.com", projectId: "xerfan-tech-lab", storageBucket: "xerfan-tech-lab.firebasestorage.app", messagingSenderId: "931331197336", appId: "1:931331197336:web:ca2550d7d10da44fbb43ed" };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const colPortfolio = collection(db, "portfolio");
+        const colCategorias = collection(db, "categorias_portfolio");
+        
+        window.portfolioData = {};
+        let categoriasExistentes = [];
+
+        // 1. CARREGAR CATEGORIAS PARA O DATALIST (Sincronização em tempo real)
+        onSnapshot(colCategorias, (snap) => {
+            const datalist = document.getElementById('lista-categorias');
+            datalist.innerHTML = '';
+            categoriasExistentes = [];
+            snap.forEach(d => {
+                const nome = d.data().nome;
+                categoriasExistentes.push(nome);
+                datalist.innerHTML += `<option value="${nome}">`;
+            });
+        });
+
+        // 2. LISTAR PROJETOS NO GRID
+        onSnapshot(query(colPortfolio, orderBy("data_cadastro", "desc")), (snap) => {
+            const grid = document.getElementById('grid-portfolio');
+            grid.innerHTML = '';
+            snap.forEach(d => {
+                const p = d.data();
+                window.portfolioData[d.id] = p;
+                grid.innerHTML += `
+                    <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden group hover:border-orange-500/50 transition-all">
+                        <div class="relative h-40 overflow-hidden">
+                            <img src="${p.imagem}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-80">
+                            <div class="absolute top-3 left-3 bg-orange-500 text-[10px] font-black px-2 py-1 rounded text-white uppercase tracking-tighter">${p.categoria}</div>
+                        </div>
+                        <div class="p-5">
+                            <h4 class="font-bold text-white mb-4 line-clamp-1">${p.titulo}</h4>
+                            <div class="flex justify-between items-center border-t border-gray-800 pt-4">
+                                <button onclick="prepararEdicao('${d.id}')" class="text-blue-500 text-[10px] font-bold uppercase tracking-widest hover:text-blue-400"><i class="fas fa-edit mr-1"></i> Editar</button>
+                                <button onclick="excluirProj('${d.id}')" class="text-red-500 text-[10px] font-bold uppercase tracking-widest hover:text-red-400"><i class="fas fa-trash mr-1"></i></button>
+                            </div>
+                        </div>
+                    </div>`;
+            });
+        });
+
+        // 3. SALVAR PROJETO + LÓGICA DE NOVA CATEGORIA
+        document.getElementById('form-portfolio').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('proj-id').value;
+            const catNome = document.getElementById('proj-categoria').value.trim();
+            const btn = document.getElementById('btn-submit');
+            
+            btn.disabled = true; btn.innerText = "A processar...";
+
+            try {
+                // Se a categoria for nova, cria no banco
+                if (!categoriasExistentes.includes(catNome)) {
+                    await addDoc(colCategorias, { nome: catNome });
+                }
+
+                const dados = {
+                    titulo: document.getElementById('proj-titulo').value,
+                    categoria: catNome,
+                    data_conclusao: document.getElementById('proj-data').value,
+                    imagem: document.getElementById('proj-imagem').value,
+                    descricao: document.getElementById('proj-desc').value,
+                    data_cadastro: id ? window.portfolioData[id].data_cadastro : new Date().toISOString()
+                };
+
+                if (id) {
+                    await updateDoc(doc(db, "portfolio", id), dados);
+                } else {
+                    await addDoc(colPortfolio, dados);
+                }
+
+                fecharModal();
+                document.getElementById('form-portfolio').reset();
+            } catch (err) {
+                console.error(err);
+                alert("Erro ao guardar dados.");
+            } finally {
+                btn.disabled = false; btn.innerText = "Salvar Projeto";
+            }
+        });
+
+        // FUNÇÕES DE UI
+        window.abrirModalNovo = () => {
+            document.getElementById('form-portfolio').reset();
+            document.getElementById('proj-id').value = "";
+            document.getElementById('modal-titulo').innerText = "Cadastrar Projeto";
+            document.getElementById('modal-portfolio').classList.replace('hidden', 'flex');
+        };
+
+        window.prepararEdicao = (id) => {
+            const p = window.portfolioData[id];
+            document.getElementById('proj-id').value = id;
+            document.getElementById('proj-titulo').value = p.titulo;
+            document.getElementById('proj-categoria').value = p.categoria;
+            document.getElementById('proj-data').value = p.data_conclusao;
+            document.getElementById('proj-imagem').value = p.imagem;
+            document.getElementById('proj-desc').value = p.descricao;
+            document.getElementById('modal-titulo').innerText = "Editar Projeto";
+            document.getElementById('modal-portfolio').classList.replace('hidden', 'flex');
+        };
+
+        window.excluirProj = async (id) => {
+            if(confirm("Tem a certeza que deseja eliminar este projeto?")) {
+                await deleteDoc(doc(db, "portfolio", id));
+            }
+        };
+
+        window.fecharModal = () => document.getElementById('modal-portfolio').classList.replace('flex', 'hidden');
+    </script>
+</body>
+</html>

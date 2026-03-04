@@ -38,7 +38,6 @@
             <div class="grid lg:grid-cols-5 gap-10 lg:gap-16 items-start">
                 
                 <div class="lg:col-span-2 space-y-6" data-aos="fade-right">
-                    
                     <div class="mb-8">
                         <h2 class="text-3xl font-black text-white mb-3">Como ajudar?</h2>
                         <p class="text-gray-400 text-sm leading-relaxed">
@@ -53,7 +52,7 @@
                             </div>
                             <div>
                                 <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">WhatsApp Rápido</p>
-                                <p class="text-lg font-bold text-white group-hover:text-green-400 transition-colors">(21) 99999-9999</p>
+                                <p class="text-lg font-bold text-white group-hover:text-green-400 transition-colors">(21) 98701-8539</p>
                             </div>
                         </div>
                     </a>
@@ -94,11 +93,10 @@
                             Enviar Mensagem
                         </h3>
                         
-                        <form action="https://api.web3forms.com/submit" method="POST" class="space-y-6 relative z-10">
+                        <form id="form-lead" class="space-y-6 relative z-10">
                             
                             <input type="hidden" name="access_key" value="7a7dcbd0-f1c5-402a-b886-6c71d0a1ee18">
                             <input type="hidden" name="subject" value="NOVA MENSAGEM - Site Xerfan Tech Lab">
-                            <input type="hidden" name="redirect" value="https://seusite.com.br/contato.html?sucesso=true">
                             <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
                             <div class="grid md:grid-cols-2 gap-5">
@@ -151,24 +149,84 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="js/main.js"></script>
-    <script>
-        AOS.init({ duration: 800, once: true, offset: 50 });
-        
+    
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCpxfzPrj1DJpcv-bHsVtR1Y7NSVN3KRTI",
+            authDomain: "xerfan-tech-lab.firebaseapp.com",
+            projectId: "xerfan-tech-lab",
+            storageBucket: "xerfan-tech-lab.firebasestorage.app",
+            messagingSenderId: "931331197336",
+            appId: "1:931331197336:web:ca2550d7d10da44fbb43ed"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Inicializa animações e componentes
         document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({ duration: 800, once: true, offset: 50 });
             loadComponent('header', 'components/header.html');
             loadComponent('footer', 'components/footer.html');
             
-            // Script para notificação de sucesso igual ao do agendamento
-            const urlParams = new URLSearchParams(window.location.search);
-            if(urlParams.get('sucesso') === 'true') {
-                setTimeout(() => {
-                    if(typeof mostrarNotificacao === 'function') {
-                        mostrarNotificacao('Mensagem enviada com sucesso! Responderemos o mais breve possível.', 'success', 6000);
-                    } else {
-                        alert('Mensagem enviada com sucesso! Responderemos o mais breve possível.');
+            const formLead = document.getElementById('form-lead');
+            
+            if(formLead) {
+                formLead.addEventListener('submit', async function(e) {
+                    e.preventDefault(); // Impede a tela branca
+                    
+                    const btn = formLead.querySelector('button[type="submit"]');
+                    const textoOriginal = btn.innerHTML;
+                    
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ENVIANDO...';
+                    btn.disabled = true;
+
+                    try {
+                        const formData = new FormData(formLead);
+                        const dados = Object.fromEntries(formData.entries());
+
+                        // 1. Grava no Firebase (CRM)
+                        await addDoc(collection(db, "mensagens"), {
+                            nome: dados.nome || 'Não informado',
+                            email: dados.email || 'Não informado',
+                            telefone: dados.telefone || 'Não informado',
+                            assunto: dados.assunto_selecionado || 'Nova Solicitação',
+                            mensagem: dados.mensagem || 'Sem mensagem extra',
+                            data_envio: new Date().toISOString(),
+                            status: 'nova',
+                            origem: 'Página de Contato'
+                        });
+
+                        // 2. Dispara e-mail Web3Forms silenciosamente
+                        await fetch('https://api.web3forms.com/submit', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json'
+                            },
+                            body: JSON.stringify(dados)
+                        });
+
+                        // Sucesso total
+                        formLead.reset();
+                        
+                        if(typeof mostrarNotificacao === 'function') {
+                            mostrarNotificacao('Mensagem enviada com sucesso! Responderemos em breve.', 'success', 6000);
+                        } else {
+                            alert('Mensagem enviada com sucesso! Responderemos o mais breve possível.');
+                        }
+
+                    } catch (error) {
+                        console.error("Erro no envio:", error);
+                        alert('Tivemos um problema com a conexão. Por favor, tente enviar-nos uma mensagem pelo WhatsApp.');
+                    } finally {
+                        btn.innerHTML = textoOriginal;
+                        btn.disabled = false;
                     }
-                    window.history.replaceState({}, document.title, window.location.pathname);
-                }, 500);
+                });
             }
         });
     </script>

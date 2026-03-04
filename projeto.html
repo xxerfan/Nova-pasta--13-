@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projeto - Xerfan Tech Lab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/enhancements.css" />
+    <link rel="icon" type="image/x-icon" href="img/logo.png" />
+    <style> 
+        body { font-family: "Plus Jakarta Sans", sans-serif; } 
+        #proj-desc p { margin-bottom: 1.25rem; line-height: 1.8; color: #9ca3af; }
+    </style>
+</head>
+<body class="bg-gray-950">
+    <div id="header"></div>
+
+    <main class="container mx-auto px-4 max-w-5xl py-32 min-h-screen">
+        <div class="grid lg:grid-cols-3 gap-12" data-aos="fade-up">
+            <div class="lg:col-span-2">
+                <a href="portfolio.html" class="inline-flex items-center text-orange-500 hover:text-orange-400 font-bold mb-8 transition-all">
+                    <i class="fas fa-arrow-left mr-2"></i> Voltar
+                </a>
+                
+                <div class="rounded-3xl overflow-hidden shadow-2xl mb-10 border border-gray-800 bg-gray-900 aspect-video">
+                    <img id="proj-capa" class="w-full h-full object-cover hidden">
+                </div>
+                
+                <h1 id="proj-titulo" class="text-4xl md:text-5xl font-black text-white mb-6 leading-tight">Carregando...</h1>
+                <div id="proj-desc" class="text-lg"></div>
+            </div>
+
+            <div class="lg:col-span-1">
+                <div class="bg-gray-900 border border-gray-800 p-8 rounded-3xl sticky top-32">
+                    <h3 class="text-white font-bold mb-6 border-b border-gray-800 pb-4">Ficha do Projeto</h3>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <span class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">Cliente / Local</span>
+                            <p id="proj-cliente" class="text-white font-bold"></p>
+                        </div>
+                        <div>
+                            <span class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">Categoria</span>
+                            <p id="proj-cat" class="text-orange-500 font-bold"></p>
+                        </div>
+                        <div>
+                            <span class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">Conclusão</span>
+                            <p id="proj-data" class="text-white font-bold"></p>
+                        </div>
+                    </div>
+                    
+                    <a href="contato.html" class="block w-full text-center bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 rounded-xl mt-8 shadow-lg shadow-orange-500/20 transition-all">Solicitar Similar</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
+    
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        const firebaseConfig = { 
+            apiKey: "AIzaSyCpxfzPrj1DJpcv-bHsVtR1Y7NSVN3KRTI", 
+            authDomain: "xerfan-tech-lab.firebaseapp.com", 
+            projectId: "xerfan-tech-lab", 
+            storageBucket: "xerfan-tech-lab.firebasestorage.app", 
+            messagingSenderId: "931331197336", 
+            appId: "1:931331197336:web:ca2550d7d10da44fbb43ed" 
+        };
+
+        async function initProject() {
+            if(typeof loadComponent === 'function') {
+                await Promise.all([
+                    loadComponent('header', 'components/header.html'),
+                    loadComponent('footer', 'components/footer.html')
+                ]);
+            }
+            AOS.init({ duration: 800, once: true });
+
+            const id = new URLSearchParams(window.location.search).get('id');
+            if (id) {
+                const app = initializeApp(firebaseConfig);
+                const db = getFirestore(app);
+                const s = await getDoc(doc(db, "portfolio", id));
+                
+                if (s.exists()) {
+                    const p = s.data();
+                    document.title = p.titulo + " - Xerfan Tech Lab";
+                    document.getElementById('proj-titulo').innerText = p.titulo;
+                    document.getElementById('proj-cliente').innerText = p.cliente || 'Confidencial';
+                    document.getElementById('proj-cat').innerText = p.categoria;
+                    document.getElementById('proj-data').innerText = p.data_conclusao || 'Recente';
+                    
+                    const img = document.getElementById('proj-capa');
+                    img.src = p.imagem;
+                    img.classList.remove('hidden');
+
+                    document.getElementById('proj-desc').innerHTML = p.descricao
+                        .split('\n')
+                        .map(t => t.trim() ? `<p>${t}</p>` : '')
+                        .join('');
+                }
+            }
+        }
+        window.addEventListener('load', initProject);
+    </script>
+</body>
+</html>

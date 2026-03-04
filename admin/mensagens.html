@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensagens & Leads - Admin Xerfan Tech Lab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style> body { font-family: 'Plus Jakarta Sans', sans-serif; } </style>
+</head>
+<body class="bg-gray-950 text-gray-200 flex h-screen overflow-hidden">
+
+    <div id="auth-guard" class="fixed inset-0 bg-gray-950 z-[999] flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="w-16 h-16 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+    </div>
+
+    <aside class="w-64 bg-gray-900 border-r border-gray-800 flex flex-col hidden md:flex z-20 shrink-0">
+        <div class="h-20 flex items-center px-6 border-b border-gray-800">
+            <div class="w-8 h-8 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center text-white font-black shadow-lg mr-3">X</div>
+            <span class="font-bold text-white tracking-wide">Xerfan Admin</span>
+        </div>
+
+        <nav class="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
+            <p class="px-2 text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Visão Geral</p>
+            <a href="dashboard.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium">
+                <i class="fas fa-chart-pie w-5"></i> Dashboard
+            </a>
+            
+            <p class="px-2 text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 mt-6">CRM / Clientes</p>
+            <a href="agendamentos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium">
+                <i class="fas fa-calendar-check w-5 text-green-500"></i> Agendamentos
+            </a>
+            <a href="mensagens.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium relative">
+                <i class="fas fa-envelope w-5"></i> Dúvidas / Contatos
+                <span id="badge-novas-menu" class="absolute right-3 top-1/2 -translate-y-1/2 bg-orange-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full hidden">0</span>
+            </a>
+
+            <p class="px-2 text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 mt-6">Catálogo do Site</p>
+            <a href="produtos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium">
+                <i class="fas fa-box w-5"></i> Gestão de Produtos
+            </a>
+            <a href="servicos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium">
+                <i class="fas fa-cogs w-5"></i> Gestão de Serviços
+            </a>
+
+            <p class="px-2 text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 mt-6">Conteúdo</p>
+            <a href="portfolio.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium">
+                <i class="fas fa-images w-5"></i> Portfólio (Obras)
+            </a>
+            <a href="blog.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium">
+                <i class="fas fa-pen-nib w-5"></i> Gestão do Blog
+            </a>
+        </nav>
+
+        <div class="p-4 border-t border-gray-800">
+            <button onclick="fazerLogout()" class="w-full flex items-center gap-3 px-3 py-2 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-xl transition-colors text-sm font-medium">
+                <i class="fas fa-sign-out-alt w-5"></i> Sair do Sistema
+            </button>
+        </div>
+    </aside>
+    <main class="flex-1 flex flex-col h-screen relative">
+        <header class="h-20 bg-gray-900/80 backdrop-blur-md border-b border-gray-800 flex items-center justify-between px-8 z-10">
+            <div><h2 class="text-xl font-bold text-white">Central de Mensagens</h2><p class="text-xs text-gray-400">Gerencie orçamentos e agendamentos.</p></div>
+        </header>
+
+        <div class="flex-1 overflow-y-auto p-8 relative">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 relative z-10">
+                <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-sm">
+                    <div class="flex justify-between items-start">
+                        <div><p class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-1">Total de Mensagens</p><h3 class="text-3xl font-black text-white" id="stat-total">0</h3></div>
+                        <div class="w-10 h-10 bg-gray-800 text-gray-400 rounded-lg flex items-center justify-center"><i class="fas fa-inbox"></i></div>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-br from-orange-500 to-orange-600 p-6 rounded-2xl shadow-lg shadow-orange-500/20">
+                    <div class="flex justify-between items-start">
+                        <div><p class="text-white/80 text-xs font-bold uppercase tracking-wider mb-1">Não Lidas (Novas)</p><h3 class="text-3xl font-black text-white" id="stat-novas">0</h3></div>
+                        <div class="w-10 h-10 bg-white/20 text-white rounded-lg flex items-center justify-center"><i class="fas fa-envelope"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl shadow-sm overflow-hidden relative z-10">
+                <div class="p-6 border-b border-gray-800"><h3 class="font-bold text-white">Últimos Contatos</h3></div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-gray-800/50 text-gray-400 text-xs uppercase tracking-wider">
+                            <tr><th class="px-6 py-4 font-medium">Data</th><th class="px-6 py-4 font-medium">Origem</th><th class="px-6 py-4 font-medium">Cliente</th><th class="px-6 py-4 font-medium">Assunto</th><th class="px-6 py-4 font-medium">Status</th><th class="px-6 py-4 text-right font-medium">Ações</th></tr>
+                        </thead>
+                        <tbody id="tabela-mensagens" class="divide-y divide-gray-800">
+                            <tr><td colspan="6" class="px-6 py-8 text-center text-gray-500">Aguardando segurança...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="modal-leitura" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-gray-900 border border-gray-700 w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+            <div class="px-8 py-6 border-b border-gray-800 flex justify-between items-center bg-gray-800/50">
+                <h3 class="text-xl font-bold text-white flex items-center gap-2"><i class="fas fa-envelope-open-text text-orange-500"></i> Detalhes do Contato</h3>
+                <button onclick="fecharModal()" class="text-gray-400 hover:text-white transition-colors"><i class="fas fa-times text-lg"></i></button>
+            </div>
+            <div class="p-8 overflow-y-auto flex-1 space-y-6">
+                <div class="grid grid-cols-2 gap-4 bg-gray-800/50 p-4 rounded-xl border border-gray-800">
+                    <div><span class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Nome</span><p id="ler-nome" class="font-bold text-white"></p></div>
+                    <div><span class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Telefone/WhatsApp</span><p id="ler-telefone" class="font-bold text-white"></p></div>
+                    <div><span class="block text-[10px] font-bold text-gray-500 uppercase mb-1">E-mail</span><p id="ler-email" class="font-medium text-gray-300 break-words"></p></div>
+                    <div><span class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Data / Origem</span><p id="ler-data" class="font-medium text-gray-300"></p></div>
+                </div>
+                <div><span class="block text-[10px] font-bold text-gray-500 uppercase mb-2">Assunto / Serviço</span><div id="ler-assunto" class="bg-gray-800 border border-gray-700 p-3 rounded-lg text-orange-400 font-bold"></div></div>
+                <div><span class="block text-[10px] font-bold text-gray-500 uppercase mb-2">Mensagem do Cliente</span><div id="ler-mensagem" class="bg-gray-800 border border-gray-700 p-4 rounded-xl text-gray-300 whitespace-pre-wrap leading-relaxed"></div></div>
+            </div>
+            <div class="p-6 border-t border-gray-800 bg-gray-800/30 flex justify-end gap-3">
+                <a id="btn-wpp-cliente" href="#" target="_blank" class="px-6 py-2.5 bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl flex items-center gap-2 transition-all"><i class="fab fa-whatsapp text-lg"></i> Chamar no WhatsApp</a>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, onSnapshot, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCpxfzPrj1DJpcv-bHsVtR1Y7NSVN3KRTI",
+            authDomain: "xerfan-tech-lab.firebaseapp.com",
+            projectId: "xerfan-tech-lab",
+            storageBucket: "xerfan-tech-lab.firebasestorage.app",
+            messagingSenderId: "931331197336",
+            appId: "1:931331197336:web:ca2550d7d10da44fbb43ed"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) { document.getElementById('auth-guard').style.display = 'none'; iniciarSistemaMensagens(db); } 
+            else { window.location.href = 'login.html'; }
+        });
+
+        window.fazerLogout = function() { signOut(auth).then(() => { window.location.href = 'login.html'; }); };
+        window.mensagensData = {};
+
+        function iniciarSistemaMensagens(db) {
+            const mensagensRef = collection(db, "mensagens");
+            
+            onSnapshot(mensagensRef, (snapshot) => {
+                const tabela = document.getElementById('tabela-mensagens');
+                tabela.innerHTML = '';
+                
+                let total = 0; let novas = 0;
+                window.mensagensData = {};
+
+                // Transforma em array para ordenar da mais nova para a mais velha
+                let msgArray = [];
+                snapshot.forEach(doc => { msgArray.push({ id: doc.id, ...doc.data() }); });
+                msgArray.sort((a, b) => new Date(b.data_envio) - new Date(a.data_envio));
+
+                if (msgArray.length === 0) {
+                    tabela.innerHTML = '<tr><td colspan="6" class="px-6 py-8 text-center text-gray-500">Nenhuma mensagem recebida ainda.</td></tr>';
+                    document.getElementById('stat-total').innerText = "0"; document.getElementById('stat-novas').innerText = "0"; return;
+                }
+
+                msgArray.forEach((msg) => {
+                    total++;
+                    if(msg.status === 'nova') novas++;
+                    window.mensagensData[msg.id] = msg;
+
+                    // Formata a Data
+                    const dataObj = new Date(msg.data_envio);
+                    const dataBr = dataObj.toLocaleDateString('pt-BR') + ' ' + dataObj.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
+                    
+                    let statusBadge = msg.status === 'nova' 
+                        ? `<span class="bg-orange-500 text-white px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider animate-pulse">Nova</span>` 
+                        : `<span class="bg-gray-800 text-gray-400 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider border border-gray-700">Lida</span>`;
+                    
+                    let linhaClass = msg.status === 'nova' ? 'bg-orange-500/5 hover:bg-orange-500/10' : 'hover:bg-gray-800/50';
+
+                    const tr = document.createElement('tr');
+                    tr.className = `${linhaClass} transition-colors cursor-pointer`;
+                    tr.onclick = (e) => { if(e.target.tagName !== 'BUTTON' && e.target.tagName !== 'I') abrirMensagem(msg.id, db); };
+                    
+                    tr.innerHTML = `
+                        <td class="px-6 py-4 text-xs text-gray-400">${dataBr}</td>
+                        <td class="px-6 py-4"><span class="text-xs border border-gray-700 px-2 py-1 rounded text-gray-400">${msg.origem}</span></td>
+                        <td class="px-6 py-4 font-bold text-white">${msg.nome}</td>
+                        <td class="px-6 py-4 text-gray-300 truncate max-w-[200px]">${msg.assunto}</td>
+                        <td class="px-6 py-4">${statusBadge}</td>
+                        <td class="px-6 py-4 text-right">
+                            <button onclick="abrirMensagem('${msg.id}', null); event.stopPropagation();" class="text-gray-400 hover:text-blue-400 px-2"><i class="fas fa-eye"></i></button>
+                            <button onclick="deletarMensagem('${msg.id}'); event.stopPropagation();" class="text-gray-400 hover:text-red-500 px-2"><i class="fas fa-trash"></i></button>
+                        </td>
+                    `;
+                    tabela.appendChild(tr);
+                });
+
+                document.getElementById('stat-total').innerText = total;
+                document.getElementById('stat-novas').innerText = novas;
+                
+                const badgeMenu = document.getElementById('badge-novas');
+                if(novas > 0) { badgeMenu.innerText = novas; badgeMenu.classList.remove('hidden'); } 
+                else { badgeMenu.classList.add('hidden'); }
+            });
+
+            window.abrirMensagem = async function(id) {
+                const msg = window.mensagensData[id];
+                document.getElementById('ler-nome').innerText = msg.nome;
+                document.getElementById('ler-telefone').innerText = msg.telefone;
+                document.getElementById('ler-email').innerText = msg.email;
+                
+                const d = new Date(msg.data_envio);
+                document.getElementById('ler-data').innerText = `${d.toLocaleDateString('pt-BR')} - ${msg.origem}`;
+                
+                document.getElementById('ler-assunto').innerText = msg.assunto;
+                document.getElementById('ler-mensagem').innerText = msg.mensagem;
+                
+                // Formata numero de whatsapp (remove espaços e caracteres especiais)
+                const numWpp = msg.telefone.replace(/\D/g,'');
+                document.getElementById('btn-wpp-cliente').href = `https://wa.me/55${numWpp}?text=Olá ${msg.nome}, aqui é da Xerfan Tech Lab. Recebemos o seu contato pelo nosso site!`;
+
+                document.getElementById('modal-leitura').classList.remove('hidden');
+                document.getElementById('modal-leitura').classList.add('flex');
+
+                // Se era nova, marca como lida no banco de dados!
+                if(msg.status === 'nova') { await updateDoc(doc(db, "mensagens", id), { status: 'lida' }); }
+            };
+
+            window.deletarMensagem = async (id) => { if(confirm("Apagar esta mensagem definitivamente?")) await deleteDoc(doc(db, "mensagens", id)); };
+            window.fecharModal = function() { document.getElementById('modal-leitura').classList.add('hidden'); document.getElementById('modal-leitura').classList.remove('flex'); };
+        }
+    </script>
+</body>
+</html>

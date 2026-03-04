@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão do Blog - Xerfan Tech Lab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style> body { font-family: 'Plus Jakarta Sans', sans-serif; } </style>
+</head>
+<body class="bg-gray-950 text-gray-200 flex h-screen overflow-hidden">
+
+    <aside class="w-64 bg-gray-900 border-r border-gray-800 flex flex-col hidden md:flex z-20 shrink-0">
+        <div class="h-20 flex items-center px-6 border-b border-gray-800">
+            <div class="w-8 h-8 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center text-white font-black shadow-lg mr-3">X</div>
+            <span class="font-bold text-white tracking-wide">Xerfan Admin</span>
+        </div>
+        <nav class="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
+            <p class="px-2 text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Visão Geral</p>
+            <a href="dashboard.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium"><i class="fas fa-chart-pie w-5"></i> Dashboard</a>
+            
+            <p class="px-2 text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 mt-6">CRM / Clientes</p>
+            <a href="agendamentos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium"><i class="fas fa-calendar-check w-5"></i> Agendamentos</a>
+            <a href="mensagens.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium"><i class="fas fa-envelope w-5"></i> Contatos</a>
+
+            <p class="px-2 text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 mt-6">Catálogo</p>
+            <a href="produtos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium"><i class="fas fa-box w-5"></i> Produtos</a>
+            <a href="servicos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium"><i class="fas fa-cogs w-5"></i> Serviços</a>
+
+            <p class="px-2 text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 mt-6">Conteúdo</p>
+            <a href="portfolio.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium"><i class="fas fa-images w-5"></i> Portfólio</a>
+            <a href="blog.html" class="flex items-center gap-3 px-3 py-2.5 bg-orange-500/10 text-orange-500 rounded-xl transition-colors font-medium"><i class="fas fa-pen-nib w-5"></i> Gestão do Blog</a>
+        </nav>
+        <div class="p-4 border-t border-gray-800">
+            <button onclick="fazerLogout()" class="w-full flex items-center gap-3 px-3 py-2 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-xl transition-colors text-sm font-medium"><i class="fas fa-sign-out-alt w-5"></i> Sair</button>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col h-screen overflow-hidden">
+        <header class="h-20 bg-gray-900 border-b border-gray-800 flex items-center justify-between px-8 shrink-0">
+            <div>
+                <h2 class="text-xl font-bold text-white">Artigos do Blog</h2>
+                <p class="text-xs text-gray-400">Gerencie suas publicações e novidades.</p>
+            </div>
+            <button onclick="abrirModalNovo()" class="bg-orange-500 hover:bg-orange-600 text-white text-sm font-bold px-5 py-2.5 rounded-xl transition-all flex items-center gap-2">
+                <i class="fas fa-plus"></i> Novo Artigo
+            </button>
+        </header>
+
+        <div class="flex-1 overflow-y-auto p-8">
+            <div id="grid-blog" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                </div>
+        </div>
+    </main>
+
+    <div id="modal-blog" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-gray-900 border border-gray-700 w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl p-8 shadow-2xl">
+            <h3 id="modal-titulo-texto" class="text-2xl font-bold text-white mb-6">Novo Artigo</h3>
+            <form id="form-blog" class="space-y-4">
+                <input type="hidden" id="blog-id">
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Título do Artigo</label>
+                    <input type="text" id="blog-titulo" required class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white outline-none focus:border-orange-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-2">URL da Imagem de Capa</label>
+                    <input type="text" id="blog-imagem" required class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white outline-none focus:border-orange-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Conteúdo do Artigo (Pode usar Enter para parágrafos)</label>
+                    <textarea id="blog-conteudo" rows="10" required class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white outline-none focus:border-orange-500 resize-none"></textarea>
+                </div>
+                <div class="flex justify-end gap-3 pt-4 border-t border-gray-800">
+                    <button type="button" onclick="fecharModal()" class="text-gray-400 font-bold px-4">Cancelar</button>
+                    <button type="submit" id="btn-salvar" class="bg-orange-500 hover:bg-orange-600 text-white font-bold px-8 py-3 rounded-xl shadow-lg transition-all">Publicar Artigo</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+        const firebaseConfig = { apiKey: "AIzaSyCpxfzPrj1DJpcv-bHsVtR1Y7NSVN3KRTI", authDomain: "xerfan-tech-lab.firebaseapp.com", projectId: "xerfan-tech-lab", storageBucket: "xerfan-tech-lab.firebasestorage.app", messagingSenderId: "931331197336", appId: "1:931331197336:web:ca2550d7d10da44fbb43ed" };
+        const app = initializeApp(firebaseConfig); const db = getFirestore(app); const auth = getAuth(app);
+
+        window.blogData = {};
+        const blogGrid = document.getElementById('grid-blog');
+        const q = query(collection(db, "blog"), orderBy("data", "desc"));
+
+        // LISTAGEM EM TEMPO REAL
+        onSnapshot(q, (snap) => {
+            blogGrid.innerHTML = '';
+            snap.forEach(d => {
+                const post = d.data();
+                window.blogData[d.id] = post;
+                blogGrid.innerHTML += `
+                    <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden group shadow-lg">
+                        <img src="${post.imagem}" class="w-full h-40 object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                        <div class="p-5">
+                            <h4 class="font-bold text-white mb-2 line-clamp-2">${post.titulo}</h4>
+                            <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-800">
+                                <span class="text-xs text-gray-500">${new Date(post.data).toLocaleDateString()}</span>
+                                <div class="flex gap-2">
+                                    <button onclick="prepararEdicao('${d.id}')" class="w-8 h-8 flex items-center justify-center bg-blue-500/10 text-blue-500 rounded-lg hover:bg-blue-500 hover:text-white transition-all"><i class="fas fa-edit text-xs"></i></button>
+                                    <button onclick="excluirPost('${d.id}')" class="w-8 h-8 flex items-center justify-center bg-red-500/10 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all"><i class="fas fa-trash text-xs"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+            });
+        });
+
+        // SALVAR OU ATUALIZAR
+        document.getElementById('form-blog').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('blog-id').value;
+            const btn = document.getElementById('btn-salvar');
+            btn.disabled = true; btn.innerText = "Salvando...";
+
+            const dados = {
+                titulo: document.getElementById('blog-titulo').value,
+                imagem: document.getElementById('blog-imagem').value,
+                conteudo: document.getElementById('blog-conteudo').value,
+                data: id ? window.blogData[id].data : new Date().toISOString()
+            };
+
+            try {
+                if (id) {
+                    await updateDoc(doc(db, "blog", id), dados);
+                } else {
+                    await addDoc(collection(db, "blog"), dados);
+                }
+                fecharModal();
+                document.getElementById('form-blog').reset();
+            } catch (error) { alert("Erro ao salvar artigo."); }
+            finally { btn.disabled = false; btn.innerText = "Publicar Artigo"; }
+        });
+
+        // FUNÇÕES GLOBAIS
+        window.abrirModalNovo = () => {
+            document.getElementById('blog-id').value = "";
+            document.getElementById('modal-titulo-texto').innerText = "Novo Artigo";
+            document.getElementById('form-blog').reset();
+            document.getElementById('modal-blog').classList.replace('hidden', 'flex');
+        };
+
+        window.prepararEdicao = (id) => {
+            const post = window.blogData[id];
+            document.getElementById('blog-id').value = id;
+            document.getElementById('blog-titulo').value = post.titulo;
+            document.getElementById('blog-imagem').value = post.imagem;
+            document.getElementById('blog-conteudo').value = post.conteudo;
+            document.getElementById('modal-titulo-texto').innerText = "Editar Artigo";
+            document.getElementById('modal-blog').classList.replace('hidden', 'flex');
+        };
+
+        window.excluirPost = async (id) => { if(confirm("Deseja apagar este artigo definitivamente?")) await deleteDoc(doc(db, "blog", id)); };
+        window.fecharModal = () => document.getElementById('modal-blog').classList.replace('flex', 'hidden');
+        window.fazerLogout = () => signOut(auth).then(() => { window.location.href = 'login.html'; });
+    </script>
+</body>
+</html>

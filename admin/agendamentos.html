@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamentos - Admin Xerfan Tech Lab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style> body { font-family: 'Plus Jakarta Sans', sans-serif; } </style>
+</head>
+<body class="bg-gray-950 text-gray-200 flex h-screen overflow-hidden">
+
+    <aside class="w-64 bg-gray-900 border-r border-gray-800 flex flex-col hidden md:flex z-20 shrink-0">
+        <div class="h-20 flex items-center px-6 border-b border-gray-800">
+            <div class="w-8 h-8 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center text-white font-black shadow-lg mr-3">X</div>
+            <span class="font-bold text-white tracking-wide">Xerfan Admin</span>
+        </div>
+
+        <nav class="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
+            <p class="px-2 text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Visão Geral</p>
+            <a href="dashboard.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium">
+                <i class="fas fa-chart-pie w-5"></i> Dashboard
+            </a>
+            
+            <p class="px-2 text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 mt-6">CRM / Clientes</p>
+            <a href="agendamentos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium">
+                <i class="fas fa-calendar-check w-5 text-green-500"></i> Agendamentos
+            </a>
+            <a href="mensagens.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium relative">
+                <i class="fas fa-envelope w-5"></i> Dúvidas / Contatos
+                <span id="badge-novas-menu" class="absolute right-3 top-1/2 -translate-y-1/2 bg-orange-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full hidden">0</span>
+            </a>
+
+            <p class="px-2 text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 mt-6">Catálogo do Site</p>
+            <a href="produtos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium">
+                <i class="fas fa-box w-5"></i> Gestão de Produtos
+            </a>
+            <a href="servicos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium">
+                <i class="fas fa-cogs w-5"></i> Gestão de Serviços
+            </a>
+
+            <p class="px-2 text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 mt-6">Conteúdo</p>
+            <a href="portfolio.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium">
+                <i class="fas fa-images w-5"></i> Portfólio (Obras)
+            </a>
+            <a href="blog.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium">
+                <i class="fas fa-pen-nib w-5"></i> Gestão do Blog
+            </a>
+        </nav>
+
+        <div class="p-4 border-t border-gray-800">
+            <button onclick="fazerLogout()" class="w-full flex items-center gap-3 px-3 py-2 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-xl transition-colors text-sm font-medium">
+                <i class="fas fa-sign-out-alt w-5"></i> Sair do Sistema
+            </button>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col h-screen relative overflow-hidden">
+        <header class="h-20 bg-gray-900/80 border-b border-gray-800 flex items-center px-8 z-10 shrink-0">
+            <div><h2 class="text-xl font-bold text-white text-green-500 flex items-center gap-2"><i class="fas fa-calendar-check"></i> Solicitações de Serviço</h2></div>
+        </header>
+
+        <div class="flex-1 overflow-y-auto p-8 relative">
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl shadow-sm overflow-hidden z-10 relative">
+                <table class="w-full text-left text-sm">
+                    <thead class="bg-gray-800/50 text-gray-400 text-xs uppercase">
+                        <tr><th class="px-6 py-4 font-medium">Data Recebida</th><th class="px-6 py-4 font-medium">Cliente (WhatsApp)</th><th class="px-6 py-4 font-medium">Serviço Desejado</th><th class="px-6 py-4 font-medium">Status</th><th class="px-6 py-4 text-right font-medium">Ações</th></tr>
+                    </thead>
+                    <tbody id="tabela-agendamentos" class="divide-y divide-gray-800"></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <div id="modal-leitura" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-gray-900 border border-gray-700 w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+            <div class="px-8 py-6 border-b border-gray-800 flex justify-between items-center bg-gray-800/50">
+                <h3 class="text-xl font-bold text-white flex items-center gap-2"><i class="fas fa-clipboard-list text-green-500"></i> Ficha de Agendamento</h3>
+                <button onclick="fecharModal()" class="text-gray-400 hover:text-white"><i class="fas fa-times text-lg"></i></button>
+            </div>
+            <div class="p-8 overflow-y-auto flex-1 space-y-6">
+                <div class="grid grid-cols-2 gap-4 bg-gray-800/50 p-4 rounded-xl border border-gray-800">
+                    <div><span class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Cliente</span><p id="ler-nome" class="font-bold text-white"></p></div>
+                    <div><span class="block text-[10px] font-bold text-gray-500 uppercase mb-1">WhatsApp</span><p id="ler-telefone" class="font-bold text-white"></p></div>
+                </div>
+                <div><span class="block text-[10px] font-bold text-gray-500 uppercase mb-2">Serviço Solicitado</span><div id="ler-assunto" class="bg-gray-800 border border-gray-700 p-3 rounded-lg text-green-400 font-bold"></div></div>
+                <div><span class="block text-[10px] font-bold text-gray-500 uppercase mb-2">Detalhes de Local e Data (Inseridos pelo Cliente)</span><div id="ler-mensagem" class="bg-gray-800 border border-gray-700 p-4 rounded-xl text-gray-300 whitespace-pre-wrap leading-relaxed"></div></div>
+            </div>
+            <div class="p-6 border-t border-gray-800 bg-gray-800/30 flex justify-end gap-3">
+                <a id="btn-wpp-cliente" href="#" target="_blank" class="px-6 py-2.5 bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl flex items-center gap-2 transition-all"><i class="fab fa-whatsapp text-lg"></i> Confirmar pelo WhatsApp</a>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, onSnapshot, doc, updateDoc, deleteDoc, query, where } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        const app = initializeApp({ apiKey: "AIzaSyCpxfzPrj1DJpcv-bHsVtR1Y7NSVN3KRTI", authDomain: "xerfan-tech-lab.firebaseapp.com", projectId: "xerfan-tech-lab", storageBucket: "xerfan-tech-lab.firebasestorage.app", messagingSenderId: "931331197336", appId: "1:931331197336:web:ca2550d7d10da44fbb43ed" });
+        const db = getFirestore(app);
+
+        // Busca apenas as mensagens cuja origem seja Agendamento
+        const q = query(collection(db, "mensagens"), where("origem", "==", "Agendamento Online"));
+        window.mensagensData = {};
+
+        onSnapshot(q, (snapshot) => {
+            const tabela = document.getElementById('tabela-agendamentos');
+            tabela.innerHTML = '';
+            let msgs = [];
+            snapshot.forEach(d => msgs.push({id: d.id, ...d.data()}));
+            msgs.sort((a,b) => new Date(b.data_envio) - new Date(a.data_envio));
+
+            if (msgs.length === 0) { tabela.innerHTML = '<tr><td colspan="5" class="px-6 py-8 text-center text-gray-500">Nenhum agendamento pendente.</td></tr>'; return; }
+
+            msgs.forEach((msg) => {
+                window.mensagensData[msg.id] = msg;
+                const dataBr = new Date(msg.data_envio).toLocaleDateString('pt-BR');
+                let statusBadge = msg.status === 'nova' ? `<span class="bg-green-500 text-white px-2 py-1 rounded text-[10px] font-bold uppercase animate-pulse">Pendente</span>` : `<span class="bg-gray-800 text-gray-400 px-2 py-1 rounded text-[10px] font-bold uppercase border border-gray-700">Atendido</span>`;
+                
+                tabela.innerHTML += `
+                    <tr class="hover:bg-gray-800/50 transition-colors cursor-pointer" onclick="abrirMensagem('${msg.id}')">
+                        <td class="px-6 py-4 text-xs text-gray-400">${dataBr}</td>
+                        <td class="px-6 py-4 font-bold text-white">${msg.nome} <br><span class="text-xs text-gray-500 font-normal">${msg.telefone}</span></td>
+                        <td class="px-6 py-4 text-gray-300">${msg.assunto}</td>
+                        <td class="px-6 py-4">${statusBadge}</td>
+                        <td class="px-6 py-4 text-right">
+                            <button onclick="event.stopPropagation(); abrirMensagem('${msg.id}')" class="text-green-500 hover:text-green-400 px-2"><i class="fas fa-eye"></i></button>
+                            <button onclick="event.stopPropagation(); if(confirm('Apagar?')) deleteDoc(doc(db, 'mensagens', '${msg.id}'));" class="text-gray-500 hover:text-red-500 px-2"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>`;
+            });
+        });
+
+        window.abrirMensagem = async function(id) {
+            const msg = window.mensagensData[id];
+            document.getElementById('ler-nome').innerText = msg.nome; document.getElementById('ler-telefone').innerText = msg.telefone;
+            document.getElementById('ler-assunto').innerText = msg.assunto; document.getElementById('ler-mensagem').innerText = msg.mensagem;
+            const numWpp = msg.telefone.replace(/\D/g,'');
+            document.getElementById('btn-wpp-cliente').href = `https://wa.me/55${numWpp}?text=Olá ${msg.nome}, vi que você solicitou um agendamento no nosso site! Podemos confirmar?`;
+            
+            document.getElementById('modal-leitura').classList.remove('hidden'); document.getElementById('modal-leitura').classList.add('flex');
+            if(msg.status === 'nova') await updateDoc(doc(db, "mensagens", id), { status: 'lida' });
+        };
+        window.fecharModal = () => { document.getElementById('modal-leitura').classList.add('hidden'); document.getElementById('modal-leitura').classList.remove('flex'); };
+    </script>
+</body>
+</html>

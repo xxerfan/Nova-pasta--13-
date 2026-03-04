@@ -33,10 +33,13 @@
     <section class="py-20 bg-gray-950">
         <div class="container mx-auto px-4 max-w-5xl">
             
-            <form action="https://api.web3forms.com/submit" method="POST" id="form-agendamento">
+            <form id="form-agendamento">
                 
-                <input type="hidden" name="access_key" value="7a7dcbd0-f1c5-402a-b886-6c71d0a1ee18"> <input type="hidden" name="subject" value="NOVO AGENDAMENTO - Xerfan Tech Lab"> <input type="hidden" name="redirect" value="https://alexxerfan.github.io/xerfantechlab/agendamento.html?sucesso=true">
-                <input type="checkbox" name="botcheck" class="hidden" style="display: none;"> <div class="grid lg:grid-cols-3 gap-10">
+                <input type="hidden" name="access_key" value="7a7dcbd0-f1c5-402a-b886-6c71d0a1ee18"> 
+                <input type="hidden" name="subject" value="NOVO AGENDAMENTO - Xerfan Tech Lab"> 
+                <input type="checkbox" name="botcheck" class="hidden" style="display: none;"> 
+                
+                <div class="grid lg:grid-cols-3 gap-10">
                     
                     <div class="lg:col-span-2 space-y-8">
                         
@@ -48,11 +51,11 @@
                             <div class="grid md:grid-cols-2 gap-5">
                                 <div class="form-group">
                                     <label class="text-xs font-bold text-gray-500 uppercase ml-1">Nome Completo</label>
-                                    <input type="text" name="cliente_nome" required class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3.5 mt-2 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-all">
+                                    <input type="text" name="nome" required class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3.5 mt-2 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-all">
                                 </div>
                                 <div class="form-group">
                                     <label class="text-xs font-bold text-gray-500 uppercase ml-1">WhatsApp</label>
-                                    <input type="tel" name="cliente_whatsapp" required placeholder="(21) 99999-9999" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3.5 mt-2 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-all">
+                                    <input type="tel" name="telefone" required placeholder="(21) 99999-9999" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3.5 mt-2 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-all">
                                 </div>
                             </div>
                         </div>
@@ -92,19 +95,19 @@
                                 
                                 <div class="grid gap-3">
                                     <label class="relative flex items-center p-3 border border-gray-700 rounded-2xl cursor-pointer hover:bg-gray-800 transition-all group has-[:checked]:border-orange-500 has-[:checked]:bg-orange-500/5">
-                                        <input type="radio" name="servico_tipo" value="Manutenção" class="hidden" checked>
+                                        <input type="radio" name="assunto_selecionado" value="Manutenção" class="hidden" checked>
                                         <div class="w-10 h-10 bg-gray-800 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform"><i class="fas fa-tools text-orange-500"></i></div>
                                         <span class="ml-3 font-semibold text-sm text-gray-300">Manutenção PC/Celular</span>
                                     </label>
                                     
                                     <label class="relative flex items-center p-3 border border-gray-700 rounded-2xl cursor-pointer hover:bg-gray-800 transition-all group has-[:checked]:border-blue-500 has-[:checked]:bg-blue-500/5">
-                                        <input type="radio" name="servico_tipo" value="Automação" class="hidden">
+                                        <input type="radio" name="assunto_selecionado" value="Automação" class="hidden">
                                         <div class="w-10 h-10 bg-gray-800 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform"><i class="fas fa-robot text-blue-500"></i></div>
                                         <span class="ml-3 font-semibold text-sm text-gray-300">Automação Residencial</span>
                                     </label>
 
                                     <label class="relative flex items-center p-3 border border-gray-700 rounded-2xl cursor-pointer hover:bg-gray-800 transition-all group has-[:checked]:border-purple-500 has-[:checked]:bg-purple-500/5">
-                                        <input type="radio" name="servico_tipo" value="Redes" class="hidden">
+                                        <input type="radio" name="assunto_selecionado" value="Redes" class="hidden">
                                         <div class="w-10 h-10 bg-gray-800 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform"><i class="fas fa-network-wired text-purple-500"></i></div>
                                         <span class="ml-3 font-semibold text-sm text-gray-300">Infraestrutura e Redes</span>
                                     </label>
@@ -128,10 +131,10 @@
                 </div>
 
                 <div class="mt-12 text-center" data-aos="zoom-in">
-                    <button type="submit" class="inline-flex items-center gap-3 px-12 py-5 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-black text-xl rounded-2xl shadow-2xl shadow-orange-500/20 transform hover:-translate-y-1 transition-all w-full md:w-auto">
+                    <button type="submit" id="btn-enviar" class="inline-flex items-center justify-center gap-3 px-12 py-5 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-black text-xl rounded-2xl shadow-2xl shadow-orange-500/20 transform hover:-translate-y-1 transition-all w-full md:w-auto">
                         <i class="fas fa-paper-plane"></i> SOLICITAR AGENDAMENTO AGORA
                     </button>
-                    <p class="text-gray-500 text-xs mt-5">Ao clicar, o Alex receberá o seu pedido e confirmará via WhatsApp.</p>
+                    <p class="text-gray-500 text-xs mt-5">Ao clicar, a nossa equipa receberá o seu pedido e confirmará via WhatsApp.</p>
                 </div>
 
             </form>
@@ -142,35 +145,95 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="js/main.js"></script>
-    <script>
-        // Inicia as animações
-        AOS.init({ duration: 800, once: true });
+    
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCpxfzPrj1DJpcv-bHsVtR1Y7NSVN3KRTI",
+            authDomain: "xerfan-tech-lab.firebaseapp.com",
+            projectId: "xerfan-tech-lab",
+            storageBucket: "xerfan-tech-lab.firebasestorage.app",
+            messagingSenderId: "931331197336",
+            appId: "1:931331197336:web:ca2550d7d10da44fbb43ed"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Carrega Header e Footer
+            AOS.init({ duration: 800, once: true });
             loadComponent('header', 'components/header.html');
             loadComponent('footer', 'components/footer.html');
             
-            // Lógica de Data Mínima (não deixa escolher ontem)
+            // Lógica de Data Mínima
             const dateInput = document.getElementById('date-input');
             if (dateInput) {
                 const today = new Date().toISOString().split('T')[0];
                 dateInput.setAttribute('min', today);
             }
 
-            // Lógica de Notificação de Sucesso (após o redirect do Web3Forms)
-            const urlParams = new URLSearchParams(window.location.search);
-            if(urlParams.get('sucesso') === 'true') {
-                setTimeout(() => {
-                    // Usa a função mostrarNotificacao do seu main.js
-                    if(typeof mostrarNotificacao === 'function') {
-                        mostrarNotificacao('Agendamento enviado! O Alex vai chamar-te no WhatsApp em instantes.', 'success', 6000);
-                    } else {
-                        alert('Agendamento enviado com sucesso!');
+            // MOTOR DE ENVIO
+            const formAgendamento = document.getElementById('form-agendamento');
+            
+            if(formAgendamento) {
+                formAgendamento.addEventListener('submit', async function(e) {
+                    e.preventDefault(); // Impede tela branca!
+                    
+                    const btn = document.getElementById('btn-enviar');
+                    const textoOriginal = btn.innerHTML;
+                    
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> PROCESSANDO AGENDAMENTO...';
+                    btn.disabled = true;
+                    btn.classList.remove('hover:-translate-y-1');
+
+                    try {
+                        const formData = new FormData(formAgendamento);
+                        const dados = Object.fromEntries(formData.entries());
+
+                        // Monta o endereço e a mensagem pro CRM
+                        const enderecoCompleto = `${dados.local_rua}, ${dados.local_numero} - ${dados.local_bairro}`;
+                        const mensagemAgendamento = `Data: ${dados.agendamento_data} (${dados.agendamento_periodo})\nEndereço: ${enderecoCompleto}`;
+
+                        // 1. GRAVA NO FIREBASE (CRM)
+                        await addDoc(collection(db, "mensagens"), {
+                            nome: dados.nome,
+                            email: "Não exigido no agendamento",
+                            telefone: dados.telefone,
+                            assunto: `AGENDAMENTO: ${dados.assunto_selecionado}`,
+                            mensagem: mensagemAgendamento,
+                            data_envio: new Date().toISOString(),
+                            status: 'nova',
+                            origem: 'Agendamento Online'
+                        });
+
+                        // 2. DISPARA O E-MAIL (Em background)
+                        // Enviamos a string completa para o email ter contexto
+                        dados.mensagem_completa = mensagemAgendamento;
+                        
+                        await fetch('https://api.web3forms.com/submit', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                            body: JSON.stringify(dados)
+                        });
+
+                        formAgendamento.reset();
+                        
+                        if(typeof mostrarNotificacao === 'function') {
+                            mostrarNotificacao('Agendamento recebido! O Alex entrará em contato via WhatsApp para confirmar.', 'success', 6000);
+                        } else {
+                            alert('Agendamento recebido! O Alex entrará em contato via WhatsApp para confirmar.');
+                        }
+
+                    } catch (error) {
+                        alert('Tivemos um atraso na conexão, mas seu pedido foi registrado! O Alex te chamará no WhatsApp.');
+                    } finally {
+                        btn.innerHTML = textoOriginal;
+                        btn.disabled = false;
+                        btn.classList.add('hover:-translate-y-1');
                     }
-                    // Limpa o "?sucesso=true" da barra de endereços
-                    window.history.replaceState({}, document.title, window.location.pathname);
-                }, 500);
+                });
             }
         });
     </script>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog - Xerfan Tech Lab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/enhancements.css" />
+    <link rel="icon" type="image/x-icon" href="img/logo.png" />
+    <style> 
+        body { font-family: "Plus Jakarta Sans", sans-serif; } 
+        #texto p { margin-bottom: 1.5rem; line-height: 1.8; color: #9ca3af; font-size: 1.125rem; }
+    </style>
+</head>
+<body class="bg-gray-950">
+    <div id="header"></div>
+
+    <main class="container mx-auto px-4 max-w-3xl py-32 min-h-screen">
+        <div class="mb-10" data-aos="fade-up">
+            <a href="blog.html" class="inline-flex items-center text-orange-500 hover:text-orange-400 font-bold transition-all">
+                <i class="fas fa-arrow-left mr-2"></i> Voltar ao Blog
+            </a>
+        </div>
+        
+        <article id="post-content" data-aos="fade-up" data-aos-delay="100">
+            <header class="mb-10">
+                <h1 id="titulo" class="text-4xl md:text-5xl font-black text-white mb-6 leading-tight">Carregando...</h1>
+                <p id="meta-info" class="text-gray-500 text-sm"></p>
+            </header>
+
+            <div class="w-full aspect-video bg-gray-900 rounded-3xl mb-12 overflow-hidden shadow-2xl border border-gray-800">
+                <img id="capa" class="w-full h-full object-cover hidden">
+            </div>
+
+            <div id="texto" class="space-y-2"></div>
+        </article>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
+    
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        const firebaseConfig = { 
+            apiKey: "AIzaSyCpxfzPrj1DJpcv-bHsVtR1Y7NSVN3KRTI", 
+            authDomain: "xerfan-tech-lab.firebaseapp.com", 
+            projectId: "xerfan-tech-lab", 
+            storageBucket: "xerfan-tech-lab.firebasestorage.app", 
+            messagingSenderId: "931331197336", 
+            appId: "1:931331197336:web:ca2550d7d10da44fbb43ed" 
+        };
+
+        async function init() {
+            // Sincroniza o carregamento dos componentes como nas outras páginas
+            if(typeof loadComponent === 'function') {
+                await loadComponent('header', 'components/header.html');
+                await loadComponent('footer', 'components/footer.html');
+            }
+            AOS.init({ duration: 800, once: true });
+
+            const id = new URLSearchParams(window.location.search).get('id');
+            if (id) {
+                try {
+                    const app = initializeApp(firebaseConfig);
+                    const db = getFirestore(app);
+                    const s = await getDoc(doc(db, "blog", id));
+                    
+                    if (s.exists()) {
+                        const p = s.data();
+                        document.getElementById('titulo').innerText = p.titulo;
+                        document.getElementById('meta-info').innerText = `Por Equipe Xerfan • ${new Date(p.data).toLocaleDateString('pt-BR')}`;
+                        const img = document.getElementById('capa');
+                        img.src = p.imagem;
+                        img.classList.remove('hidden');
+                        document.getElementById('texto').innerHTML = p.conteudo.split('\n').map(t => t.trim() ? `<p>${t}</p>` : '').join('');
+                    }
+                } catch(e) { console.error(e); }
+            }
+        }
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>
