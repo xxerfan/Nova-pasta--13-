@@ -1,6 +1,6 @@
 /**
  * ============================================================
- * Xerfan Tech Lab - main.js v4.0 (MOBILE OPTIMIZED)
+ * Xerfan Tech Lab - main.js v4.1 (MOBILE OPTIMIZED + SCROLL FIX)
  * Sistema completo de funcionalidades do site
  * ============================================================
  */
@@ -10,7 +10,6 @@
 // ============================================================
 // 1. CARREGAMENTO DE COMPONENTES E FEATURE TOGGLE (MODO MANUTENÇÃO)
 // ============================================================
-// Função que injeta o HTML do Header e do Footer nas páginas
 function loadComponent(elementId, componentPath) {
     const element = document.getElementById(elementId);
     if (!element) return Promise.resolve();
@@ -22,7 +21,6 @@ function loadComponent(elementId, componentPath) {
         })
         .then(html => {
             element.innerHTML = html;
-            // Recarrega scripts que possam vir dentro do HTML injetado
             element.querySelectorAll('script').forEach(oldScript => {
                 const newScript = document.createElement('script');
                 if (oldScript.src) {
@@ -35,7 +33,6 @@ function loadComponent(elementId, componentPath) {
                 if (!oldScript.src) document.head.removeChild(newScript);
             });
             
-            // Ativa o sistema de bloqueio de páginas (Toggle) quando o Header carregar
             if (elementId === 'header') {
                 aplicarTravasVisibilidade();
             }
@@ -45,7 +42,6 @@ function loadComponent(elementId, componentPath) {
         .catch(err => console.warn(`Componente não encontrado: ${componentPath}`, err));
 }
 
-// Cérebro do Modo Manutenção: Lê do Firebase se as páginas estão ativas ou ocultas
 async function aplicarTravasVisibilidade() {
     try {
         const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js");
@@ -69,17 +65,14 @@ async function aplicarTravasVisibilidade() {
                 const modulos = ['produtos', 'servicos', 'portfolio', 'blog'];
                 
                 modulos.forEach(modulo => {
-                    const ativo = status[`${modulo}_active`] ?? true; // Padrão: Ativo
+                    const ativo = status[`${modulo}_active`] ?? true;
                     
-                    // Esconde/Mostra os links no Menu
                     const links = document.querySelectorAll(`.nav-link-${modulo}`);
                     links.forEach(link => { link.style.display = ativo ? '' : 'none'; });
                     
-                    // Esconde/Mostra as secções na Home
                     const secaoHome = document.getElementById(`secao-${modulo}`);
                     if (secaoHome) { secaoHome.style.display = ativo ? '' : 'none'; }
                     
-                    // Redireciona se tentar aceder via URL a uma página inativa
                     const pathAtual = window.location.pathname.toLowerCase();
                     if (pathAtual.includes(`/${modulo}.html`) && !ativo) {
                         window.location.href = 'index.html';
@@ -95,7 +88,6 @@ async function aplicarTravasVisibilidade() {
 // ============================================================
 // 2. SISTEMA DE NOTIFICAÇÕES (Toast)
 // ============================================================
-// Cria um aviso flutuante elegante na tela (ex: Mensagem Enviada!)
 function mostrarNotificacao(mensagem, tipo = 'info', duracao = 3500) {
     document.querySelectorAll(`.notification.${tipo}`).forEach(n => n.remove());
 
@@ -133,7 +125,6 @@ function mostrarNotificacao(mensagem, tipo = 'info', duracao = 3500) {
 // ============================================================
 // 3. BARRA DE PROGRESSO DE LEITURA
 // ============================================================
-// A barra laranja fininha no topo que avança conforme o scroll
 function initProgressBar() {
     const bar = document.getElementById('scroll-progress');
     if (!bar) return;
@@ -153,9 +144,8 @@ function initProgressBar() {
 }
 
 // ============================================================
-// 4. ANIMAÇÃO DE CONTADORES (Números subindo)
+// 4. ANIMAÇÃO DE CONTADORES
 // ============================================================
-// Ex: "500 Clientes" - o número sobe de 0 a 500 quando entra na tela
 function initCounters() {
     const counters = document.querySelectorAll('[data-counter]');
     if (!counters.length) return;
@@ -187,7 +177,7 @@ function initCounters() {
 }
 
 // ============================================================
-// 5. EFEITO DE DIGITAÇÃO (TYPEWRITER) NA HOME
+// 5. EFEITO DE DIGITAÇÃO (TYPEWRITER)
 // ============================================================
 class TypeWriter {
     constructor(el, textos) {
@@ -232,9 +222,25 @@ function initHeroTypewriter() {
 }
 
 // ============================================================
-// 6. MÁSCARA DE TELEFONE (Brasil)
+// 6. REVELAÇÃO NO SCROLL (CORREÇÃO: Esta função estava em falta!)
 // ============================================================
-// Formata o input para (21) 99999-9999
+function initScrollReveal() {
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed'); // A classe mágica que faz os elementos aparecerem!
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    
+    // Procura por elementos com [data-reveal] ou cartões da Home
+    document.querySelectorAll('[data-reveal], .stagger-children').forEach(el => observer.observe(el));
+}
+
+// ============================================================
+// 7. MÁSCARA DE TELEFONE (Brasil)
+// ============================================================
 function aplicarMascaraTelefone(input) {
     if (!input) return;
     input.addEventListener('input', e => {
@@ -253,7 +259,6 @@ function aplicarMascaraTelefone(input) {
 class FloatingChatBot {
     constructor() {
         this.isOpen = false;
-        // Base de conhecimento simples baseada em palavras-chave
         this.knowledge = [
             { keywords: ['manutencao', 'computador', 'notebook', 'pc', 'conserto', 'reparo', 'formatacao', 'lento'], response: '💻 <strong>Manutenção de Computadores</strong><br>Fazemos diagnóstico, limpeza, formatação e troca de peças. Atendemos Niterói! O prazo médio é de 24h a 48h. Deseja <a href="agendamento.html" class="underline text-blue-400">agendar uma visita</a>?' },
             { keywords: ['automacao', 'automação', 'casa inteligente', 'smart', 'iluminacao', 'cortina'], response: '🏠 <strong>Automação Residencial</strong><br>Transformamos sua casa num lar inteligente! Controlamos iluminação, câmeras e mais pelo celular. Temos soluções a partir de R$500.' },
@@ -278,7 +283,6 @@ class FloatingChatBot {
     renderWidget() {
         const div = document.createElement('div');
         div.id = 'chat-widget';
-        // [FIX MOBILE]: Classes Tailwind ajustadas para largura fluida no mobile (left-4 right-4) e max-h para evitar corte
         div.innerHTML = `
             <button id="chat-toggle-btn" class="fixed bottom-24 right-6 md:left-6 md:right-auto w-14 h-14 bg-gradient-to-br from-blue-600 to-orange-500 text-white rounded-full shadow-2xl hover:scale-110 transition-transform z-50 flex items-center justify-center">
                 <i class="fas fa-comments text-xl" id="chat-icon"></i>
@@ -428,7 +432,7 @@ function initCookieConsent() {
 }
 
 // ============================================================
-// 10. INICIALIZAÇÃO GERAL
+// 10. INICIALIZAÇÃO GERAL (TODAS AS FUNÇÕES CARREGAM AQUI)
 // ============================================================
 document.addEventListener('DOMContentLoaded', () => {
     if (typeof loadComponent === 'function') {
@@ -443,11 +447,10 @@ document.addEventListener('DOMContentLoaded', () => {
     initProgressBar();
     initCounters();
     initHeroTypewriter();
+    initScrollReveal(); // <--- A FUNÇÃO RESTAURADA QUE TRAZ OS CARTÕES DE VOLTA!
     
-    // Aplica a máscara a todos os inputs que tenham name="telefone"
     document.querySelectorAll('[name="telefone"]').forEach(aplicarMascaraTelefone);
     
-    // Inicia o Chatbot apenas se NÃO estivermos na área de Admin ou na página dedicada do chatbot
     if (!window.location.pathname.includes('chatbot') && !window.location.pathname.includes('admin')) {
         new FloatingChatBot();
     }
@@ -455,5 +458,4 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(initCookieConsent, 1500);
 });
 
-// Permite usar a notificação globalmente noutros scripts
 window.mostrarNotificacao = mostrarNotificacao;
