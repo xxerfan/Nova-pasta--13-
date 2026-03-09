@@ -95,8 +95,6 @@
     </div>
 </header>
 
-<div id="header-spacer" style="height: 100px;"></div>
-
 <a href="#" id="back-to-top" class="fixed bottom-24 right-6 w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-full shadow-lg opacity-0 invisible z-40 flex items-center justify-center transform hover:scale-110"><i class="fas fa-chevron-up"></i></a>
 <div id="whatsapp-float" class="fixed bottom-6 right-6 z-[998]">
     <a href="https://wa.me/5521999999999" target="_blank" class="wa-btn"><i class="fab fa-whatsapp"></i><span class="wa-tooltip">Fale pelo WhatsApp!</span></a>
@@ -114,11 +112,16 @@
 (function() {
     const header = document.getElementById('main-header');
     const topBar = document.getElementById('top-bar');
-    const spacer = document.getElementById('header-spacer');
     const backTop = document.getElementById('back-to-top');
 
-    // Atualiza a altura do spacer para ser igual à do header dinamicamente
-    function updateSpacerHeight() { if (header && spacer) spacer.style.height = header.offsetHeight + 'px'; }
+    // [CORREÇÃO APLICADA]: Atualiza diretamente a altura do contêiner pai "header" injetado pelo main.js
+    function updateSpacerHeight() { 
+        const headerElement = document.getElementById('main-header');
+        const headerWrapper = document.getElementById('header');
+        if (headerElement && headerWrapper) {
+            headerWrapper.style.minHeight = headerElement.offsetHeight + 'px';
+        }
+    }
 
     // Evento de Scroll da página
     let ticking = false;

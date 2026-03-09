@@ -43,7 +43,7 @@
     <div id="header"></div>
     
     <section class="relative min-h-screen flex items-center bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 overflow-hidden">
-        <div id="particles-container" class="particles-container"></div>
+        <div id="particles-container" class="particles-container absolute inset-0 z-0"></div>
         <div class="hero-spotlight" style="top:20%; left:15%;"></div>
         <div class="hero-spotlight" style="bottom:20%; right:20%; background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%); animation-delay: -4s;"></div>
         
@@ -407,8 +407,28 @@
     <div id="footer"></div>
     
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="js/main.js"></script>
+    
     <script>
+        // Inicialização do Particles.js no Hero
+        if(document.getElementById('particles-container')) {
+            particlesJS("particles-container", {
+                particles: {
+                    number: { value: 40, density: { enable: true, value_area: 800 } },
+                    color: { value: "#fb923c" }, // Laranja da XTL
+                    shape: { type: "circle" },
+                    opacity: { value: 0.3, random: true },
+                    size: { value: 3, random: true },
+                    line_linked: { enable: true, distance: 150, color: "#3b82f6", opacity: 0.2, width: 1 },
+                    move: { enable: true, speed: 1, direction: "none", random: true, out_mode: "out" }
+                },
+                interactivity: {
+                    events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: true, mode: "push" } }
+                }
+            });
+        }
+
         // O CÓDIGO DA CORREÇÃO DO BUG DE SCROLL AOS
         // Usamos 'load' para garantir que imagens e estilos carreguem primeiro
         window.addEventListener('load', async () => {
@@ -449,8 +469,17 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+        // [CORREÇÃO APLICADA]: Função de Debounce global para o AOS.refresh()
+        // Isso impede que múltiplos retornos do Firebase causem travamento na animação da tela
+        let aosTimer = null;
+        function refreshAOSDebounced() {
+            clearTimeout(aosTimer);
+            aosTimer = setTimeout(() => {
+                if(typeof AOS !== 'undefined') AOS.refresh();
+            }, 250);
+        }
+
         // === RASTREADOR DE VISITAS ===
-        // Incrementa uma view na aba de estatísticas do painel Admin toda vez que a home é aberta
         try {
             const statsRef = doc(db, "analytics", "geral");
             setDoc(statsRef, { views: increment(1) }, { merge: true });
@@ -499,8 +528,8 @@
                 </div>`;
                 grid.insertAdjacentHTML('beforeend', cardHTML);
             });
-            // Recalcula a animação assim que os cartões entram na tela
-            setTimeout(() => AOS.refresh(), 100);
+            // [CORREÇÃO APLICADA]: Chamada da função debounced
+            refreshAOSDebounced();
         });
 
         // ------------------------------------------------
@@ -531,7 +560,7 @@
                 </div>`;
                 grid.insertAdjacentHTML('beforeend', cardHTML);
             });
-            setTimeout(() => AOS.refresh(), 100);
+            refreshAOSDebounced();
         });
 
         // ------------------------------------------------
@@ -561,7 +590,7 @@
                 </div>`;
                 grid.insertAdjacentHTML('beforeend', cardHTML);
             });
-            setTimeout(() => AOS.refresh(), 100);
+            refreshAOSDebounced();
         });
 
         // ------------------------------------------------
@@ -593,7 +622,7 @@
                 </div>`;
                 grid.insertAdjacentHTML('beforeend', cardHTML);
             });
-            setTimeout(() => AOS.refresh(), 100);
+            refreshAOSDebounced();
         });
     </script>
 </body>

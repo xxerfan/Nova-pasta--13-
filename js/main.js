@@ -138,7 +138,8 @@ function mostrarNotificacao(mensagem, tipo = 'info', duracao = 3500) {
 // 3. BARRA DE PROGRESSO DE LEITURA
 // ============================================================
 function initProgressBar() {
-    const bar = document.getElementById('reading-progress');
+    // [CORREÇÃO APLICADA]: O ID foi ajustado para corresponder ao HTML do header ('scroll-progress')
+    const bar = document.getElementById('scroll-progress');
     if (!bar) return;
     let ticking = false;
     window.addEventListener('scroll', () => {
@@ -397,6 +398,11 @@ class FloatingChatBot {
         document.getElementById('quick-actions')?.remove();
         
         const c = document.getElementById('chat-messages');
+        
+        // [CORREÇÃO APLICADA]: Remove indicador antigo de "digitando" se existir, prevenindo bugs ao clicar rápido
+        const existingTyping = document.getElementById('chat-typing');
+        if (existingTyping) existingTyping.remove();
+        
         const typ = document.createElement('div');
         typ.id = 'chat-typing';
         typ.innerHTML = `<div class="bg-gray-700 rounded-2xl px-3 py-2 text-xs text-gray-500 ml-9 w-fit">Digitando...</div>`;
@@ -404,7 +410,9 @@ class FloatingChatBot {
         c.scrollTop = c.scrollHeight;
         
         setTimeout(() => {
-            typ.remove();
+            // [CORREÇÃO APLICADA]: Busca e remove o elemento de digitação correto pelo ID de forma segura
+            const typToRemove = document.getElementById('chat-typing');
+            if(typToRemove) typToRemove.remove();
             this.reply(v);
         }, 800 + Math.random() * 500);
     }
