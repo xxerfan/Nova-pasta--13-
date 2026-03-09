@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestão de Portfólio Dinâmico - Xerfan Admin</title>
+    <title>Gestão de Portfólio - Xerfan Admin</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -11,25 +11,74 @@
 </head>
 <body class="bg-gray-950 text-gray-200 flex h-screen overflow-hidden">
 
-    <aside class="w-64 bg-gray-900 border-r border-gray-800 flex flex-col shrink-0">
-        <div class="h-20 flex items-center px-6 border-b border-gray-800">
-            <div class="w-8 h-8 bg-orange-600 rounded-lg flex items-center justify-center text-white font-black mr-3">X</div>
+    <div id="auth-guard" class="fixed inset-0 bg-gray-950 z-[999] flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="w-16 h-16 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+        <p class="text-gray-400 font-bold tracking-widest uppercase text-sm">Autenticando...</p>
+    </div>
+
+    <aside class="w-64 bg-gray-900 border-r border-gray-800 flex flex-col hidden md:flex shrink-0 overflow-y-auto z-20">
+        <div class="h-20 flex items-center px-6 border-b border-gray-800 shrink-0">
+            <div class="w-8 h-8 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center text-white font-black shadow-lg shadow-orange-500/20 mr-3">X</div>
             <span class="font-bold text-white tracking-wide">Xerfan Admin</span>
         </div>
-        <nav class="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
-            <p class="px-2 text-[10px] font-bold text-gray-500 uppercase mb-2 tracking-widest">Conteúdo</p>
-            <a href="portfolio.html" class="flex items-center gap-3 px-3 py-2.5 bg-orange-500/10 text-orange-500 rounded-xl transition-all"><i class="fas fa-images w-5"></i> Portfólio</a>
-            <a href="blog.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white rounded-xl transition-all"><i class="fas fa-pen-nib w-5"></i> Blog</a>
-            <p class="px-2 text-[10px] font-bold text-gray-500 uppercase mt-6 mb-2 tracking-widest">Catálogo</p>
-            <a href="produtos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white rounded-xl transition-all"><i class="fas fa-box w-5"></i> Produtos</a>
-            <a href="servicos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white rounded-xl transition-all"><i class="fas fa-cogs w-5"></i> Serviços</a>
+        
+        <nav class="flex-1 px-4 py-6 space-y-6">
+            <div>
+                <p class="px-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">Visão Geral</p>
+                <a href="dashboard.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium">
+                    <i class="fas fa-chart-pie w-5 text-center text-lg"></i> Dashboard
+                </a>
+            </div>
+
+            <div>
+                <p class="px-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">CRM / Clientes</p>
+                <div class="space-y-1">
+                    <a href="agendamentos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium">
+                        <i class="fas fa-calendar-check w-5 text-center text-lg"></i> Agendamentos
+                    </a>
+                    <a href="mensagens.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium relative">
+                        <i class="fas fa-envelope w-5 text-center text-lg"></i> Dúvidas / Contatos
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <p class="px-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">Catálogo do Site</p>
+                <div class="space-y-1">
+                    <a href="produtos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium">
+                        <i class="fas fa-box w-5 text-center text-lg"></i> Gestão de Produtos
+                    </a>
+                    <a href="servicos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium">
+                        <i class="fas fa-cogs w-5 text-center text-lg"></i> Gestão de Serviços
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <p class="px-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">Conteúdo</p>
+                <div class="space-y-1">
+                    <a href="portfolio.html" class="flex items-center gap-3 px-3 py-2.5 bg-gray-800 text-white rounded-xl transition-all font-medium">
+                        <i class="fas fa-images w-5 text-center text-orange-500 text-lg"></i> Portfólio (Obras)
+                    </a>
+                    <a href="blog.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium">
+                        <i class="fas fa-pen-nib w-5 text-center text-lg"></i> Gestão do Blog
+                    </a>
+                </div>
+            </div>
         </nav>
+        
+        <div class="p-4 border-t border-gray-800 shrink-0">
+            <button onclick="fazerLogout()" class="w-full flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-xl transition-colors text-sm font-medium">
+                <i class="fas fa-sign-out-alt w-5 text-center text-lg"></i> Sair do Painel
+            </button>
+        </div>
     </aside>
 
-    <main class="flex-1 flex flex-col h-screen overflow-hidden">
-        <header class="h-20 bg-gray-900 border-b border-gray-800 flex items-center justify-between px-8 shrink-0">
+    <main class="flex-1 flex flex-col h-screen overflow-hidden bg-gray-950">
+        
+        <header class="h-20 bg-gray-900 border-b border-gray-800 flex items-center justify-between px-8 shrink-0 z-10">
             <div>
-                <h2 class="text-xl font-bold text-white">Portfólio</h2>
+                <h2 class="text-xl font-bold text-white">Gestão de Portfólio</h2>
                 <p class="text-xs text-gray-400">Projetos e Obras Xerfan Tech Lab</p>
             </div>
             <button onclick="abrirModalNovo()" class="bg-orange-500 hover:bg-orange-600 text-white text-sm font-bold px-5 py-2.5 rounded-xl transition-all shadow-lg shadow-orange-500/20">
@@ -37,7 +86,7 @@
             </button>
         </header>
 
-        <div class="flex-1 overflow-y-auto p-8">
+        <div class="flex-1 overflow-y-auto p-8 relative">
             <div id="grid-portfolio" class="grid md:grid-cols-3 xl:grid-cols-4 gap-6">
                 </div>
         </div>
@@ -59,10 +108,9 @@
                         <input type="text" id="proj-titulo" required class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white outline-none focus:border-orange-500 transition-all" placeholder="Ex: Automação Residencial Smart">
                     </div>
                     <div>
-                        <label class="block text-[10px] font-bold text-gray-500 uppercase mb-2 tracking-widest">Categoria (Escolha ou Digite uma Nova)</label>
+                        <label class="block text-[10px] font-bold text-gray-500 uppercase mb-2 tracking-widest">Categoria (Escolha ou Digite nova)</label>
                         <input list="lista-categorias" id="proj-categoria" required class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white outline-none focus:border-orange-500 transition-all" placeholder="Selecione ou digite...">
-                        <datalist id="lista-categorias">
-                            </datalist>
+                        <datalist id="lista-categorias"></datalist>
                     </div>
                 </div>
 
@@ -95,11 +143,13 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc, query, orderBy, getDocs, where } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
         const firebaseConfig = { apiKey: "AIzaSyCpxfzPrj1DJpcv-bHsVtR1Y7NSVN3KRTI", authDomain: "xerfan-tech-lab.firebaseapp.com", projectId: "xerfan-tech-lab", storageBucket: "xerfan-tech-lab.firebasestorage.app", messagingSenderId: "931331197336", appId: "1:931331197336:web:ca2550d7d10da44fbb43ed" };
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        const auth = getAuth(app);
 
         const colPortfolio = collection(db, "portfolio");
         const colCategorias = collection(db, "categorias_portfolio");
@@ -107,7 +157,19 @@
         window.portfolioData = {};
         let categoriasExistentes = [];
 
-        // 1. CARREGAR CATEGORIAS PARA O DATALIST (Sincronização em tempo real)
+        // VERIFICAÇÃO DE SEGURANÇA
+        onAuthStateChanged(auth, (user) => { 
+            if (user) { 
+                document.getElementById('auth-guard').style.opacity = '0';
+                setTimeout(() => document.getElementById('auth-guard').style.display = 'none', 500);
+            } else { 
+                window.location.href = 'login.html'; 
+            } 
+        });
+
+        window.fazerLogout = () => signOut(auth).then(() => { window.location.href = 'login.html'; });
+
+        // CARREGAR CATEGORIAS PARA O DATALIST
         onSnapshot(colCategorias, (snap) => {
             const datalist = document.getElementById('lista-categorias');
             datalist.innerHTML = '';
@@ -119,7 +181,7 @@
             });
         });
 
-        // 2. LISTAR PROJETOS NO GRID
+        // LISTAR PROJETOS NO GRID
         onSnapshot(query(colPortfolio, orderBy("data_cadastro", "desc")), (snap) => {
             const grid = document.getElementById('grid-portfolio');
             grid.innerHTML = '';
@@ -127,10 +189,10 @@
                 const p = d.data();
                 window.portfolioData[d.id] = p;
                 grid.innerHTML += `
-                    <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden group hover:border-orange-500/50 transition-all">
+                    <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden group hover:border-orange-500/50 transition-all shadow-sm">
                         <div class="relative h-40 overflow-hidden">
                             <img src="${p.imagem}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-80">
-                            <div class="absolute top-3 left-3 bg-orange-500 text-[10px] font-black px-2 py-1 rounded text-white uppercase tracking-tighter">${p.categoria}</div>
+                            <div class="absolute top-3 left-3 bg-orange-500 text-[10px] font-black px-2 py-1 rounded text-white uppercase tracking-tighter shadow-md">${p.categoria}</div>
                         </div>
                         <div class="p-5">
                             <h4 class="font-bold text-white mb-4 line-clamp-1">${p.titulo}</h4>
@@ -143,17 +205,16 @@
             });
         });
 
-        // 3. SALVAR PROJETO + LÓGICA DE NOVA CATEGORIA
+        // SALVAR PROJETO
         document.getElementById('form-portfolio').addEventListener('submit', async (e) => {
             e.preventDefault();
             const id = document.getElementById('proj-id').value;
             const catNome = document.getElementById('proj-categoria').value.trim();
             const btn = document.getElementById('btn-submit');
             
-            btn.disabled = true; btn.innerText = "A processar...";
+            btn.disabled = true; btn.innerText = "Salvando...";
 
             try {
-                // Se a categoria for nova, cria no banco
                 if (!categoriasExistentes.includes(catNome)) {
                     await addDoc(colCategorias, { nome: catNome });
                 }
@@ -167,30 +228,16 @@
                     data_cadastro: id ? window.portfolioData[id].data_cadastro : new Date().toISOString()
                 };
 
-                if (id) {
-                    await updateDoc(doc(db, "portfolio", id), dados);
-                } else {
-                    await addDoc(colPortfolio, dados);
-                }
+                if (id) { await updateDoc(doc(db, "portfolio", id), dados); } 
+                else { await addDoc(colPortfolio, dados); }
 
                 fecharModal();
                 document.getElementById('form-portfolio').reset();
-            } catch (err) {
-                console.error(err);
-                alert("Erro ao guardar dados.");
-            } finally {
-                btn.disabled = false; btn.innerText = "Salvar Projeto";
-            }
+            } catch (err) { alert("Erro ao salvar dados."); } 
+            finally { btn.disabled = false; btn.innerText = "Salvar Projeto"; }
         });
 
-        // FUNÇÕES DE UI
-        window.abrirModalNovo = () => {
-            document.getElementById('form-portfolio').reset();
-            document.getElementById('proj-id').value = "";
-            document.getElementById('modal-titulo').innerText = "Cadastrar Projeto";
-            document.getElementById('modal-portfolio').classList.replace('hidden', 'flex');
-        };
-
+        window.abrirModalNovo = () => { document.getElementById('form-portfolio').reset(); document.getElementById('proj-id').value = ""; document.getElementById('modal-titulo').innerText = "Cadastrar Projeto"; document.getElementById('modal-portfolio').classList.replace('hidden', 'flex'); };
         window.prepararEdicao = (id) => {
             const p = window.portfolioData[id];
             document.getElementById('proj-id').value = id;
@@ -202,13 +249,7 @@
             document.getElementById('modal-titulo').innerText = "Editar Projeto";
             document.getElementById('modal-portfolio').classList.replace('hidden', 'flex');
         };
-
-        window.excluirProj = async (id) => {
-            if(confirm("Tem a certeza que deseja eliminar este projeto?")) {
-                await deleteDoc(doc(db, "portfolio", id));
-            }
-        };
-
+        window.excluirProj = async (id) => { if(confirm("Apagar projeto?")) await deleteDoc(doc(db, "portfolio", id)); };
         window.fecharModal = () => document.getElementById('modal-portfolio').classList.replace('flex', 'hidden');
     </script>
 </body>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestão do Blog - Xerfan Tech Lab</title>
+    <title>Gestão do Blog - Xerfan Admin</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -11,69 +11,111 @@
 </head>
 <body class="bg-gray-950 text-gray-200 flex h-screen overflow-hidden">
 
-    <aside class="w-64 bg-gray-900 border-r border-gray-800 flex flex-col hidden md:flex z-20 shrink-0">
-        <div class="h-20 flex items-center px-6 border-b border-gray-800">
-            <div class="w-8 h-8 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center text-white font-black shadow-lg mr-3">X</div>
+    <div id="auth-guard" class="fixed inset-0 bg-gray-950 z-[999] flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="w-16 h-16 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+        <p class="text-gray-400 font-bold tracking-widest uppercase text-sm">Autenticando...</p>
+    </div>
+
+    <aside class="w-64 bg-gray-900 border-r border-gray-800 flex flex-col hidden md:flex shrink-0 overflow-y-auto z-20">
+        <div class="h-20 flex items-center px-6 border-b border-gray-800 shrink-0">
+            <div class="w-8 h-8 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center text-white font-black shadow-lg shadow-orange-500/20 mr-3">X</div>
             <span class="font-bold text-white tracking-wide">Xerfan Admin</span>
         </div>
-        <nav class="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
-            <p class="px-2 text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Visão Geral</p>
-            <a href="dashboard.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium"><i class="fas fa-chart-pie w-5"></i> Dashboard</a>
-            
-            <p class="px-2 text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 mt-6">CRM / Clientes</p>
-            <a href="agendamentos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium"><i class="fas fa-calendar-check w-5"></i> Agendamentos</a>
-            <a href="mensagens.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium"><i class="fas fa-envelope w-5"></i> Contatos</a>
+        
+        <nav class="flex-1 px-4 py-6 space-y-6">
+            <div>
+                <p class="px-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">Visão Geral</p>
+                <a href="dashboard.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium">
+                    <i class="fas fa-chart-pie w-5 text-center text-lg"></i> Dashboard
+                </a>
+            </div>
 
-            <p class="px-2 text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 mt-6">Catálogo</p>
-            <a href="produtos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium"><i class="fas fa-box w-5"></i> Produtos</a>
-            <a href="servicos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium"><i class="fas fa-cogs w-5"></i> Serviços</a>
+            <div>
+                <p class="px-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">CRM / Clientes</p>
+                <div class="space-y-1">
+                    <a href="agendamentos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium">
+                        <i class="fas fa-calendar-check w-5 text-center text-lg"></i> Agendamentos
+                    </a>
+                    <a href="mensagens.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium relative">
+                        <i class="fas fa-envelope w-5 text-center text-lg"></i> Dúvidas / Contatos
+                        <span id="badge-novas" class="absolute right-3 top-1/2 -translate-y-1/2 bg-orange-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full hidden">0</span>
+                    </a>
+                </div>
+            </div>
 
-            <p class="px-2 text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 mt-6">Conteúdo</p>
-            <a href="portfolio.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium"><i class="fas fa-images w-5"></i> Portfólio</a>
-            <a href="blog.html" class="flex items-center gap-3 px-3 py-2.5 bg-orange-500/10 text-orange-500 rounded-xl transition-colors font-medium"><i class="fas fa-pen-nib w-5"></i> Gestão do Blog</a>
+            <div>
+                <p class="px-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">Catálogo do Site</p>
+                <div class="space-y-1">
+                    <a href="produtos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium">
+                        <i class="fas fa-box w-5 text-center text-lg"></i> Gestão de Produtos
+                    </a>
+                    <a href="servicos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium">
+                        <i class="fas fa-cogs w-5 text-center text-lg"></i> Gestão de Serviços
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <p class="px-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">Conteúdo</p>
+                <div class="space-y-1">
+                    <a href="portfolio.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium">
+                        <i class="fas fa-images w-5 text-center text-lg"></i> Portfólio (Obras)
+                    </a>
+                    <a href="blog.html" class="flex items-center gap-3 px-3 py-2.5 bg-gray-800 text-white rounded-xl transition-all font-medium">
+                        <i class="fas fa-pen-nib w-5 text-center text-orange-500 text-lg"></i> Gestão do Blog
+                    </a>
+                </div>
+            </div>
         </nav>
-        <div class="p-4 border-t border-gray-800">
-            <button onclick="fazerLogout()" class="w-full flex items-center gap-3 px-3 py-2 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-xl transition-colors text-sm font-medium"><i class="fas fa-sign-out-alt w-5"></i> Sair</button>
+        
+        <div class="p-4 border-t border-gray-800 shrink-0">
+            <button onclick="fazerLogout()" class="w-full flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-xl transition-colors text-sm font-medium">
+                <i class="fas fa-sign-out-alt w-5 text-center text-lg"></i> Sair do Painel
+            </button>
         </div>
     </aside>
 
-    <main class="flex-1 flex flex-col h-screen overflow-hidden">
-        <header class="h-20 bg-gray-900 border-b border-gray-800 flex items-center justify-between px-8 shrink-0">
+    <main class="flex-1 flex flex-col h-screen overflow-hidden bg-gray-950">
+        <header class="h-20 bg-gray-900 border-b border-gray-800 flex items-center justify-between px-8 shrink-0 z-10">
             <div>
-                <h2 class="text-xl font-bold text-white">Artigos do Blog</h2>
-                <p class="text-xs text-gray-400">Gerencie suas publicações e novidades.</p>
+                <h2 class="text-xl font-bold text-white">Gestão do Blog</h2>
+                <p class="text-xs text-gray-400">Gerencie suas publicações e artigos técnicos.</p>
             </div>
-            <button onclick="abrirModalNovo()" class="bg-orange-500 hover:bg-orange-600 text-white text-sm font-bold px-5 py-2.5 rounded-xl transition-all flex items-center gap-2">
-                <i class="fas fa-plus"></i> Novo Artigo
+            <button onclick="abrirModalNovo()" class="bg-orange-500 hover:bg-orange-600 text-white text-sm font-bold px-5 py-2.5 rounded-xl transition-all shadow-lg shadow-orange-500/20">
+                <i class="fas fa-plus mr-2"></i> Novo Artigo
             </button>
         </header>
 
-        <div class="flex-1 overflow-y-auto p-8">
-            <div id="grid-blog" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="flex-1 overflow-y-auto p-8 relative">
+            <div id="grid-blog" class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 </div>
         </div>
     </main>
 
     <div id="modal-blog" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
         <div class="bg-gray-900 border border-gray-700 w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl p-8 shadow-2xl">
-            <h3 id="modal-titulo-texto" class="text-2xl font-bold text-white mb-6">Novo Artigo</h3>
+            <div class="flex justify-between items-center mb-6">
+                <h3 id="modal-titulo-texto" class="text-2xl font-bold text-white">Escrever Artigo</h3>
+                <button onclick="fecharModal()" class="text-gray-500 hover:text-white"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            
             <form id="form-blog" class="space-y-4">
                 <input type="hidden" id="blog-id">
                 <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Título do Artigo</label>
+                    <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">Título do Artigo</label>
                     <input type="text" id="blog-titulo" required class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white outline-none focus:border-orange-500">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-2">URL da Imagem de Capa</label>
+                    <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">URL da Imagem de Capa</label>
                     <input type="text" id="blog-imagem" required class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white outline-none focus:border-orange-500">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Conteúdo do Artigo (Pode usar Enter para parágrafos)</label>
+                    <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">Conteúdo (Pressione Enter para criar parágrafos)</label>
                     <textarea id="blog-conteudo" rows="10" required class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white outline-none focus:border-orange-500 resize-none"></textarea>
                 </div>
-                <div class="flex justify-end gap-3 pt-4 border-t border-gray-800">
-                    <button type="button" onclick="fecharModal()" class="text-gray-400 font-bold px-4">Cancelar</button>
-                    <button type="submit" id="btn-salvar" class="bg-orange-500 hover:bg-orange-600 text-white font-bold px-8 py-3 rounded-xl shadow-lg transition-all">Publicar Artigo</button>
+                <div class="flex justify-end gap-3 pt-6 border-t border-gray-800">
+                    <button type="button" onclick="fecharModal()" class="text-gray-400 font-bold px-6 py-3 hover:text-white transition-all">Cancelar</button>
+                    <button type="submit" id="btn-salvar" class="bg-orange-500 hover:bg-orange-600 text-white font-bold px-10 py-3 rounded-xl shadow-lg transition-all">Publicar Artigo</button>
                 </div>
             </form>
         </div>
@@ -82,31 +124,38 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-        import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
         const firebaseConfig = { apiKey: "AIzaSyCpxfzPrj1DJpcv-bHsVtR1Y7NSVN3KRTI", authDomain: "xerfan-tech-lab.firebaseapp.com", projectId: "xerfan-tech-lab", storageBucket: "xerfan-tech-lab.firebasestorage.app", messagingSenderId: "931331197336", appId: "1:931331197336:web:ca2550d7d10da44fbb43ed" };
         const app = initializeApp(firebaseConfig); const db = getFirestore(app); const auth = getAuth(app);
 
+        onAuthStateChanged(auth, (user) => { 
+            if (user) { 
+                document.getElementById('auth-guard').style.opacity = '0';
+                setTimeout(() => document.getElementById('auth-guard').style.display = 'none', 500);
+            } else { window.location.href = 'login.html'; } 
+        });
+        window.fazerLogout = () => signOut(auth).then(() => { window.location.href = 'login.html'; });
+
         window.blogData = {};
-        const blogGrid = document.getElementById('grid-blog');
         const q = query(collection(db, "blog"), orderBy("data", "desc"));
 
-        // LISTAGEM EM TEMPO REAL
         onSnapshot(q, (snap) => {
+            const blogGrid = document.getElementById('grid-blog');
             blogGrid.innerHTML = '';
             snap.forEach(d => {
                 const post = d.data();
                 window.blogData[d.id] = post;
                 blogGrid.innerHTML += `
-                    <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden group shadow-lg">
+                    <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden group shadow-sm hover:border-orange-500/50 transition-colors">
                         <img src="${post.imagem}" class="w-full h-40 object-cover opacity-80 group-hover:opacity-100 transition-opacity">
                         <div class="p-5">
                             <h4 class="font-bold text-white mb-2 line-clamp-2">${post.titulo}</h4>
                             <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-800">
-                                <span class="text-xs text-gray-500">${new Date(post.data).toLocaleDateString()}</span>
+                                <span class="text-[10px] font-bold text-gray-500 tracking-widest uppercase">${new Date(post.data).toLocaleDateString()}</span>
                                 <div class="flex gap-2">
-                                    <button onclick="prepararEdicao('${d.id}')" class="w-8 h-8 flex items-center justify-center bg-blue-500/10 text-blue-500 rounded-lg hover:bg-blue-500 hover:text-white transition-all"><i class="fas fa-edit text-xs"></i></button>
-                                    <button onclick="excluirPost('${d.id}')" class="w-8 h-8 flex items-center justify-center bg-red-500/10 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all"><i class="fas fa-trash text-xs"></i></button>
+                                    <button onclick="prepararEdicao('${d.id}')" class="text-blue-500 text-[10px] font-bold uppercase tracking-widest hover:text-blue-400"><i class="fas fa-edit mr-1"></i> Editar</button>
+                                    <button onclick="excluirPost('${d.id}')" class="text-red-500 text-[10px] font-bold uppercase tracking-widest hover:text-red-400"><i class="fas fa-trash mr-1"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -114,7 +163,6 @@
             });
         });
 
-        // SALVAR OU ATUALIZAR
         document.getElementById('form-blog').addEventListener('submit', async (e) => {
             e.preventDefault();
             const id = document.getElementById('blog-id').value;
@@ -129,18 +177,14 @@
             };
 
             try {
-                if (id) {
-                    await updateDoc(doc(db, "blog", id), dados);
-                } else {
-                    await addDoc(collection(db, "blog"), dados);
-                }
+                if (id) { await updateDoc(doc(db, "blog", id), dados); } 
+                else { await addDoc(collection(db, "blog"), dados); }
                 fecharModal();
                 document.getElementById('form-blog').reset();
             } catch (error) { alert("Erro ao salvar artigo."); }
             finally { btn.disabled = false; btn.innerText = "Publicar Artigo"; }
         });
 
-        // FUNÇÕES GLOBAIS
         window.abrirModalNovo = () => {
             document.getElementById('blog-id').value = "";
             document.getElementById('modal-titulo-texto').innerText = "Novo Artigo";
@@ -158,9 +202,8 @@
             document.getElementById('modal-blog').classList.replace('hidden', 'flex');
         };
 
-        window.excluirPost = async (id) => { if(confirm("Deseja apagar este artigo definitivamente?")) await deleteDoc(doc(db, "blog", id)); };
+        window.excluirPost = async (id) => { if(confirm("Deseja apagar este artigo?")) await deleteDoc(doc(db, "blog", id)); };
         window.fecharModal = () => document.getElementById('modal-blog').classList.replace('flex', 'hidden');
-        window.fazerLogout = () => signOut(auth).then(() => { window.location.href = 'login.html'; });
     </script>
 </body>
 </html>

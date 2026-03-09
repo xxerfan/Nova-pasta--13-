@@ -1,6 +1,6 @@
 /**
  * ============================================================
- * Xerfan Tech Lab - main.js v3.1 PRO (DARK MODE LOCK)
+ * Xerfan Tech Lab - main.js v3.2 PRO (DARK MODE LOCK + TOGGLE)
  * Sistema completo de funcionalidades do site
  * ============================================================
  */
@@ -8,7 +8,7 @@
 'use strict';
 
 // ============================================================
-// 1. CARREGAMENTO DE COMPONENTES
+// 1. CARREGAMENTO DE COMPONENTES E FEATURE TOGGLE
 // ============================================================
 function loadComponent(elementId, componentPath) {
     const element = document.getElementById(elementId);
@@ -32,9 +32,68 @@ function loadComponent(elementId, componentPath) {
                 document.head.appendChild(newScript);
                 if (!oldScript.src) document.head.removeChild(newScript);
             });
+            
+            // ATIVA O FEATURE TOGGLE ASSIM QUE O HEADER CARREGAR
+            if (elementId === 'header') {
+                aplicarTravasVisibilidade();
+            }
+
             window.dispatchEvent(new CustomEvent(`${elementId}Loaded`, { detail: { path: componentPath } }));
         })
         .catch(err => console.warn(`Componente não encontrado: ${componentPath}`, err));
+}
+
+// O CÉREBRO DO MODO MANUTENÇÃO (Importação Dinâmica Isolada)
+async function aplicarTravasVisibilidade() {
+    try {
+        const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js");
+        const { getFirestore, doc, onSnapshot } = await import("https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js");
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCpxfzPrj1DJpcv-bHsVtR1Y7NSVN3KRTI",
+            authDomain: "xerfan-tech-lab.firebaseapp.com",
+            projectId: "xerfan-tech-lab",
+            storageBucket: "xerfan-tech-lab.firebasestorage.app",
+            messagingSenderId: "931331197336",
+            appId: "1:931331197336:web:ca2550d7d10da44fbb43ed"
+        };
+
+        // Usa um nome único para não conflitar com os outros scripts da página
+        const appToggle = initializeApp(firebaseConfig, "XerfanToggleApp");
+        const dbToggle = getFirestore(appToggle);
+
+        onSnapshot(doc(dbToggle, "settings", "paginas"), (snap) => {
+            if (snap.exists()) {
+                const status = snap.data();
+                const modulos = ['produtos', 'servicos', 'portfolio', 'blog'];
+                
+                modulos.forEach(modulo => {
+                    const ativo = status[`${modulo}_active`] ?? true; // Se não existir, padrão é ativo
+                    
+                    // 1. Esconde/Mostra os links no Menu (Header)
+                    const links = document.querySelectorAll(`.nav-link-${modulo}`);
+                    links.forEach(link => {
+                        link.style.display = ativo ? '' : 'none';
+                    });
+                    
+                    // 2. Esconde/Mostra seções inteiras na Home
+                    const secaoHome = document.getElementById(`secao-${modulo}`);
+                    if (secaoHome) {
+                        secaoHome.style.display = ativo ? '' : 'none';
+                    }
+                    
+                    // 3. Trava de Segurança: Bloqueio de Acesso Direto via URL
+                    const pathAtual = window.location.pathname.toLowerCase();
+                    if (pathAtual.includes(`/${modulo}.html`) && !ativo) {
+                        console.warn(`[XTL Security] A página ${modulo} está em manutenção. Redirecionando...`);
+                        window.location.href = 'index.html';
+                    }
+                });
+            }
+        });
+    } catch (e) {
+        console.error("Erro ao inicializar travas de visibilidade:", e);
+    }
 }
 
 // ============================================================
@@ -400,10 +459,13 @@ function initCookieConsent() {
 // 10. INICIALIZAÇÃO GERAL
 // ============================================================
 document.addEventListener('DOMContentLoaded', () => {
-    Promise.all([
-        loadComponent('header', 'components/header.html'),
-        loadComponent('footer', 'components/footer.html')
-    ]);
+    // Só prossegue se tiver a função loadComponent válida (impede erros em admin isolado)
+    if (typeof loadComponent === 'function') {
+        Promise.all([
+            loadComponent('header', 'components/header.html'),
+            loadComponent('footer', 'components/footer.html')
+        ]);
+    }
 
     initProgressBar();
     initCounters();
@@ -411,7 +473,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollReveal();
     document.querySelectorAll('[name="telefone"]').forEach(aplicarMascaraTelefone);
     
-    if (!window.location.pathname.includes('chatbot')) {
+    if (!window.location.pathname.includes('chatbot') && !window.location.pathname.includes('admin')) {
         new FloatingChatBot();
     }
     

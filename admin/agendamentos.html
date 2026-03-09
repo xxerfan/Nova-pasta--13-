@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agendamentos - Admin Xerfan Tech Lab</title>
+    <title>Agendamentos - Xerfan Admin</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -11,54 +11,76 @@
 </head>
 <body class="bg-gray-950 text-gray-200 flex h-screen overflow-hidden">
 
-    <aside class="w-64 bg-gray-900 border-r border-gray-800 flex flex-col hidden md:flex z-20 shrink-0">
-        <div class="h-20 flex items-center px-6 border-b border-gray-800">
-            <div class="w-8 h-8 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center text-white font-black shadow-lg mr-3">X</div>
+    <div id="auth-guard" class="fixed inset-0 bg-gray-950 z-[999] flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="w-16 h-16 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+        <p class="text-gray-400 font-bold tracking-widest uppercase text-sm">Autenticando...</p>
+    </div>
+
+    <aside class="w-64 bg-gray-900 border-r border-gray-800 flex flex-col hidden md:flex shrink-0 overflow-y-auto z-20">
+        <div class="h-20 flex items-center px-6 border-b border-gray-800 shrink-0">
+            <div class="w-8 h-8 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center text-white font-black shadow-lg shadow-orange-500/20 mr-3">X</div>
             <span class="font-bold text-white tracking-wide">Xerfan Admin</span>
         </div>
+        
+        <nav class="flex-1 px-4 py-6 space-y-6">
+            <div>
+                <p class="px-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">Visão Geral</p>
+                <a href="dashboard.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium">
+                    <i class="fas fa-chart-pie w-5 text-center text-lg"></i> Dashboard
+                </a>
+            </div>
 
-        <nav class="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
-            <p class="px-2 text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Visão Geral</p>
-            <a href="dashboard.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium">
-                <i class="fas fa-chart-pie w-5"></i> Dashboard
-            </a>
-            
-            <p class="px-2 text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 mt-6">CRM / Clientes</p>
-            <a href="agendamentos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium">
-                <i class="fas fa-calendar-check w-5 text-green-500"></i> Agendamentos
-            </a>
-            <a href="mensagens.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium relative">
-                <i class="fas fa-envelope w-5"></i> Dúvidas / Contatos
-                <span id="badge-novas-menu" class="absolute right-3 top-1/2 -translate-y-1/2 bg-orange-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full hidden">0</span>
-            </a>
+            <div>
+                <p class="px-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">CRM / Clientes</p>
+                <div class="space-y-1">
+                    <a href="agendamentos.html" class="flex items-center gap-3 px-3 py-2.5 bg-gray-800 text-white rounded-xl transition-all font-medium">
+                        <i class="fas fa-calendar-check w-5 text-center text-orange-500 text-lg"></i> Agendamentos
+                    </a>
+                    <a href="mensagens.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium relative">
+                        <i class="fas fa-envelope w-5 text-center text-lg"></i> Dúvidas / Contatos
+                        <span id="badge-novas" class="absolute right-3 top-1/2 -translate-y-1/2 bg-orange-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full hidden">0</span>
+                    </a>
+                </div>
+            </div>
 
-            <p class="px-2 text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 mt-6">Catálogo do Site</p>
-            <a href="produtos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium">
-                <i class="fas fa-box w-5"></i> Gestão de Produtos
-            </a>
-            <a href="servicos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium">
-                <i class="fas fa-cogs w-5"></i> Gestão de Serviços
-            </a>
+            <div>
+                <p class="px-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">Catálogo do Site</p>
+                <div class="space-y-1">
+                    <a href="produtos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium">
+                        <i class="fas fa-box w-5 text-center text-lg"></i> Gestão de Produtos
+                    </a>
+                    <a href="servicos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium">
+                        <i class="fas fa-cogs w-5 text-center text-lg"></i> Gestão de Serviços
+                    </a>
+                </div>
+            </div>
 
-            <p class="px-2 text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 mt-6">Conteúdo</p>
-            <a href="portfolio.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium">
-                <i class="fas fa-images w-5"></i> Portfólio (Obras)
-            </a>
-            <a href="blog.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-colors font-medium">
-                <i class="fas fa-pen-nib w-5"></i> Gestão do Blog
-            </a>
+            <div>
+                <p class="px-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">Conteúdo</p>
+                <div class="space-y-1">
+                    <a href="portfolio.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium">
+                        <i class="fas fa-images w-5 text-center text-lg"></i> Portfólio (Obras)
+                    </a>
+                    <a href="blog.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium">
+                        <i class="fas fa-pen-nib w-5 text-center text-lg"></i> Gestão do Blog
+                    </a>
+                </div>
+            </div>
         </nav>
-
-        <div class="p-4 border-t border-gray-800">
-            <button onclick="fazerLogout()" class="w-full flex items-center gap-3 px-3 py-2 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-xl transition-colors text-sm font-medium">
-                <i class="fas fa-sign-out-alt w-5"></i> Sair do Sistema
+        
+        <div class="p-4 border-t border-gray-800 shrink-0">
+            <button onclick="fazerLogout()" class="w-full flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-xl transition-colors text-sm font-medium">
+                <i class="fas fa-sign-out-alt w-5 text-center text-lg"></i> Sair do Painel
             </button>
         </div>
     </aside>
 
-    <main class="flex-1 flex flex-col h-screen relative overflow-hidden">
-        <header class="h-20 bg-gray-900/80 border-b border-gray-800 flex items-center px-8 z-10 shrink-0">
-            <div><h2 class="text-xl font-bold text-white text-green-500 flex items-center gap-2"><i class="fas fa-calendar-check"></i> Solicitações de Serviço</h2></div>
+    <main class="flex-1 flex flex-col h-screen overflow-hidden bg-gray-950">
+        <header class="h-20 bg-gray-900 border-b border-gray-800 flex items-center justify-between px-8 shrink-0 z-10">
+            <div>
+                <h2 class="text-xl font-bold text-white">Solicitações de Serviço</h2>
+                <p class="text-xs text-gray-400">Gerencie os agendamentos e visitas técnicas.</p>
+            </div>
         </header>
 
         <div class="flex-1 overflow-y-auto p-8 relative">
@@ -96,11 +118,19 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getFirestore, collection, onSnapshot, doc, updateDoc, deleteDoc, query, where } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
-        const app = initializeApp({ apiKey: "AIzaSyCpxfzPrj1DJpcv-bHsVtR1Y7NSVN3KRTI", authDomain: "xerfan-tech-lab.firebaseapp.com", projectId: "xerfan-tech-lab", storageBucket: "xerfan-tech-lab.firebasestorage.app", messagingSenderId: "931331197336", appId: "1:931331197336:web:ca2550d7d10da44fbb43ed" });
-        const db = getFirestore(app);
+        const firebaseConfig = { apiKey: "AIzaSyCpxfzPrj1DJpcv-bHsVtR1Y7NSVN3KRTI", authDomain: "xerfan-tech-lab.firebaseapp.com", projectId: "xerfan-tech-lab", storageBucket: "xerfan-tech-lab.firebasestorage.app", messagingSenderId: "931331197336", appId: "1:931331197336:web:ca2550d7d10da44fbb43ed" };
+        const app = initializeApp(firebaseConfig); const auth = getAuth(app); const db = getFirestore(app);
 
-        // Busca apenas as mensagens cuja origem seja Agendamento
+        onAuthStateChanged(auth, (user) => { 
+            if (user) { 
+                document.getElementById('auth-guard').style.opacity = '0';
+                setTimeout(() => document.getElementById('auth-guard').style.display = 'none', 500);
+            } else { window.location.href = 'login.html'; } 
+        });
+        window.fazerLogout = () => signOut(auth).then(() => { window.location.href = 'login.html'; });
+
         const q = query(collection(db, "mensagens"), where("origem", "==", "Agendamento Online"));
         window.mensagensData = {};
 
