@@ -1304,3 +1304,36 @@ html {
 .dark #chat-messages::-webkit-scrollbar-thumb { background: rgba(75, 85, 99, 0.5); }
 #chat-typing div { animation: pulse 1.5s infinite ease-in-out; }
 @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+/* ==========================================================================
+   MOBILE RESPONSIVENESS TWEAKS (XTL 2026)
+   Correções específicas para ecrãs de telemóvel e tablets
+   ========================================================================== */
+
+/* 1. Esconde a scrollbar na lista horizontal de abas de categorias, mas mantém a função de deslizar o dedo (Swipe) intacta */
+.filter-tabs {
+    scrollbar-width: none; /* Regra para Firefox */
+    -ms-overflow-style: none; /* Regra para IE e Edge */
+    -webkit-overflow-scrolling: touch; /* Permite o scroll fluido no iOS */
+}
+
+.filter-tabs::-webkit-scrollbar {
+    display: none; /* Regra principal para Chrome, Safari e Opera */
+}
+
+/* 2. Remove a caixa de destaque cinza/azul que alguns navegadores mobile (ex: Chrome Android) aplicam automaticamente ao tocar em botões ou links */
+button, a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* 3. FIX CRÍTICO iOS: O iPhone (Safari) faz zoom automaticamente se o tamanho da fonte de um input for menor que 16px. Isto quebra o layout. Forçamos os 16px apenas em telemóveis para evitar isso! */
+@media screen and (max-width: 768px) {
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"],
+    input[type="date"],
+    select,
+    textarea {
+        font-size: 16px !important;
+    }
+}

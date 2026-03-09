@@ -1,6 +1,6 @@
 /**
  * ============================================================
- * Xerfan Tech Lab - main.js v3.2 PRO (DARK MODE LOCK + TOGGLE)
+ * Xerfan Tech Lab - main.js v4.0 (MOBILE OPTIMIZED)
  * Sistema completo de funcionalidades do site
  * ============================================================
  */
@@ -8,8 +8,9 @@
 'use strict';
 
 // ============================================================
-// 1. CARREGAMENTO DE COMPONENTES E FEATURE TOGGLE
+// 1. CARREGAMENTO DE COMPONENTES E FEATURE TOGGLE (MODO MANUTENÇÃO)
 // ============================================================
+// Função que injeta o HTML do Header e do Footer nas páginas
 function loadComponent(elementId, componentPath) {
     const element = document.getElementById(elementId);
     if (!element) return Promise.resolve();
@@ -21,6 +22,7 @@ function loadComponent(elementId, componentPath) {
         })
         .then(html => {
             element.innerHTML = html;
+            // Recarrega scripts que possam vir dentro do HTML injetado
             element.querySelectorAll('script').forEach(oldScript => {
                 const newScript = document.createElement('script');
                 if (oldScript.src) {
@@ -33,7 +35,7 @@ function loadComponent(elementId, componentPath) {
                 if (!oldScript.src) document.head.removeChild(newScript);
             });
             
-            // ATIVA O FEATURE TOGGLE ASSIM QUE O HEADER CARREGAR
+            // Ativa o sistema de bloqueio de páginas (Toggle) quando o Header carregar
             if (elementId === 'header') {
                 aplicarTravasVisibilidade();
             }
@@ -43,7 +45,7 @@ function loadComponent(elementId, componentPath) {
         .catch(err => console.warn(`Componente não encontrado: ${componentPath}`, err));
 }
 
-// O CÉREBRO DO MODO MANUTENÇÃO (Importação Dinâmica Isolada)
+// Cérebro do Modo Manutenção: Lê do Firebase se as páginas estão ativas ou ocultas
 async function aplicarTravasVisibilidade() {
     try {
         const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js");
@@ -58,7 +60,6 @@ async function aplicarTravasVisibilidade() {
             appId: "1:931331197336:web:ca2550d7d10da44fbb43ed"
         };
 
-        // Usa um nome único para não conflitar com os outros scripts da página
         const appToggle = initializeApp(firebaseConfig, "XerfanToggleApp");
         const dbToggle = getFirestore(appToggle);
 
@@ -68,24 +69,19 @@ async function aplicarTravasVisibilidade() {
                 const modulos = ['produtos', 'servicos', 'portfolio', 'blog'];
                 
                 modulos.forEach(modulo => {
-                    const ativo = status[`${modulo}_active`] ?? true; // Se não existir, padrão é ativo
+                    const ativo = status[`${modulo}_active`] ?? true; // Padrão: Ativo
                     
-                    // 1. Esconde/Mostra os links no Menu (Header)
+                    // Esconde/Mostra os links no Menu
                     const links = document.querySelectorAll(`.nav-link-${modulo}`);
-                    links.forEach(link => {
-                        link.style.display = ativo ? '' : 'none';
-                    });
+                    links.forEach(link => { link.style.display = ativo ? '' : 'none'; });
                     
-                    // 2. Esconde/Mostra seções inteiras na Home
+                    // Esconde/Mostra as secções na Home
                     const secaoHome = document.getElementById(`secao-${modulo}`);
-                    if (secaoHome) {
-                        secaoHome.style.display = ativo ? '' : 'none';
-                    }
+                    if (secaoHome) { secaoHome.style.display = ativo ? '' : 'none'; }
                     
-                    // 3. Trava de Segurança: Bloqueio de Acesso Direto via URL
+                    // Redireciona se tentar aceder via URL a uma página inativa
                     const pathAtual = window.location.pathname.toLowerCase();
                     if (pathAtual.includes(`/${modulo}.html`) && !ativo) {
-                        console.warn(`[XTL Security] A página ${modulo} está em manutenção. Redirecionando...`);
                         window.location.href = 'index.html';
                     }
                 });
@@ -99,6 +95,7 @@ async function aplicarTravasVisibilidade() {
 // ============================================================
 // 2. SISTEMA DE NOTIFICAÇÕES (Toast)
 // ============================================================
+// Cria um aviso flutuante elegante na tela (ex: Mensagem Enviada!)
 function mostrarNotificacao(mensagem, tipo = 'info', duracao = 3500) {
     document.querySelectorAll(`.notification.${tipo}`).forEach(n => n.remove());
 
@@ -115,8 +112,7 @@ function mostrarNotificacao(mensagem, tipo = 'info', duracao = 3500) {
         <div class="flex items-center gap-3">
             <i class="fas ${icons[tipo] || icons.info} text-lg flex-shrink-0"></i>
             <span class="flex-1 text-sm">${mensagem}</span>
-            <button onclick="this.closest('.notification').remove()" 
-                    class="text-white/70 hover:text-white ml-2 flex-shrink-0 transition-colors">
+            <button onclick="this.closest('.notification').remove()" class="text-white/70 hover:text-white ml-2 flex-shrink-0 transition-colors">
                 <i class="fas fa-times text-xs"></i>
             </button>
         </div>
@@ -137,8 +133,8 @@ function mostrarNotificacao(mensagem, tipo = 'info', duracao = 3500) {
 // ============================================================
 // 3. BARRA DE PROGRESSO DE LEITURA
 // ============================================================
+// A barra laranja fininha no topo que avança conforme o scroll
 function initProgressBar() {
-    // [CORREÇÃO APLICADA]: O ID foi ajustado para corresponder ao HTML do header ('scroll-progress')
     const bar = document.getElementById('scroll-progress');
     if (!bar) return;
     let ticking = false;
@@ -157,8 +153,9 @@ function initProgressBar() {
 }
 
 // ============================================================
-// 4. ANIMAÇÃO DE CONTADORES
+// 4. ANIMAÇÃO DE CONTADORES (Números subindo)
 // ============================================================
+// Ex: "500 Clientes" - o número sobe de 0 a 500 quando entra na tela
 function initCounters() {
     const counters = document.querySelectorAll('[data-counter]');
     if (!counters.length) return;
@@ -190,7 +187,7 @@ function initCounters() {
 }
 
 // ============================================================
-// 5. EFEITO DE DIGITAÇÃO (TYPEWRITER)
+// 5. EFEITO DE DIGITAÇÃO (TYPEWRITER) NA HOME
 // ============================================================
 class TypeWriter {
     constructor(el, textos) {
@@ -235,67 +232,34 @@ function initHeroTypewriter() {
 }
 
 // ============================================================
-// 6. REVELAÇÃO NO SCROLL
+// 6. MÁSCARA DE TELEFONE (Brasil)
 // ============================================================
-function initScrollReveal() {
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('revealed');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('[data-reveal], .stagger-children').forEach(el => observer.observe(el));
-}
-
-// ============================================================
-// 7. MÁSCARA DE TELEFONE (Brasil)
-// ============================================================
+// Formata o input para (21) 99999-9999
 function aplicarMascaraTelefone(input) {
     if (!input) return;
     input.addEventListener('input', e => {
         let v = e.target.value.replace(/\D/g, '').substring(0, 11);
-        if (v.length > 10) {
-            v = v.replace(/^(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-        } else if (v.length > 6) {
-            v = v.replace(/^(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
-        } else if (v.length > 2) {
-            v = v.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
-        } else if (v.length > 0) {
-            v = v.replace(/^(\d{0,2})/, '($1');
-        }
+        if (v.length > 10) { v = v.replace(/^(\d{2})(\d{5})(\d{4})/, '($1) $2-$3'); } 
+        else if (v.length > 6) { v = v.replace(/^(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3'); } 
+        else if (v.length > 2) { v = v.replace(/^(\d{2})(\d{0,5})/, '($1) $2'); } 
+        else if (v.length > 0) { v = v.replace(/^(\d{0,2})/, '($1'); }
         e.target.value = v;
     });
 }
 
 // ============================================================
-// 8. CHATBOT FLUTUANTE
+// 8. CHATBOT FLUTUANTE (MOBILE RESPONSIVE FIX)
 // ============================================================
 class FloatingChatBot {
     constructor() {
         this.isOpen = false;
+        // Base de conhecimento simples baseada em palavras-chave
         this.knowledge = [
-            {
-                keywords: ['manutencao', 'computador', 'notebook', 'laptop', 'pc', 'conserto', 'reparo', 'formatacao', 'lento'],
-                response: '💻 <strong>Manutenção de Computadores</strong><br>Fazemos diagnóstico, limpeza, formatação, e troca de peças. Atendemos toda a região de Niterói! O prazo médio é de 24h a 48h. Deseja <a href="agendamento.html" class="underline text-blue-400">agendar uma visita técnica</a>?'
-            },
-            {
-                keywords: ['automacao', 'automação', 'casa inteligente', 'smart home', 'iluminacao', 'cortina', 'ar condicionado'],
-                response: '🏠 <strong>Automação Residencial</strong><br>Transformamos sua casa num lar inteligente! Controlamos iluminação, câmeras e muito mais pelo celular. Temos soluções a partir de R$500. Quer saber mais?'
-            },
-            {
-                keywords: ['site', 'website', 'desenvolvimento', 'web', 'sistema', 'loja virtual'],
-                response: '🌐 <strong>Desenvolvimento Web</strong><br>Criamos sites profissionais, lojas virtuais e sistemas web de alto desempenho. Otimizados para o Google e prontos para vender. Solicite um orçamento sem compromisso!'
-            },
-            {
-                keywords: ['contato', 'telefone', 'whatsapp', 'email', 'endereco', 'localizacao', 'horario'],
-                response: '📞 <strong>Nossos Contatos</strong><br>WhatsApp/Tel: (21) 99999-9999<br>Email: contato@xerfantechlab.com.br<br>Horário: Seg–Sex 8h–18h | Sáb 9h–14h<br>Localização: Niterói, RJ e região metropolitana.'
-            },
-            {
-                keywords: ['preco', 'preço', 'valor', 'quanto', 'custo', 'orcamento'],
-                response: '💰 <strong>Orçamentos</strong><br>Os valores dependem de cada projeto, mas oferecemos <strong>orçamento gratuito!</strong> Fale direto conosco pelo WhatsApp no (21) 99999-9999 para analisarmos o seu caso.'
-            }
+            { keywords: ['manutencao', 'computador', 'notebook', 'pc', 'conserto', 'reparo', 'formatacao', 'lento'], response: '💻 <strong>Manutenção de Computadores</strong><br>Fazemos diagnóstico, limpeza, formatação e troca de peças. Atendemos Niterói! O prazo médio é de 24h a 48h. Deseja <a href="agendamento.html" class="underline text-blue-400">agendar uma visita</a>?' },
+            { keywords: ['automacao', 'automação', 'casa inteligente', 'smart', 'iluminacao', 'cortina'], response: '🏠 <strong>Automação Residencial</strong><br>Transformamos sua casa num lar inteligente! Controlamos iluminação, câmeras e mais pelo celular. Temos soluções a partir de R$500.' },
+            { keywords: ['site', 'website', 'desenvolvimento', 'web', 'sistema', 'loja virtual'], response: '🌐 <strong>Desenvolvimento Web</strong><br>Criamos sites profissionais e sistemas de alto desempenho. Solicite um orçamento!' },
+            { keywords: ['contato', 'telefone', 'whatsapp', 'email', 'endereco'], response: '📞 <strong>Nossos Contatos</strong><br>WhatsApp/Tel: (21) 99999-9999<br>Email: contato@xerfantechlab.com.br<br>Localização: Niterói, RJ.' },
+            { keywords: ['preco', 'preço', 'valor', 'quanto', 'custo', 'orcamento'], response: '💰 <strong>Orçamentos</strong><br>Os valores dependem do projeto, mas oferecemos orçamento gratuito! Fale direto conosco pelo WhatsApp no (21) 99999-9999.' }
         ];
         this.defaultResponses = [
             'Posso ajudar com manutenção, automação, desenvolvimento web ou suporte. O que procura? 😊',
@@ -314,39 +278,40 @@ class FloatingChatBot {
     renderWidget() {
         const div = document.createElement('div');
         div.id = 'chat-widget';
+        // [FIX MOBILE]: Classes Tailwind ajustadas para largura fluida no mobile (left-4 right-4) e max-h para evitar corte
         div.innerHTML = `
-            <button id="chat-toggle-btn" class="fixed bottom-24 left-6 w-14 h-14 bg-gradient-to-br from-blue-600 to-orange-500 text-white rounded-full shadow-2xl hover:scale-110 transition-transform z-50 flex items-center justify-center">
+            <button id="chat-toggle-btn" class="fixed bottom-24 right-6 md:left-6 md:right-auto w-14 h-14 bg-gradient-to-br from-blue-600 to-orange-500 text-white rounded-full shadow-2xl hover:scale-110 transition-transform z-50 flex items-center justify-center">
                 <i class="fas fa-comments text-xl" id="chat-icon"></i>
             </button>
-            <div id="chat-window" class="hidden fixed bottom-44 left-6 w-[340px] max-h-[520px] bg-gray-800 rounded-2xl shadow-2xl border border-gray-700 flex flex-col z-50 overflow-hidden">
-                <div class="bg-gradient-to-r from-blue-600 to-orange-500 px-5 py-4 flex items-center justify-between">
+            
+            <div id="chat-window" class="hidden fixed bottom-44 right-4 left-4 md:left-6 md:right-auto md:w-[340px] max-h-[70vh] bg-gray-800 rounded-2xl shadow-2xl border border-gray-700 flex flex-col z-50 overflow-hidden">
+                
+                <div class="bg-gradient-to-r from-blue-600 to-orange-500 px-5 py-4 flex items-center justify-between shrink-0">
                     <div class="flex items-center gap-3">
                         <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center"><i class="fas fa-robot text-lg text-white"></i></div>
                         <div><p class="font-bold text-white text-sm">Assistente XTL</p><p class="text-blue-100 text-xs">Online agora</p></div>
                     </div>
-                    <button id="chat-close-btn" class="text-white/70 hover:text-white"><i class="fas fa-times"></i></button>
+                    <button id="chat-close-btn" class="text-white/70 hover:text-white p-2"><i class="fas fa-times"></i></button>
                 </div>
-                <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-3" style="height: 300px;">
+                
+                <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-3 min-h-[250px] max-h-[350px]">
                     <div class="flex items-start gap-2">
                         <div class="w-7 h-7 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs mt-0.5"><i class="fas fa-robot"></i></div>
-                        <div class="bg-gray-700 rounded-2xl rounded-tl-sm px-3.5 py-2.5 max-w-[220px] text-xs text-gray-200">
+                        <div class="bg-gray-700 rounded-2xl rounded-tl-sm px-3.5 py-2.5 max-w-[85%] text-xs text-gray-200">
                             Olá! 👋 Sou o assistente virtual da Xerfan Tech Lab. Como posso ajudar?
                         </div>
                     </div>
                     <div id="quick-actions" class="flex flex-wrap gap-1.5 mt-2">
                         <button class="qa-btn text-xs px-2.5 py-1.5 bg-blue-900/30 text-blue-400 rounded-full border border-blue-800">Manutenção</button>
                         <button class="qa-btn text-xs px-2.5 py-1.5 bg-orange-900/30 text-orange-400 rounded-full border border-orange-800">Automação</button>
-                        <button class="qa-btn text-xs px-2.5 py-1.5 bg-green-900/30 text-green-400 rounded-full border border-green-800">Sites</button>
                     </div>
                 </div>
-                <div class="p-3 border-t border-gray-700 bg-gray-800">
+                
+                <div class="p-3 border-t border-gray-700 bg-gray-800 shrink-0">
                     <div class="flex gap-2">
                         <input type="text" id="chat-input" placeholder="Digite aqui..." class="flex-1 px-3 py-2 bg-gray-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 text-white">
-                        <button id="chat-send-btn" class="w-10 h-10 bg-orange-500 text-white rounded-xl flex items-center justify-center"><i class="fas fa-paper-plane text-xs"></i></button>
+                        <button id="chat-send-btn" class="w-10 h-10 bg-orange-500 text-white rounded-xl flex items-center justify-center shrink-0"><i class="fas fa-paper-plane text-xs"></i></button>
                     </div>
-                    <p class="text-center text-gray-500 text-[10px] mt-2">
-                        <i class="fab fa-whatsapp text-green-500"></i> Falar com humano: <a href="https://wa.me/5521999999999" target="_blank" class="text-green-500 font-medium hover:underline">(21) 99999-9999</a>
-                    </p>
                 </div>
             </div>
         `;
@@ -371,6 +336,7 @@ class FloatingChatBot {
         this.isOpen = true;
         setTimeout(() => document.getElementById('chat-input').focus(), 100);
     }
+    
     close() {
         document.getElementById('chat-window').classList.add('hidden');
         document.getElementById('chat-icon').className = 'fas fa-comments text-xl';
@@ -382,9 +348,9 @@ class FloatingChatBot {
         const d = document.createElement('div');
         d.className = `flex items-start gap-2 ${sender === 'user' ? 'flex-row-reverse' : ''}`;
         d.innerHTML = sender === 'user' 
-            ? `<div class="bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-2xl rounded-tr-sm px-3.5 py-2 text-xs max-w-[220px]">${text}</div>`
+            ? `<div class="bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-2xl rounded-tr-sm px-3.5 py-2 text-xs max-w-[85%]">${text}</div>`
             : `<div class="w-7 h-7 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs mt-0.5 flex-shrink-0"><i class="fas fa-robot"></i></div>
-               <div class="bg-gray-700 rounded-2xl rounded-tl-sm px-3.5 py-2 text-xs text-gray-200 max-w-[220px] leading-relaxed">${text}</div>`;
+               <div class="bg-gray-700 rounded-2xl rounded-tl-sm px-3.5 py-2 text-xs text-gray-200 max-w-[85%] leading-relaxed">${text}</div>`;
         c.appendChild(d);
         c.scrollTop = c.scrollHeight;
     }
@@ -399,7 +365,6 @@ class FloatingChatBot {
         
         const c = document.getElementById('chat-messages');
         
-        // [CORREÇÃO APLICADA]: Remove indicador antigo de "digitando" se existir, prevenindo bugs ao clicar rápido
         const existingTyping = document.getElementById('chat-typing');
         if (existingTyping) existingTyping.remove();
         
@@ -410,7 +375,6 @@ class FloatingChatBot {
         c.scrollTop = c.scrollHeight;
         
         setTimeout(() => {
-            // [CORREÇÃO APLICADA]: Busca e remove o elemento de digitação correto pelo ID de forma segura
             const typToRemove = document.getElementById('chat-typing');
             if(typToRemove) typToRemove.remove();
             this.reply(v);
@@ -468,24 +432,22 @@ function initCookieConsent() {
 // ============================================================
 document.addEventListener('DOMContentLoaded', () => {
     if (typeof loadComponent === 'function') {
-        // Espera o Header e o Footer carregarem juntos
         Promise.all([
             loadComponent('header', 'components/header.html'),
             loadComponent('footer', 'components/footer.html')
         ]).then(() => {
-            // SÓ APLICA A TRAVA DEPOIS QUE TUDO ESTIVER NA TELA
-            if (typeof aplicarTravasVisibilidade === 'function') {
-                aplicarTravasVisibilidade();
-            }
+            if (typeof aplicarTravasVisibilidade === 'function') { aplicarTravasVisibilidade(); }
         });
     }
 
     initProgressBar();
     initCounters();
     initHeroTypewriter();
-    initScrollReveal();
+    
+    // Aplica a máscara a todos os inputs que tenham name="telefone"
     document.querySelectorAll('[name="telefone"]').forEach(aplicarMascaraTelefone);
     
+    // Inicia o Chatbot apenas se NÃO estivermos na área de Admin ou na página dedicada do chatbot
     if (!window.location.pathname.includes('chatbot') && !window.location.pathname.includes('admin')) {
         new FloatingChatBot();
     }
@@ -493,4 +455,5 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(initCookieConsent, 1500);
 });
 
+// Permite usar a notificação globalmente noutros scripts
 window.mostrarNotificacao = mostrarNotificacao;
