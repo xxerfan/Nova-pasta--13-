@@ -459,12 +459,17 @@ function initCookieConsent() {
 // 10. INICIALIZAÇÃO GERAL
 // ============================================================
 document.addEventListener('DOMContentLoaded', () => {
-    // Só prossegue se tiver a função loadComponent válida (impede erros em admin isolado)
     if (typeof loadComponent === 'function') {
+        // Espera o Header e o Footer carregarem juntos
         Promise.all([
             loadComponent('header', 'components/header.html'),
             loadComponent('footer', 'components/footer.html')
-        ]);
+        ]).then(() => {
+            // SÓ APLICA A TRAVA DEPOIS QUE TUDO ESTIVER NA TELA
+            if (typeof aplicarTravasVisibilidade === 'function') {
+                aplicarTravasVisibilidade();
+            }
+        });
     }
 
     initProgressBar();
