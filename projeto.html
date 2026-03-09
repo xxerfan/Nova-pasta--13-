@@ -3,60 +3,85 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Projeto - Xerfan Tech Lab</title>
+    <title>Detalhes do Projeto - Xerfan Tech Lab</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/animations.css" />
     <link rel="stylesheet" href="css/enhancements.css" />
     <link rel="icon" type="image/x-icon" href="img/logo.png" />
+    
     <style> 
         body { font-family: "Plus Jakarta Sans", sans-serif; } 
-        #proj-desc p { margin-bottom: 1.25rem; line-height: 1.8; color: #9ca3af; }
+        
+        /* Formatação inteligente para a descrição que vem do painel */
+        #proj-desc p { margin-bottom: 1.25rem; line-height: 1.8; color: #9ca3af; font-size: 1.05rem; }
+        #proj-desc img { max-width: 100%; height: auto; border-radius: 1rem; margin: 2rem 0; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5); border: 1px solid #374151; }
+        #proj-desc h2, #proj-desc h3 { color: white; font-weight: 700; margin-top: 2rem; margin-bottom: 1rem; }
+        #proj-desc ul { margin-bottom: 1.25rem; padding-left: 1.5rem; color: #9ca3af; list-style-type: disc; }
+        
+        /* Reserva o espaço do header para evitar saltos na tela */
+        #header { min-height: 80px; display: block; }
     </style>
 </head>
-<body class="bg-gray-950">
+<body class="bg-gray-950 transition-colors duration-300">
+
     <div id="header"></div>
 
-    <main class="container mx-auto px-4 max-w-5xl py-32 min-h-screen">
+    <div id="loader" class="min-h-screen flex flex-col items-center justify-center pt-20">
+        <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500 mb-4"></div>
+        <p class="text-gray-400 font-bold tracking-widest uppercase text-sm animate-pulse">A Carregar Projeto...</p>
+    </div>
+
+    <main id="conteudo-principal" class="container mx-auto px-4 max-w-6xl py-24 min-h-screen hidden">
         <div class="grid lg:grid-cols-3 gap-12" data-aos="fade-up">
+            
             <div class="lg:col-span-2">
-                <a href="portfolio.html" class="inline-flex items-center text-orange-500 hover:text-orange-400 font-bold mb-8 transition-all">
-                    <i class="fas fa-arrow-left mr-2"></i> Voltar
+                <a href="portfolio.html" class="inline-flex items-center text-orange-500 hover:text-orange-400 font-bold mb-8 transition-all uppercase tracking-widest text-xs">
+                    <i class="fas fa-arrow-left mr-2"></i> Voltar aos Projetos
                 </a>
                 
-                <div class="rounded-3xl overflow-hidden shadow-2xl mb-10 border border-gray-800 bg-gray-900 aspect-video">
-                    <img id="proj-capa" class="w-full h-full object-cover hidden">
+                <div class="rounded-3xl overflow-hidden shadow-2xl mb-10 border border-gray-800 bg-gray-900 aspect-video relative group">
+                    <img id="proj-capa" class="w-full h-full object-cover hidden transition-transform duration-700 group-hover:scale-105" alt="Capa do Projeto">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-950/40 to-transparent pointer-events-none"></div>
                 </div>
                 
-                <h1 id="proj-titulo" class="text-4xl md:text-5xl font-black text-white mb-6 leading-tight">Carregando...</h1>
-                <div id="proj-desc" class="text-lg"></div>
+                <h1 id="proj-titulo" class="text-4xl md:text-5xl font-black text-white mb-8 leading-tight tracking-tight">A Carregar...</h1>
+                <div id="proj-desc" class="text-lg">
+                    </div>
             </div>
 
             <div class="lg:col-span-1">
-                <div class="bg-gray-900 border border-gray-800 p-8 rounded-3xl sticky top-32">
-                    <h3 class="text-white font-bold mb-6 border-b border-gray-800 pb-4">Ficha do Projeto</h3>
+                <div class="bg-gray-900 border border-gray-800 p-8 rounded-3xl sticky top-28 shadow-xl">
+                    <h3 class="text-white font-bold mb-6 border-b border-gray-800 pb-4 text-xl flex items-center gap-2">
+                        <i class="fas fa-info-circle text-orange-500"></i> Ficha do Projeto
+                    </h3>
                     
                     <div class="space-y-6">
                         <div>
-                            <span class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">Cliente / Local</span>
-                            <p id="proj-cliente" class="text-white font-bold"></p>
-                        </div>
-                        <div>
                             <span class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">Categoria</span>
-                            <p id="proj-cat" class="text-orange-500 font-bold"></p>
+                            <div class="inline-block bg-orange-500/10 border border-orange-500/20 px-3 py-1 rounded text-orange-500 font-bold text-sm" id="proj-cat">--</div>
                         </div>
+                        
                         <div>
-                            <span class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">Conclusão</span>
-                            <p id="proj-data" class="text-white font-bold"></p>
+                            <span class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">Data de Conclusão</span>
+                            <p id="proj-data" class="text-white font-medium">--/--</p>
                         </div>
                     </div>
                     
-                    <a href="contato.html" class="block w-full text-center bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 rounded-xl mt-8 shadow-lg shadow-orange-500/20 transition-all">Solicitar Similar</a>
+                    <div class="mt-8 pt-6 border-t border-gray-800">
+                        <p class="text-sm text-gray-400 mb-4 text-center">Precisa de uma solução semelhante para o seu negócio ou residência?</p>
+                        <a href="contato.html" class="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white font-bold py-4 rounded-xl shadow-lg shadow-orange-500/20 transition-all transform hover:-translate-y-1">
+                            <i class="fas fa-envelope"></i> Solicitar Orçamento
+                        </a>
+                    </div>
                 </div>
             </div>
+
         </div>
     </main>
 
@@ -79,6 +104,7 @@
         };
 
         async function initProject() {
+            // 1. Carrega Header e Footer
             if(typeof loadComponent === 'function') {
                 await Promise.all([
                     loadComponent('header', 'components/header.html'),
@@ -87,31 +113,77 @@
             }
             AOS.init({ duration: 800, once: true });
 
+            // 2. Extrai ID da URL
             const id = new URLSearchParams(window.location.search).get('id');
+            
             if (id) {
                 const app = initializeApp(firebaseConfig);
                 const db = getFirestore(app);
-                const s = await getDoc(doc(db, "portfolio", id));
                 
-                if (s.exists()) {
-                    const p = s.data();
-                    document.title = p.titulo + " - Xerfan Tech Lab";
-                    document.getElementById('proj-titulo').innerText = p.titulo;
-                    document.getElementById('proj-cliente').innerText = p.cliente || 'Confidencial';
-                    document.getElementById('proj-cat').innerText = p.categoria;
-                    document.getElementById('proj-data').innerText = p.data_conclusao || 'Recente';
+                try {
+                    const s = await getDoc(doc(db, "portfolio", id));
                     
-                    const img = document.getElementById('proj-capa');
-                    img.src = p.imagem;
-                    img.classList.remove('hidden');
+                    if (s.exists()) {
+                        const p = s.data();
+                        
+                        // 3. Preenche os dados visuais
+                        document.title = p.titulo + " - Projetos Xerfan Tech Lab";
+                        document.getElementById('proj-titulo').innerText = p.titulo;
+                        document.getElementById('proj-cat').innerText = p.categoria || 'Geral';
+                        
+                        const imgCapa = document.getElementById('proj-capa');
+                        imgCapa.src = p.imagem;
+                        imgCapa.classList.remove('hidden');
 
-                    document.getElementById('proj-desc').innerHTML = p.descricao
-                        .split('\n')
-                        .map(t => t.trim() ? `<p>${t}</p>` : '')
-                        .join('');
+                        // 4. Formata a Data visualmente (2025-10 -> Outubro de 2025)
+                        if(p.data_conclusao) {
+                            const partes = p.data_conclusao.split('-');
+                            if(partes.length >= 2) {
+                                const meses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+                                document.getElementById('proj-data').innerText = `${meses[parseInt(partes[1])-1]} / ${partes[0]}`;
+                            } else { 
+                                document.getElementById('proj-data').innerText = p.data_conclusao; 
+                            }
+                        } else {
+                            document.getElementById('proj-data').innerText = "Recente";
+                        }
+
+                        // 5. Motor de formatação do Texto (Processa HTML ou quebras de linha)
+                        let descHtml = p.descricao || "";
+                        if (!descHtml.includes('<p>') && !descHtml.includes('<br>') && !descHtml.includes('<img')) {
+                            // Converte parágrafos se for texto puro
+                            descHtml = descHtml.split('\n').map(t => t.trim() ? `<p>${t}</p>` : '').join('');
+                        }
+                        document.getElementById('proj-desc').innerHTML = descHtml;
+
+                        // 6. Finaliza o carregamento
+                        document.getElementById('loader').style.display = 'none';
+                        document.getElementById('conteudo-principal').classList.remove('hidden');
+                    } else {
+                        mostrarErro();
+                    }
+                } catch(e) {
+                    console.error("Erro na base de dados:", e);
+                    mostrarErro();
                 }
+            } else {
+                mostrarErro();
             }
         }
+
+        function mostrarErro() {
+            document.getElementById('loader').innerHTML = `
+                <div class="text-center">
+                    <i class="fas fa-exclamation-triangle text-5xl text-gray-600 mb-6"></i>
+                    <h2 class="text-2xl font-bold text-white mb-2">Projeto Não Encontrado</h2>
+                    <p class="text-gray-400 mb-8">O link está quebrado ou o projeto foi removido.</p>
+                    <a href="portfolio.html" class="bg-orange-500 hover:bg-orange-600 text-white font-bold px-8 py-3.5 rounded-xl shadow-lg transition-all inline-flex items-center gap-2">
+                        <i class="fas fa-images"></i> Ver Todos os Projetos
+                    </a>
+                </div>
+            `;
+        }
+
         window.addEventListener('load', initProject);
     </script>
 </body>

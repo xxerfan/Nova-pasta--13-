@@ -1,94 +1,102 @@
 <footer class="relative bg-gradient-to-br from-gray-950 via-blue-950 to-gray-950 text-white overflow-hidden" role="contentinfo">
-
     <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-orange-500 via-50% to-transparent"></div>
     
-    <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-        <div class="absolute top-0 left-0 w-72 h-72 bg-orange-500/5 rounded-full blur-3xl -translate-x-1/3 -translate-y-1/3"></div>
-        <div class="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl translate-x-1/4 translate-y-1/4"></div>
-    </div>
+    <div class="container mx-auto px-4 max-w-screen-xl py-10 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8">
 
-    <div class="container mx-auto px-4 max-w-screen-xl py-14 relative z-10">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10">
-
-            <div class="lg:col-span-4 space-y-6">
-                
-                <a href="index.html" class="inline-block group mb-2" aria-label="Xerfan Tech Lab">
-                     <img src="img/logo.png"
-     alt="Logomarca Xerfan Tech Lab"
-     class="w-56 sm:w-64 lg:w-80 h-auto object-contain transition-all duration-300 group-hover:scale-105 mb-4"
-     style="filter: drop-shadow(0 0 8px rgba(249,115,22,0.5));"
-     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="lg:col-span-4 space-y-4">
+                <a href="index.html" class="inline-block group" aria-label="Xerfan Tech Lab">
+                    <img src="img/logo.png"
+                         alt="Logomarca Xerfan Tech Lab"
+                         class="w-44 sm:w-48 lg:w-48 h-auto object-contain transition-all duration-300 group-hover:scale-105 opacity-90"
+                         style="filter: drop-shadow(0 0 5px rgba(249,115,22,0.3));"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 </a>
 
-                <p class="text-gray-400 text-sm leading-relaxed max-w-xs">
-                    Inovação em tecnologia ao seu alcance. Transformamos desafios em soluções digitais modernas e eficientes para seu negócio crescer.
+                <p class="text-gray-400 text-xs leading-relaxed max-w-xs">
+                    Inovação em tecnologia ao seu alcance. Soluções digitais modernas para o crescimento do seu negócio.
                 </p>
 
-                <div>
-                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-[0.12em] mb-3">Siga-nos</p>
+                <div class="pt-2">
+                    <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">Siga-nos</p>
                     <div class="flex gap-2">
-                        <a href="https://wa.me/5521999999999" target="_blank" rel="noopener" class="social-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
-                        <a href="https://instagram.com/xerfantechlab" target="_blank" rel="noopener" class="social-btn instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="https://linkedin.com/company/xerfantechlab" target="_blank" rel="noopener" class="social-btn linkedin"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="https://youtube.com/@xerfantechlab" target="_blank" rel="noopener" class="social-btn youtube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://wa.me/5521999999999" target="_blank" rel="noopener" class="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-xs hover:bg-orange-500 transition-all shadow-sm" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://instagram.com/xerfantechlab" target="_blank" rel="noopener" class="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-xs hover:bg-orange-500 transition-all shadow-sm" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://linkedin.com/company/xerfantechlab" target="_blank" rel="noopener" class="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-xs hover:bg-orange-500 transition-all shadow-sm" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
             </div>
 
             <div class="lg:col-span-2">
-                <h4 class="footer-heading"><i class="fas fa-cogs text-orange-400 text-xs"></i> Serviços</h4>
-                <ul class="space-y-0.5">
-                    <li class="nav-link-servicos"><a href="servicos.html" class="footer-link"><i class="fas fa-chevron-right"></i>Manutenção de Computadores</a></li>
-                    <li class="nav-link-servicos"><a href="servicos.html" class="footer-link"><i class="fas fa-chevron-right"></i>Redes e Infraestrutura</a></li>
-                    <li class="nav-link-servicos"><a href="servicos.html" class="footer-link"><i class="fas fa-chevron-right"></i>Desenvolvimento Web</a></li>
-                    <li class="nav-link-servicos"><a href="servicos.html" class="footer-link"><i class="fas fa-chevron-right"></i>Automação Residencial</a></li>
-                    
-                    <li><a href="agendamento.html" class="footer-link text-orange-400 font-semibold mt-2"><i class="fas fa-calendar-check"></i>Agendar Visita</a></li>
+                <h4 class="text-white font-bold text-sm mb-4 uppercase tracking-widest border-b border-white/5 pb-2 inline-block">Serviços</h4>
+                <ul class="space-y-2 text-xs">
+                    <li class="nav-link-servicos">
+                        <a href="servicos.html" class="text-gray-400 hover:text-orange-400 flex items-center gap-2 transition-colors">
+                            <i class="fas fa-chevron-right text-[8px]"></i>Manutenção
+                        </a>
+                    </li>
+                    <li class="nav-link-servicos">
+                        <a href="servicos.html" class="text-gray-400 hover:text-orange-400 flex items-center gap-2 transition-colors">
+                            <i class="fas fa-chevron-right text-[8px]"></i>Infraestrutura
+                        </a>
+                    </li>
+                    <li class="nav-link-servicos">
+                        <a href="servicos.html" class="text-gray-400 hover:text-orange-400 flex items-center gap-2 transition-colors">
+                            <i class="fas fa-chevron-right text-[8px]"></i>Dev Web
+                        </a>
+                    </li>
+                    <li>
+                        <a href="agendamento.html" class="text-orange-400 font-bold flex items-center gap-2 mt-3 hover:text-orange-300 transition-colors">
+                            <i class="fas fa-calendar-check"></i>Agendar Visita
+                        </a>
+                    </li>
                 </ul>
             </div>
 
             <div class="lg:col-span-2">
-                <h4 class="footer-heading"><i class="fas fa-building text-blue-400 text-xs"></i> Empresa</h4>
-                <ul class="space-y-0.5">
-                    <li><a href="sobre.html" class="footer-link"><i class="fas fa-chevron-right"></i>Sobre Nós</a></li>
-                    
-                    <li class="nav-link-portfolio"><a href="portfolio.html" class="footer-link"><i class="fas fa-chevron-right"></i>Portfólio</a></li>
-                    <li class="nav-link-produtos"><a href="produtos.html" class="footer-link"><i class="fas fa-chevron-right"></i>Produtos</a></li>
-                    <li class="nav-link-blog"><a href="blog.html" class="footer-link"><i class="fas fa-chevron-right"></i>Blog</a></li>
-                    
-                    <li><a href="contato.html" class="footer-link"><i class="fas fa-chevron-right"></i>Contato</a></li>
-                    <li><a href="contato.html#faq" class="footer-link"><i class="fas fa-chevron-right"></i>FAQ</a></li>
+                <h4 class="text-white font-bold text-sm mb-4 uppercase tracking-widest border-b border-white/5 pb-2 inline-block">Empresa</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="sobre.html" class="text-gray-400 hover:text-orange-400 flex items-center gap-2 transition-colors"><i class="fas fa-chevron-right text-[8px]"></i>Sobre</a></li>
+                    <li class="nav-link-portfolio"><a href="portfolio.html" class="text-gray-400 hover:text-orange-400 flex items-center gap-2 transition-colors"><i class="fas fa-chevron-right text-[8px]"></i>Portfólio</a></li>
+                    <li class="nav-link-produtos"><a href="produtos.html" class="text-gray-400 hover:text-orange-400 flex items-center gap-2 transition-colors"><i class="fas fa-chevron-right text-[8px]"></i>Produtos</a></li>
+                    <li><a href="contato.html" class="text-gray-400 hover:text-orange-400 flex items-center gap-2 transition-colors"><i class="fas fa-chevron-right text-[8px]"></i>Contato</a></li>
                 </ul>
             </div>
 
             <div class="lg:col-span-4">
-                <h4 class="footer-heading"><i class="fas fa-map-marker-alt text-emerald-400 text-xs"></i> Fale Conosco</h4>
-                <div class="space-y-4">
-                    <div class="flex items-start gap-3 group">
-                        <div class="w-8 h-8 rounded-lg bg-white/5 border border-white/8 flex items-center justify-center flex-shrink-0 mt-0.5"><i class="fas fa-map-marker-alt text-orange-400 text-xs"></i></div>
-                        <div><p class="text-xs text-gray-500 font-medium uppercase tracking-wider mb-0.5">Endereço</p><p class="text-sm text-gray-300">Niterói, RJ — Brasil</p></div>
+                <h4 class="text-white font-bold text-sm mb-4 uppercase tracking-widest border-b border-white/5 pb-2 inline-block">Fale Conosco</h4>
+                <div class="space-y-3 text-xs">
+                    <div class="flex items-center gap-3">
+                        <div class="w-6 h-6 rounded bg-orange-500/10 flex items-center justify-center text-orange-500">
+                            <i class="fas fa-map-marker-alt text-[10px]"></i>
+                        </div>
+                        <span class="text-gray-300">Niterói, RJ — Brasil</span>
                     </div>
-                    <a href="tel:+5521999999999" class="flex items-start gap-3 group hover:text-white transition-colors">
-                        <div class="w-8 h-8 rounded-lg bg-white/5 border border-white/8 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-orange-500/20"><i class="fas fa-phone text-orange-400 text-xs"></i></div>
-                        <div><p class="text-xs text-gray-500 font-medium uppercase tracking-wider mb-0.5">Telefone</p><p class="text-sm text-gray-300 group-hover:text-white">(21) 99999-9999</p></div>
+                    <a href="tel:+5521999999999" class="flex items-center gap-3 text-gray-400 hover:text-white transition-colors group">
+                        <div class="w-6 h-6 rounded bg-orange-500/10 flex items-center justify-center text-orange-500 group-hover:bg-orange-500 group-hover:text-white transition-all">
+                            <i class="fas fa-phone text-[10px]"></i>
+                        </div>
+                        <span>(21) 99999-9999</span>
                     </a>
-                    <a href="mailto:contato@xerfantechlab.com.br" class="flex items-start gap-3 group hover:text-white transition-colors">
-                        <div class="w-8 h-8 rounded-lg bg-white/5 border border-white/8 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-orange-500/20"><i class="fas fa-envelope text-orange-400 text-xs"></i></div>
-                        <div><p class="text-xs text-gray-500 font-medium uppercase tracking-wider mb-0.5">E-mail</p><p class="text-sm text-gray-300 group-hover:text-white">contato@xerfantechlab.com.br</p></div>
+                    <a href="mailto:contato@xerfantechlab.com.br" class="flex items-center gap-3 text-gray-400 hover:text-white transition-colors group">
+                        <div class="w-6 h-6 rounded bg-orange-500/10 flex items-center justify-center text-orange-500 group-hover:bg-orange-500 group-hover:text-white transition-all">
+                            <i class="fas fa-envelope text-[10px]"></i>
+                        </div>
+                        <span class="break-all">contato@xerfantechlab.com.br</span>
                     </a>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="relative z-10 border-t border-white/5 bg-black/20">
-        <div class="container mx-auto px-4 max-w-screen-xl py-5">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-500">
-                <div class="flex items-center gap-2 text-center md:text-left">
-                    <span>© <span id="footer-year">2026</span> <strong class="text-gray-400">Xerfan Tech Lab</strong>. Todos os direitos reservados.</span>
+    <div class="relative z-10 border-t border-white/5 bg-black/20 py-4">
+        <div class="container mx-auto px-4 max-w-screen-xl">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-2 text-[10px] text-gray-500 uppercase tracking-widest font-bold">
+                <div class="text-center md:text-left">
+                    © <span id="footer-year">2026</span> <span class="text-gray-400">Xerfan Tech Lab</span>. Todos os direitos reservados.
                 </div>
                 <div class="flex items-center gap-1.5 text-gray-600">
-                    <span>Desenvolvido com</span><i class="fas fa-heart text-red-500 text-xs animate-pulse"></i><span>em Niterói</span>
+                    Desenvolvido em Niterói <i class="fas fa-heart text-red-500 text-[8px] animate-pulse"></i>
                 </div>
             </div>
         </div>

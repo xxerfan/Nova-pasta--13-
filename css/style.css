@@ -1472,3 +1472,6 @@ a, button, [role="button"] {
 [data-reveal="right"].revealed { transform: translateX(0); }
 [data-reveal="zoom"]   { transform: scale(0.9); }
 [data-reveal="zoom"].revealed { transform: scale(1); }
+
+/* Reserva o espaço do Header antes do JS carregar */
+#header { min-height: 100px; display: block; }
