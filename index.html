@@ -6,8 +6,11 @@
     <title>Xerfan Tech Lab - Soluções Tecnológicas</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <link rel="stylesheet" href="css/style.css">
@@ -26,8 +29,11 @@
     <link rel="icon" type="image/x-icon" href="img/logo.png">
     
     <style>
+        /* CSS adicional para a transição de flutuação dos cartões de serviços */
         .servico-card-pro { transition: all 0.3s ease; }
         .servico-card-pro:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5); }
+        /* Impede pulos na tela guardando espaço para o Header que será injetado pelo JS */
+        #header { min-height: 80px; display: block; }
     </style>
 </head>
 <body class="bg-gray-950 transition-colors duration-300 overflow-x-hidden">
@@ -43,7 +49,9 @@
         
         <div class="container mx-auto px-4 relative z-10 py-24">
             <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                
                 <div data-aos="fade-right" data-aos-duration="900">
+                    
                     <div class="inline-flex items-center bg-white/10 backdrop-blur-sm border border-white/15 rounded-full px-5 py-2.5 mb-8 hover-glow cursor-default">
                         <span class="flex h-2 w-2 mr-3">
                             <span class="animate-ping absolute h-2 w-2 rounded-full bg-green-400 opacity-75"></span>
@@ -92,6 +100,7 @@
                 
                 <div data-aos="fade-left" data-aos-duration="900" data-aos-delay="200" class="relative hidden lg:flex justify-center items-center w-full h-full min-h-[450px]">
                     <div class="relative z-10 w-full max-w-[500px] h-[450px] flex justify-center items-center group">
+                        
                         <div class="animate-float absolute inset-0 flex justify-center items-center pointer-events-none">
                             <img src="img/logo.png" alt="Xerfan Tech Lab" 
                                  class="relative z-10 w-[95%] max-w-[300px] md:max-w-[400px] lg:max-w-[480px] h-auto object-contain transition-transform duration-500 group-hover:scale-105 pointer-events-auto"
@@ -149,36 +158,42 @@
             </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-7 stagger-children" data-reveal>
+                
                 <div class="group feature-card card-hover" data-aos="fade-up" data-aos-delay="50">
                     <div class="service-card-accent"></div>
                     <div class="card-icon mb-5"><i class="fas fa-tools"></i></div>
                     <h3 class="card-title text-xl mb-3">Manutenção Especializada</h3>
                     <p class="card-desc text-sm">Manutenção preventiva e corretiva de computadores, notebooks e impressoras com garantia de qualidade e prazo.</p>
                 </div>
+                
                 <div class="group feature-card card-hover" data-aos="fade-up" data-aos-delay="100">
                     <div class="service-card-accent"></div>
                     <div class="card-icon card-icon-blue mb-5"><i class="fas fa-robot"></i></div>
                     <h3 class="card-title text-xl mb-3">Automação Residencial</h3>
                     <p class="card-desc text-sm">Transforme sua casa em um lar inteligente com automação personalizada de iluminação, segurança e conforto.</p>
                 </div>
+                
                 <div class="group feature-card card-hover" data-aos="fade-up" data-aos-delay="150">
                     <div class="service-card-accent"></div>
                     <div class="card-icon card-icon-green mb-5"><i class="fas fa-code"></i></div>
                     <h3 class="card-title text-xl mb-3">Desenvolvimento Web</h3>
                     <p class="card-desc text-sm">Sites profissionais, landing pages e sistemas web modernos, responsivos e otimizados para SEO.</p>
                 </div>
+                
                 <div class="group feature-card card-hover" data-aos="fade-up" data-aos-delay="200">
                     <div class="service-card-accent"></div>
                     <div class="card-icon card-icon-purple mb-5"><i class="fas fa-network-wired"></i></div>
                     <h3 class="card-title text-xl mb-3">Infraestrutura de TI</h3>
                     <p class="card-desc text-sm">Redes cabeadas e Wi-Fi, servidores, backup em nuvem e segurança da informação para empresas.</p>
                 </div>
+                
                 <div class="group feature-card card-hover" data-aos="fade-up" data-aos-delay="250">
                     <div class="service-card-accent"></div>
                     <div class="card-icon mb-5" style="background: linear-gradient(135deg, #f59e0b, #d97706);"><i class="fas fa-shield-alt"></i></div>
                     <h3 class="card-title text-xl mb-3">Segurança Digital</h3>
                     <p class="card-desc text-sm">Proteção completa contra vírus, malware e ameaças digitais. Backup e recuperação de dados.</p>
                 </div>
+                
                 <div class="group feature-card card-hover" data-aos="fade-up" data-aos-delay="300">
                     <div class="service-card-accent"></div>
                     <div class="card-icon mb-5" style="background: linear-gradient(135deg, #06b6d4, #0891b2);"><i class="fas fa-headset"></i></div>
@@ -246,6 +261,12 @@
                     <div class="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-orange-500"></div>
                 </div>
             </div>
+
+            <div class="mt-12 text-center text-center">
+                <a href="produtos.html" class="btn btn-primary btn-auto mx-auto inline-flex gap-2.5 bg-gray-800 hover:bg-gray-700 border border-gray-700 text-white shadow-lg">
+                    <i class="fas fa-box-open"></i> Ver Catálogo Completo
+                </a>
+            </div>
         </div>
     </section>
 
@@ -287,18 +308,21 @@
                     <h3 class="card-title mb-2">Contato Inicial</h3>
                     <p class="card-desc text-sm">Entre em contato via WhatsApp, telefone ou formulário online. Resposta em até 30 minutos.</p>
                 </div>
+                
                 <div class="step-card text-center relative z-10" data-aos="fade-up" data-aos-delay="100">
                     <div class="step-number mx-auto">2</div>
                     <div class="w-14 h-14 mx-auto -mt-2 mb-5 bg-blue-900/20 rounded-2xl flex items-center justify-center"><i class="fas fa-search text-blue-500 text-xl"></i></div>
                     <h3 class="card-title mb-2">Diagnóstico</h3>
                     <p class="card-desc text-sm">Analisamos o problema presencialmente ou remotamente e elaboramos um orçamento sem surpresas.</p>
                 </div>
+                
                 <div class="step-card text-center relative z-10" data-aos="fade-up" data-aos-delay="150">
                     <div class="step-number mx-auto">3</div>
                     <div class="w-14 h-14 mx-auto -mt-2 mb-5 bg-green-900/20 rounded-2xl flex items-center justify-center"><i class="fas fa-wrench text-green-500 text-xl"></i></div>
                     <h3 class="card-title mb-2">Execução</h3>
                     <p class="card-desc text-sm">Nossa equipe executa o serviço com precisão, utilizando peças originais e ferramentas profissionais.</p>
                 </div>
+                
                 <div class="step-card text-center relative z-10" data-aos="fade-up" data-aos-delay="200">
                     <div class="step-number mx-auto">4</div>
                     <div class="w-14 h-14 mx-auto -mt-2 mb-5 bg-purple-900/20 rounded-2xl flex items-center justify-center"><i class="fas fa-thumbs-up text-purple-500 text-xl"></i></div>
@@ -358,6 +382,7 @@
             <div class="absolute -top-10 -right-10 w-80 h-80 rounded-full bg-orange-400/20 blur-3xl"></div>
             <div class="absolute -bottom-10 -left-10 w-80 h-80 rounded-full bg-orange-700/30 blur-3xl"></div>
         </div>
+        
         <div class="container mx-auto px-4 text-center relative z-10">
             <div data-aos="zoom-in">
                 <div class="inline-flex items-center bg-white/15 rounded-full px-5 py-2 mb-6 text-white text-sm font-semibold">
@@ -371,7 +396,7 @@
                     <a href="contato.html" class="inline-flex items-center gap-2.5 px-8 py-4 bg-white text-orange-600 font-black rounded-xl hover:bg-gray-200 transition-all transform hover:scale-105 shadow-xl text-base">
                         <i class="fas fa-envelope"></i> Fale Conosco
                     </a>
-                    <a href="https://wa.me/5521999999999?text=Olá! Quero saber mais sobre os serviços da Xerfan Tech Lab." target="_blank" class="inline-flex items-center gap-2.5 px-8 py-4 bg-green-500 hover:bg-green-400 text-white font-bold rounded-xl transition-all transform hover:scale-105 shadow-xl text-base">
+                    <a href="https://wa.me/5521984197719?text=Olá! Quero saber mais sobre os serviços da Xerfan Tech Lab." target="_blank" class="inline-flex items-center gap-2.5 px-8 py-4 bg-green-500 hover:bg-green-400 text-white font-bold rounded-xl transition-all transform hover:scale-105 shadow-xl text-base">
                         <i class="fab fa-whatsapp text-lg"></i> WhatsApp
                     </a>
                 </div>
@@ -384,13 +409,34 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="js/main.js"></script>
     <script>
-        AOS.init({ duration: 750, once: true, offset: 80 });
+        // O CÓDIGO DA CORREÇÃO DO BUG DE SCROLL AOS
+        // Usamos 'load' para garantir que imagens e estilos carreguem primeiro
+        window.addEventListener('load', async () => {
+            
+            // Garantimos que o Header e o Footer sejam desenhados ANTES de ligar as animações
+            if(typeof loadComponent === 'function') {
+                await loadComponent('header', 'components/header.html');
+                await loadComponent('footer', 'components/footer.html');
+            }
+            
+            // Agora sim ligamos o motor de animações (com delay configurado para não pular elementos)
+            AOS.init({ duration: 750, once: true, offset: 50 });
+            
+            // Truque mágico: Força o site a reconhecer onde está após 300ms 
+            // para mostrar a Hero Section caso ela fique presa
+            setTimeout(() => {
+                AOS.refresh();
+                window.dispatchEvent(new Event('scroll'));
+            }, 300);
+        });
     </script>
 
-   <script type="module">
+    <script type="module">
+        // Importação dos módulos necessários do Firebase Firestore
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getFirestore, collection, onSnapshot, query, where, doc, setDoc, increment, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
+        // Chaves de segurança e configuração do seu banco de dados
         const firebaseConfig = {
             apiKey: "AIzaSyCpxfzPrj1DJpcv-bHsVtR1Y7NSVN3KRTI",
             authDomain: "xerfan-tech-lab.firebaseapp.com",
@@ -404,17 +450,21 @@
         const db = getFirestore(app);
 
         // === RASTREADOR DE VISITAS ===
+        // Incrementa uma view na aba de estatísticas do painel Admin toda vez que a home é aberta
         try {
             const statsRef = doc(db, "analytics", "geral");
             setDoc(statsRef, { views: increment(1) }, { merge: true });
         } catch(e) { console.log("Erro ao contar visita."); }
 
+        // ------------------------------------------------
         // 1. CARREGAR 3 SERVIÇOS EM DESTAQUE
+        // ------------------------------------------------
         const qServicos = query(collection(db, "servicos"), where("status", "==", "ativo"), limit(3));
         onSnapshot(qServicos, (snapshot) => {
             const grid = document.getElementById('home-servicos-grid');
             if(!grid) return;
             grid.innerHTML = '';
+            
             if (snapshot.empty) { grid.innerHTML = '<p class="col-span-full text-center text-gray-500 py-8">Nenhum serviço em destaque.</p>'; return; }
 
             snapshot.forEach((doc, index) => {
@@ -423,6 +473,7 @@
                 let icone = 'fa-tools'; 
                 const catL = s.categoria ? s.categoria.toLowerCase() : "";
                 
+                // Inteligência para colorir os cards consoante a categoria
                 if(catL.includes('computador') || catL.includes('manuten')) { corGradiente = 'from-blue-600 to-blue-800'; icone = 'fa-laptop'; }
                 else if(catL.includes('smart') || catL.includes('celular')) { corGradiente = 'from-orange-500 to-orange-700'; icone = 'fa-mobile-alt'; }
                 else if(catL.includes('automação') || catL.includes('projeto')) { corGradiente = 'from-purple-600 to-purple-800'; icone = 'fa-robot'; }
@@ -448,14 +499,19 @@
                 </div>`;
                 grid.insertAdjacentHTML('beforeend', cardHTML);
             });
+            // Recalcula a animação assim que os cartões entram na tela
+            setTimeout(() => AOS.refresh(), 100);
         });
 
-        // 2. CARREGAR 3 PROJETOS DO PORTFÓLIO EM DESTAQUE (NOVO)
+        // ------------------------------------------------
+        // 2. CARREGAR 3 PROJETOS DO PORTFÓLIO
+        // ------------------------------------------------
         const qPortfolio = query(collection(db, "portfolio"), orderBy("data_cadastro", "desc"), limit(3));
         onSnapshot(qPortfolio, (snapshot) => {
             const grid = document.getElementById('home-portfolio-grid');
             if(!grid) return;
             grid.innerHTML = '';
+            
             if (snapshot.empty) { grid.innerHTML = '<p class="col-span-full text-center text-gray-500 py-8">Nenhum projeto cadastrado.</p>'; return; }
 
             snapshot.forEach((docSnap, index) => {
@@ -475,14 +531,18 @@
                 </div>`;
                 grid.insertAdjacentHTML('beforeend', cardHTML);
             });
+            setTimeout(() => AOS.refresh(), 100);
         });
 
+        // ------------------------------------------------
         // 3. CARREGAR 4 PRODUTOS NA LOJA
+        // ------------------------------------------------
         const qProdutos = query(collection(db, "produtos"), where("status", "==", "ativo"), limit(4));
         onSnapshot(qProdutos, (snapshot) => {
             const grid = document.getElementById('home-produtos-grid');
             if(!grid) return;
             grid.innerHTML = '';
+            
             if (snapshot.empty) { grid.innerHTML = '<p class="col-span-full text-center text-gray-500 py-8">Nenhum produto cadastrado.</p>'; return; }
 
             snapshot.forEach((docSnap, index) => {
@@ -501,14 +561,18 @@
                 </div>`;
                 grid.insertAdjacentHTML('beforeend', cardHTML);
             });
+            setTimeout(() => AOS.refresh(), 100);
         });
 
-        // 4. CARREGAR 3 ARTIGOS DO BLOG EM DESTAQUE (NOVO)
+        // ------------------------------------------------
+        // 4. CARREGAR ÚLTIMOS 3 ARTIGOS DO BLOG
+        // ------------------------------------------------
         const qBlog = query(collection(db, "blog"), orderBy("data", "desc"), limit(3));
         onSnapshot(qBlog, (snapshot) => {
             const grid = document.getElementById('home-blog-grid');
             if(!grid) return;
             grid.innerHTML = '';
+            
             if (snapshot.empty) { grid.innerHTML = '<p class="col-span-full text-center text-gray-500 py-8">Nenhum artigo publicado.</p>'; return; }
 
             snapshot.forEach((docSnap, index) => {
@@ -529,6 +593,7 @@
                 </div>`;
                 grid.insertAdjacentHTML('beforeend', cardHTML);
             });
+            setTimeout(() => AOS.refresh(), 100);
         });
     </script>
 </body>
