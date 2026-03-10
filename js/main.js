@@ -453,4 +453,34 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(initCookieConsent, 1500);
 });
 
+// Sistema de Notificações Premium (Toast)
+function mostrarNotificacao(mensagem, tipo = 'success') {
+    const toast = document.createElement('div');
+    toast.className = `fixed top-10 right-10 z-[9999] flex items-center p-4 mb-4 w-full max-w-xs rounded-2xl shadow-2xl transform transition-all duration-500 translate-y-[-100px] opacity-0 ${
+        tipo === 'success' ? 'bg-gray-900 border border-green-500/50 text-white' : 'bg-gray-900 border border-red-500/50 text-white'
+    }`;
+
+    const icon = tipo === 'success' ? 'fa-check-circle text-green-500' : 'fa-exclamation-circle text-red-500';
+    
+    toast.innerHTML = `
+        <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 bg-gray-800 rounded-lg">
+            <i class="fas ${icon}"></i>
+        </div>
+        <div class="ml-3 text-sm font-bold">${mensagem}</div>
+    `;
+
+    document.body.appendChild(toast);
+
+    // Animação de entrada
+    setTimeout(() => {
+        toast.classList.remove('translate-y-[-100px]', 'opacity-0');
+    }, 100);
+
+    // Auto-destruição após 4 segundos
+    setTimeout(() => {
+        toast.classList.add('translate-y-[-100px]', 'opacity-0');
+        setTimeout(() => toast.remove(), 500);
+    }, 4000);
+}
+
 window.mostrarNotificacao = mostrarNotificacao;
