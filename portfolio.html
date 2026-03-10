@@ -3,7 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfólio - Xerfan Tech Lab</title>
+    <title>Portfólio de Projetos - Xerfan Tech Lab</title>
+    
+    <meta name="description" content="Explore o portfólio da Xerfan Tech Lab: projetos de automação, desenvolvimento web e infraestrutura de TI realizados com excelência.">
+    <meta name="keywords" content="portfólio TI, projetos automação, cases de sucesso web, clientes Xerfan, projetos infraestrutura">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Portfólio de Projetos - Xerfan Tech Lab">
+    <meta property="og:description" content="Conheça alguns dos projetos que realizamos com excelência, dedicação e inovação tecnológica.">
+    <meta property="og:image" content="img/logo.png">
+    <meta property="og:site_name" content="Xerfan Tech Lab">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -11,25 +21,13 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/enhancements.css">
-    <meta name="description" content="Portfólio Xerfan Tech Lab: projetos de automação, desenvolvimento web e infraestrutura de TI realizados em Niterói e região.">
     <link rel="icon" type="image/x-icon" href="img/logo.png">
-    
     <style>
         body { font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif; }
-        /* Animações específicas da vitrine do portfólio */
-        .portfolio-card .overlay-details {
-            transform: translateY(100%);
-            transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
-        }
-        .portfolio-card:hover .overlay-details {
-            transform: translateY(0);
-        }
-        .portfolio-card img {
-            transition: transform 0.5s ease;
-        }
-        .portfolio-card:hover img {
-            transform: scale(1.08);
-        }
+        .portfolio-card .overlay-details { transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); }
+        .portfolio-card:hover .overlay-details { transform: translateY(0); }
+        .portfolio-card img { transition: transform 0.5s ease; }
+        .portfolio-card:hover img { transform: scale(1.08); }
     </style>
 </head>
 <body class="bg-gray-950 transition-colors duration-300">
@@ -74,10 +72,9 @@
     <section class="py-20 bg-gray-950">
         <div class="container mx-auto px-4">
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-7" id="portfolio-grid">
-                <div class="col-span-full flex flex-col items-center justify-center py-20 text-gray-500">
-                    <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-orange-500 mb-4"></div>
-                    <p>Carregando portfólio de projetos...</p>
-                </div>
+                <div class="bg-gray-800/50 rounded-3xl h-[300px] animate-pulse border border-gray-700/30"></div>
+                <div class="bg-gray-800/50 rounded-3xl h-[300px] animate-pulse border border-gray-700/30 hidden md:block"></div>
+                <div class="bg-gray-800/50 rounded-3xl h-[300px] animate-pulse border border-gray-700/30 hidden lg:block"></div>
             </div>
         </div>
     </section>
@@ -88,20 +85,9 @@
     <script src="js/main.js"></script>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getFirestore, collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyCpxfzPrj1DJpcv-bHsVtR1Y7NSVN3KRTI",
-            authDomain: "xerfan-tech-lab.firebaseapp.com",
-            projectId: "xerfan-tech-lab",
-            storageBucket: "xerfan-tech-lab.firebasestorage.app",
-            messagingSenderId: "931331197336",
-            appId: "1:931331197336:web:ca2550d7d10da44fbb43ed"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+        // Importação centralizada do Firebase
+        import { db } from "./js/firebase-config.js";
+        import { collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
         // Mapas visuais para ícones e cores de gradiente consoante a categoria
         const icons = {
@@ -155,7 +141,7 @@
                              onclick="window.location.href='projeto.html?id=${id}'">
                             
                             <div class="relative overflow-hidden h-52 border-b border-gray-700 bg-gray-900">
-                                <img src="${p.imagem}" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40" alt="${p.titulo}">
+                                <img src="${p.imagem}" loading="lazy" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40" alt="${p.titulo}">
                                 <div class="absolute inset-0 bg-gradient-to-br ${gradiente} opacity-20 group-hover:opacity-40 transition-opacity"></div>
                                 <div class="absolute inset-0 flex flex-col items-center justify-center p-6 backdrop-blur-[2px]">
                                     <i class="${icone} text-4xl mb-3 text-white opacity-90 drop-shadow-md group-hover:scale-110 transition-transform"></i>

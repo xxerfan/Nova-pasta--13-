@@ -1336,4 +1336,10 @@ button, a {
     textarea {
         font-size: 16px !important;
     }
+    /* Reserva o espaço exato do Menu em todas as páginas para alinhar os topos */
+#header {
+    min-height: 80px;
+    display: block;
+    width: 100%;
+}
 }

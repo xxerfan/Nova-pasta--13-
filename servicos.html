@@ -5,25 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Serviços Técnicos - Xerfan Tech Lab</title>
     
+    <meta name="description" content="Conheça os nossos serviços: manutenção preventiva, automação inteligente, criação de sites e projetos de redes.">
+    <meta name="keywords" content="serviços de TI, conserto pc, automação inteligente, criação de sites, projeto de redes, Niterói">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Serviços Técnicos - Xerfan Tech Lab">
+    <meta property="og:description" content="Projetos, manutenções e infraestrutura executados com o mais alto rigor técnico e atendimento dedicado.">
+    <meta property="og:image" content="img/logo.png">
+    <meta property="og:site_name" content="Xerfan Tech Lab">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/enhancements.css">
     <link rel="icon" type="image/x-icon" href="img/logo.png">
-    
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        /* Animação suave para abrir o popup de detalhes */
         .modal-enter { animation: modalFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        @keyframes modalFadeIn {
-            from { opacity: 0; transform: scale(0.95) translateY(20px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-        /* Efeito de flutuação ao passar o rato nos cartões de serviço gerados pelo JS */
+        @keyframes modalFadeIn { from { opacity: 0; transform: scale(0.95) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
         .servico-card-pro { transition: all 0.3s ease; }
         .servico-card-pro:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5); }
     </style>
@@ -69,9 +71,11 @@
     <section class="py-20 bg-gray-950 min-h-[50vh]">
         <div class="container mx-auto px-4">
             
-            <div id="loading-spinner" class="flex flex-col justify-center items-center py-20">
-                <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500 mb-4"></div>
-                <p class="text-gray-500 text-sm font-bold uppercase tracking-wider animate-pulse">Carregando portfólio...</p>
+            <div id="loading-spinner" class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 py-10">
+                <div class="bg-gray-800/50 rounded-3xl h-[280px] animate-pulse border border-gray-700/30"></div>
+                <div class="bg-gray-800/50 rounded-3xl h-[280px] animate-pulse border border-gray-700/30 hidden md:block"></div>
+                <div class="bg-gray-800/50 rounded-3xl h-[280px] animate-pulse border border-gray-700/30 hidden lg:block"></div>
+                <div class="bg-gray-800/50 rounded-3xl h-[280px] animate-pulse border border-gray-700/30 hidden xl:block"></div>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 hidden" id="servicos-grid"></div>
@@ -130,21 +134,9 @@
     <script src="js/main.js"></script>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getFirestore, collection, onSnapshot, query, where } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-
-        // Configuração do seu Banco de Dados
-        const firebaseConfig = {
-            apiKey: "AIzaSyCpxfzPrj1DJpcv-bHsVtR1Y7NSVN3KRTI",
-            authDomain: "xerfan-tech-lab.firebaseapp.com",
-            projectId: "xerfan-tech-lab",
-            storageBucket: "xerfan-tech-lab.firebasestorage.app",
-            messagingSenderId: "931331197336",
-            appId: "1:931331197336:web:ca2550d7d10da44fbb43ed"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+        // Importação centralizada do Firebase
+        import { db } from "./js/firebase-config.js";
+        import { collection, onSnapshot, query, where } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
         document.addEventListener('DOMContentLoaded', () => {
             if(typeof loadComponent === 'function') {

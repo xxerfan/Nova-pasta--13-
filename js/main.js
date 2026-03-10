@@ -46,17 +46,12 @@ async function aplicarTravasVisibilidade() {
     try {
         const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js");
         const { getFirestore, doc, onSnapshot } = await import("https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js");
+        
+        // 1. Puxamos a configuração do nosso novo arquivo central (que está na mesma pasta js/)
+        const { app } = await import("./firebase-config.js");
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyCpxfzPrj1DJpcv-bHsVtR1Y7NSVN3KRTI",
-            authDomain: "xerfan-tech-lab.firebaseapp.com",
-            projectId: "xerfan-tech-lab",
-            storageBucket: "xerfan-tech-lab.firebasestorage.app",
-            messagingSenderId: "931331197336",
-            appId: "1:931331197336:web:ca2550d7d10da44fbb43ed"
-        };
-
-        const appToggle = initializeApp(firebaseConfig, "XerfanToggleApp");
+        // 2. Iniciamos o appToggle usando as opções (chaves) que vieram do arquivo central
+        const appToggle = initializeApp(app.options, "XerfanToggleApp");
         const dbToggle = getFirestore(appToggle);
 
         onSnapshot(doc(dbToggle, "settings", "paginas"), (snap) => {

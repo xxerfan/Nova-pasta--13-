@@ -3,21 +3,31 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Blog - Xerfan Tech Lab</title>
+    <title>Blog de Tecnologia - Xerfan Tech Lab</title>
+    
+    <meta name="description" content="Artigos, dicas valiosas e tendências em automação, desenvolvimento web e infraestrutura de TI no Blog da Xerfan Tech Lab.">
+    <meta name="keywords" content="blog tecnologia, dicas TI, novidades automação, segurança digital, artigos informática">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Blog de Tecnologia - Xerfan Tech Lab">
+    <meta property="og:description" content="O Futuro da Tecnologia. Acompanhe artigos, tutoriais e novidades do mundo de TI.">
+    <meta property="og:image" content="img/logo.png">
+    <meta property="og:site_name" content="Xerfan Tech Lab">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/animations.css" />
-    <link rel="stylesheet" href="css/enhancements.css" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/enhancements.css">
     <link rel="icon" type="image/x-icon" href="img/logo.png" />
     <style> body { font-family: "Plus Jakarta Sans", sans-serif; } </style>
 </head>
-<body class="bg-gray-950">
+<body class="bg-gray-950 transition-colors duration-300">
     <div id="header"></div>
 
-    <section class="relative py-20 lg:py-24 bg-gradient-to-br from-gray-950 via-blue-950/20 to-gray-950 border-b border-gray-800 overflow-hidden mt-[80px]">
+    <section class="relative py-20 lg:py-24 bg-gradient-to-br from-gray-950 via-blue-950/20 to-gray-950 border-b border-gray-800 overflow-hidden">
         <div class="absolute inset-0 pointer-events-none">
             <div class="absolute top-0 left-1/4 w-64 h-64 bg-orange-500/10 rounded-full blur-[80px]"></div>
             <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-blue-500/10 rounded-full blur-[80px]"></div>
@@ -38,14 +48,28 @@
         </div>
     </section>
 
-    <section class="py-20 bg-gray-950">
+    <section class="py-20 bg-gray-950 min-h-screen">
         <div class="container mx-auto px-4 max-w-6xl">
+            
             <div id="blog-destaque" class="mb-20">
-                <div class="flex justify-center py-10"><div class="animate-spin rounded-full h-10 w-10 border-t-2 border-orange-500"></div></div>
+                <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6 lg:p-10 shadow-2xl animate-pulse flex flex-col lg:flex-row gap-10">
+                    <div class="flex-1 space-y-4">
+                        <div class="h-4 bg-gray-800 rounded w-1/4 mb-6"></div>
+                        <div class="h-10 bg-gray-800 rounded w-3/4"></div>
+                        <div class="h-10 bg-gray-800 rounded w-1/2"></div>
+                        <div class="h-24 bg-gray-800 rounded w-full mt-6"></div>
+                    </div>
+                    <div class="flex-1 h-64 lg:h-auto bg-gray-800 rounded-2xl"></div>
+                </div>
             </div>
 
             <h3 class="text-2xl font-black text-white mb-8">Artigos Recentes</h3>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="blog-grid"></div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="blog-grid">
+                <div class="bg-gray-800/50 rounded-2xl h-[400px] animate-pulse border border-gray-700/30"></div>
+                <div class="bg-gray-800/50 rounded-2xl h-[400px] animate-pulse border border-gray-700/30 hidden md:block"></div>
+                <div class="bg-gray-800/50 rounded-2xl h-[400px] animate-pulse border border-gray-700/30 hidden lg:block"></div>
+            </div>
         </div>
     </section>
 
@@ -55,17 +79,9 @@
     <script src="js/main.js"></script>
     
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getFirestore, collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-
-        const firebaseConfig = { 
-            apiKey: "AIzaSyCpxfzPrj1DJpcv-bHsVtR1Y7NSVN3KRTI", 
-            authDomain: "xerfan-tech-lab.firebaseapp.com", 
-            projectId: "xerfan-tech-lab", 
-            storageBucket: "xerfan-tech-lab.firebasestorage.app", 
-            messagingSenderId: "931331197336", 
-            appId: "1:931331197336:web:ca2550d7d10da44fbb43ed" 
-        };
+        // 1. Otimização: Importação direta do ficheiro Firebase Config
+        import { db } from "./js/firebase-config.js";
+        import { collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
         async function initBlog() {
             try {
@@ -75,12 +91,10 @@
                         loadComponent('footer', 'components/footer.html')
                     ]);
                 }
-                AOS.init();
+                AOS.init({ duration: 800, once: true });
             } catch (e) { console.error("Erro ao carregar componentes:", e); }
 
             try {
-                const app = initializeApp(firebaseConfig);
-                const db = getFirestore(app);
                 // Ordena os artigos do mais recente para o mais antigo
                 const q = query(collection(db, "blog"), orderBy("data", "desc"));
 
@@ -90,48 +104,77 @@
                     
                     if (snapshot.empty) {
                         destaqueCont.innerHTML = "<p class='text-center text-gray-500'>Nenhum artigo publicado.</p>";
+                        gridCont.innerHTML = "";
                         return;
                     }
 
                     let posts = [];
                     snapshot.forEach(doc => posts.push({ id: doc.id, ...doc.data() }));
 
-                    // O 1º artigo da lista é o grande Destaque
-                    const d = posts[0];
-                    destaqueCont.innerHTML = `
-                        <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6 lg:p-10 shadow-2xl cursor-pointer hover:shadow-orange-500/10 transition-all" onclick="window.location.href='post.html?id=${d.id}'">
-                            <div class="grid lg:grid-cols-2 gap-10 items-center">
-                                <div>
-                                    <span class="text-orange-500 font-bold uppercase text-xs tracking-widest mb-4 block">Destaque da Semana</span>
-                                    <h2 class="text-3xl lg:text-4xl font-black text-white mb-4">${d.titulo}</h2>
-                                    <p class="text-gray-400 mb-8 line-clamp-3">${d.conteudo}</p>
-                                    <div class="flex items-center justify-between pt-6 border-t border-gray-800">
-                                        <div class="flex items-center">
-                                            <div class="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold">XT</div>
-                                            <div class="ml-3">
-                                                <p class="text-white font-bold text-sm">Equipe Xerfan</p>
-                                                <p class="text-gray-500 text-xs">${new Date(d.data).toLocaleDateString('pt-BR')}</p>
-                                            </div>
-                                        </div>
-                                        <span class="text-orange-500 font-bold text-sm uppercase flex items-center gap-2">Ler Artigo <i class="fas fa-arrow-right"></i></span>
-                                    </div>
-                                </div>
-                                <div class="rounded-2xl overflow-hidden aspect-video bg-gray-800"><img src="${d.imagem}" class="w-full h-full object-cover"></div>
-                            </div>
-                        </div>`;
+ // O 1º artigo da lista é o grande Destaque (Com Lazy Loading na Imagem)
 
-                    // Os restantes artigos vão para a grelha secundária
+                    const d = posts[0];
+
+                    destaqueCont.innerHTML = `
+
+                        <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6 lg:p-10 shadow-2xl cursor-pointer hover:shadow-orange-500/10 transition-all" onclick="window.location.href='post.html?id=${d.id}'" data-aos="fade-up">
+
+                            <div class="grid lg:grid-cols-2 gap-10 items-center">
+
+                                <div>
+
+                                    <span class="text-orange-500 font-bold uppercase text-xs tracking-widest mb-4 block">Destaque da Semana</span>
+
+                                    <h2 class="text-3xl lg:text-4xl font-black text-white mb-4">${d.titulo}</h2>
+
+                                    <p class="text-gray-400 mb-8 line-clamp-3">${d.conteudo}</p>
+
+                                    <div class="flex items-center justify-between pt-6 border-t border-gray-800">
+
+                                        <div class="flex items-center">
+
+                                            <div class="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold shadow-inner">XT</div>
+
+                                            <div class="ml-3">
+
+                                                <p class="text-white font-bold text-sm">Equipe Xerfan</p>
+
+                                                <p class="text-gray-500 text-xs">${new Date(d.data).toLocaleDateString('pt-BR')}</p>
+
+                                            </div>
+
+                                        </div>
+
+                                        <span class="text-orange-500 font-bold text-sm uppercase flex items-center gap-2">Ler Artigo <i class="fas fa-arrow-right"></i></span>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="rounded-2xl overflow-hidden aspect-video bg-gray-800 relative group">
+
+                                    <img src="${d.imagem}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="${d.titulo}">
+
+                                </div>
+
+                            </div>
+
+                        </div>`; 
+
+                    // Os restantes artigos vão para a grelha secundária (Com Lazy Loading)
                     gridCont.innerHTML = '';
-                    posts.slice(1).forEach(p => {
+                    posts.slice(1).forEach((p, index) => {
                         gridCont.innerHTML += `
-                            <article class="bg-gray-800 border border-gray-700 rounded-2xl overflow-hidden hover:-translate-y-2 transition-all duration-300 flex flex-col cursor-pointer group" onclick="window.location.href='post.html?id=${p.id}'">
-                                <div class="h-48 overflow-hidden bg-gray-700"><img src="${p.imagem}" class="w-full h-full object-cover group-hover:scale-105 transition-transform"></div>
+                            <article class="bg-gray-800 border border-gray-700 rounded-2xl overflow-hidden hover:-translate-y-2 transition-all duration-300 flex flex-col cursor-pointer group shadow-lg hover:shadow-orange-500/20" onclick="window.location.href='post.html?id=${p.id}'" data-aos="fade-up" data-aos-delay="${index * 100}">
+                                <div class="h-48 overflow-hidden bg-gray-900">
+                                    <img src="${p.imagem}" loading="lazy" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" alt="${p.titulo}">
+                                </div>
                                 <div class="p-6 flex-1 flex flex-col">
-                                    <h4 class="text-xl font-bold text-white mb-3 line-clamp-2 group-hover:text-orange-400">${p.titulo}</h4>
+                                    <h4 class="text-xl font-bold text-white mb-3 line-clamp-2 group-hover:text-orange-400 transition-colors">${p.titulo}</h4>
                                     <p class="text-gray-400 text-sm mb-6 line-clamp-3">${p.conteudo}</p>
                                     <div class="mt-auto pt-4 border-t border-gray-700/50 flex justify-between items-center">
                                         <span class="text-gray-500 text-xs font-medium">${new Date(p.data).toLocaleDateString('pt-BR')}</span>
-                                        <span class="text-orange-500 font-bold text-xs uppercase group-hover:underline">LER MAIS</span>
+                                        <span class="text-orange-500 font-bold text-xs uppercase flex items-center gap-1 group-hover:translate-x-1 transition-transform">Ler <i class="fas fa-angle-right"></i></span>
                                     </div>
                                 </div>
                             </article>`;

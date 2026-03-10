@@ -6,19 +6,25 @@
     
     <title>Sobre Nós - Xerfan Tech Lab</title>
     
+    <meta name="description" content="Conheça a Xerfan Tech Lab - Especialistas em tecnologia, desenvolvimento e infraestrutura em Niterói, RJ.">
+    <meta name="keywords" content="sobre nós, Xerfan Tech Lab, equipe técnica, tecnologia Niterói, infraestrutura de TI">
+    <meta name="author" content="Xerfan Tech Lab">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Sobre Nós - Xerfan Tech Lab">
+    <meta property="og:description" content="Acreditamos que a tecnologia deve ser acessível e transformadora. Conheça a nossa história e a nossa equipa de especialistas.">
+    <meta property="og:image" content="img/logo.png">
+    <meta property="og:site_name" content="Xerfan Tech Lab">
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/enhancements.css">
     
-    <meta name="description" content="Conheça a Xerfan Tech Lab - Especialistas em tecnologia, desenvolvimento e infraestrutura em Niterói, RJ.">
     <link rel="icon" type="image/x-icon" href="img/logo.png">
 </head>
 <body class="bg-gray-950 transition-colors duration-300">
@@ -185,10 +191,8 @@
     <script src="js/main.js"></script>
     
     <script>
-        // Inicializa as animações na rolagem da página
         AOS.init({ duration: 750, once: true, offset: 80 });
         
-        // Garante que o Header e o Footer sejam carregados assim que a página estiver pronta
         document.addEventListener('DOMContentLoaded', function() {
             if(typeof loadComponent === 'function') {
                 loadComponent('header', 'components/header.html');
