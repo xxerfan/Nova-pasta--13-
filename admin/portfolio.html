@@ -87,8 +87,7 @@
         </header>
 
         <div class="flex-1 overflow-y-auto p-8 relative">
-            <div id="grid-portfolio" class="grid md:grid-cols-3 xl:grid-cols-4 gap-6">
-                </div>
+            <div id="grid-portfolio" class="grid md:grid-cols-3 xl:grid-cols-4 gap-6"></div>
         </div>
     </main>
 
@@ -126,7 +125,7 @@
                 </div>
 
                 <div>
-                    <label class="block text-[10px] font-bold text-gray-500 uppercase mb-2 tracking-widest">Descrição Técnica (Aceita Imagens via HTML)</label>
+                    <label class="block text-[10px] font-bold text-gray-500 uppercase mb-2 tracking-widest">Descrição Técnica</label>
                     <textarea id="proj-desc" rows="8" required class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white outline-none focus:border-orange-500 resize-none transition-all" placeholder="Descreva os detalhes técnicos do projeto..."></textarea>
                     <p class="text-[10px] text-gray-600 mt-2">Dica: Use &lt;img src="..." class="w-full rounded-xl my-4"&gt; para inserir fotos no texto.</p>
                 </div>
@@ -142,14 +141,9 @@
     </div>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-
-        const firebaseConfig = { apiKey: "AIzaSyCpxfzPrj1DJpcv-bHsVtR1Y7NSVN3KRTI", authDomain: "xerfan-tech-lab.firebaseapp.com", projectId: "xerfan-tech-lab", storageBucket: "xerfan-tech-lab.firebasestorage.app", messagingSenderId: "931331197336", appId: "1:931331197336:web:ca2550d7d10da44fbb43ed" };
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const auth = getAuth(app);
+        import { db, auth } from "../js/firebase-config.js";
+        import { collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
         const colPortfolio = collection(db, "portfolio");
         const colCategorias = collection(db, "categorias_portfolio");
@@ -157,7 +151,6 @@
         window.portfolioData = {};
         let categoriasExistentes = [];
 
-        // VERIFICAÇÃO DE SEGURANÇA
         onAuthStateChanged(auth, (user) => { 
             if (user) { 
                 document.getElementById('auth-guard').style.opacity = '0';
@@ -169,7 +162,6 @@
 
         window.fazerLogout = () => signOut(auth).then(() => { window.location.href = 'login.html'; });
 
-        // CARREGAR CATEGORIAS PARA O DATALIST
         onSnapshot(colCategorias, (snap) => {
             const datalist = document.getElementById('lista-categorias');
             datalist.innerHTML = '';
@@ -181,7 +173,6 @@
             });
         });
 
-        // LISTAR PROJETOS NO GRID
         onSnapshot(query(colPortfolio, orderBy("data_cadastro", "desc")), (snap) => {
             const grid = document.getElementById('grid-portfolio');
             grid.innerHTML = '';
@@ -205,7 +196,6 @@
             });
         });
 
-        // SALVAR PROJETO
         document.getElementById('form-portfolio').addEventListener('submit', async (e) => {
             e.preventDefault();
             const id = document.getElementById('proj-id').value;

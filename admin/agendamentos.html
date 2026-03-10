@@ -38,7 +38,6 @@
                     </a>
                     <a href="mensagens.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium relative">
                         <i class="fas fa-envelope w-5 text-center text-lg"></i> Dúvidas / Contatos
-                        <span id="badge-novas" class="absolute right-3 top-1/2 -translate-y-1/2 bg-orange-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full hidden">0</span>
                     </a>
                 </div>
             </div>
@@ -107,7 +106,7 @@
                     <div><span class="block text-[10px] font-bold text-gray-500 uppercase mb-1">WhatsApp</span><p id="ler-telefone" class="font-bold text-white"></p></div>
                 </div>
                 <div><span class="block text-[10px] font-bold text-gray-500 uppercase mb-2">Serviço Solicitado</span><div id="ler-assunto" class="bg-gray-800 border border-gray-700 p-3 rounded-lg text-green-400 font-bold"></div></div>
-                <div><span class="block text-[10px] font-bold text-gray-500 uppercase mb-2">Detalhes de Local e Data (Inseridos pelo Cliente)</span><div id="ler-mensagem" class="bg-gray-800 border border-gray-700 p-4 rounded-xl text-gray-300 whitespace-pre-wrap leading-relaxed"></div></div>
+                <div><span class="block text-[10px] font-bold text-gray-500 uppercase mb-2">Detalhes de Local e Data</span><div id="ler-mensagem" class="bg-gray-800 border border-gray-700 p-4 rounded-xl text-gray-300 whitespace-pre-wrap leading-relaxed"></div></div>
             </div>
             <div class="p-6 border-t border-gray-800 bg-gray-800/30 flex justify-end gap-3">
                 <a id="btn-wpp-cliente" href="#" target="_blank" class="px-6 py-2.5 bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl flex items-center gap-2 transition-all"><i class="fab fa-whatsapp text-lg"></i> Confirmar pelo WhatsApp</a>
@@ -116,12 +115,10 @@
     </div>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getFirestore, collection, onSnapshot, doc, updateDoc, deleteDoc, query, where } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-
-        const firebaseConfig = { apiKey: "AIzaSyCpxfzPrj1DJpcv-bHsVtR1Y7NSVN3KRTI", authDomain: "xerfan-tech-lab.firebaseapp.com", projectId: "xerfan-tech-lab", storageBucket: "xerfan-tech-lab.firebasestorage.app", messagingSenderId: "931331197336", appId: "1:931331197336:web:ca2550d7d10da44fbb43ed" };
-        const app = initializeApp(firebaseConfig); const auth = getAuth(app); const db = getFirestore(app);
+        // Importação Limpa do Firebase
+        import { db, auth } from "../js/firebase-config.js";
+        import { collection, onSnapshot, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
         onAuthStateChanged(auth, (user) => { 
             if (user) { 
@@ -131,14 +128,22 @@
         });
         window.fazerLogout = () => signOut(auth).then(() => { window.location.href = 'login.html'; });
 
-        const q = query(collection(db, "mensagens"), where("origem", "==", "Agendamento Online"));
+        const mensagensRef = collection(db, "mensagens");
         window.mensagensData = {};
 
-        onSnapshot(q, (snapshot) => {
+        onSnapshot(mensagensRef, (snapshot) => {
             const tabela = document.getElementById('tabela-agendamentos');
             tabela.innerHTML = '';
             let msgs = [];
-            snapshot.forEach(d => msgs.push({id: d.id, ...d.data()}));
+            
+            snapshot.forEach(d => {
+                const data = d.data();
+                // Filtro Mágico: Pega APENAS o que tiver a palavra "Agendamento" na origem
+                if (data.origem && data.origem.toLowerCase().includes('agendamento')) {
+                    msgs.push({id: d.id, ...data});
+                }
+            });
+            
             msgs.sort((a,b) => new Date(b.data_envio) - new Date(a.data_envio));
 
             if (msgs.length === 0) { tabela.innerHTML = '<tr><td colspan="5" class="px-6 py-8 text-center text-gray-500">Nenhum agendamento pendente.</td></tr>'; return; }
@@ -156,7 +161,7 @@
                         <td class="px-6 py-4">${statusBadge}</td>
                         <td class="px-6 py-4 text-right">
                             <button onclick="event.stopPropagation(); abrirMensagem('${msg.id}')" class="text-green-500 hover:text-green-400 px-2"><i class="fas fa-eye"></i></button>
-                            <button onclick="event.stopPropagation(); if(confirm('Apagar?')) deleteDoc(doc(db, 'mensagens', '${msg.id}'));" class="text-gray-500 hover:text-red-500 px-2"><i class="fas fa-trash"></i></button>
+                            <button onclick="event.stopPropagation(); if(confirm('Apagar este agendamento?')) deleteDoc(doc(db, 'mensagens', '${msg.id}'));" class="text-gray-500 hover:text-red-500 px-2"><i class="fas fa-trash"></i></button>
                         </td>
                     </tr>`;
             });

@@ -157,7 +157,8 @@
     
     <script type="module">
         import { db } from "./js/firebase-config.js";
-        import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        // Importação com setDoc para atualizar sem precisar ler
+        import { collection, addDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
         document.addEventListener('DOMContentLoaded', function() {
             AOS.init({ duration: 800, once: true });
@@ -190,7 +191,7 @@
                         const enderecoCompleto = `${dados.local_rua}, ${dados.local_numero} - ${dados.local_bairro}`;
                         const mensagemAgendamento = `Data: ${dados.agendamento_data} (${dados.agendamento_periodo})\nEndereço: ${enderecoCompleto}`;
 
-                        // 1. Gravação Firebase (Seu CRM)
+                        // 1. Gravação Firebase (Mensagens / Alertas para o Admin)
                         await addDoc(collection(db, "mensagens"), {
                             nome: dados.nome,
                             email: "Lead de Agendamento",
@@ -199,23 +200,40 @@
                             mensagem: mensagemAgendamento,
                             data_envio: new Date().toISOString(),
                             status: 'nova',
-                            origem: 'Site - Agendamento'
+                            origem: 'Agendamento Online'
                         });
 
-                        // 2. Disparo Silencioso de E-mail
+                        // ==========================================
+                        // 2. CAPTAÇÃO AUTOMÁTICA DE CLIENTES (CRM)
+                        // Lógica de Upsert: Atualiza se existir, cria se não existir. Seguro e sem erro de leitura!
+                        // ==========================================
+                        const telefoneLimpo = dados.telefone.replace(/\D/g, ''); // Extrai apenas números
+                        if (telefoneLimpo) {
+                            const clienteRef = doc(db, "clientes", telefoneLimpo); 
+                            
+                            // O { merge: true } é o que faz a mágica acontecer!
+                            await setDoc(clienteRef, {
+                                nome: dados.nome,
+                                telefone: dados.telefone,
+                                endereco: enderecoCompleto,
+                                ultimo_servico: `Agendamento: ${dados.assunto_selecionado}`,
+                                data_atualizacao: new Date().toISOString()
+                            }, { merge: true });
+                        }
+
+                        // 3. Disparo Silencioso de E-mail
                         fetch('https://api.web3forms.com/submit', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify(dados)
                         });
 
-                        // 3. Feedback Visual Premium (Toast)
+                        // 4. Feedback e WhatsApp
                         if(typeof mostrarNotificacao === 'function') {
                             mostrarNotificacao('Agendamento registado! Abrindo o WhatsApp...');
                         }
 
-                        // 4. MAGIA DO WHATSAPP (Etapa 2)
-                        const textoWpp = `Olá Xerfan Tech Lab! Acabei de solicitar um agendamento pelo site.\n\n` +
+                        const textoWpp = `Olá Rodrigo! Acabei de solicitar um agendamento pelo site.\n\n` +
                                          `*Nome:* ${dados.nome}\n` +
                                          `*Serviço:* ${dados.assunto_selecionado}\n` +
                                          `*Data:* ${dados.agendamento_data}\n` +
@@ -232,7 +250,7 @@
                         }, 1500);
 
                     } catch (error) {
-                        console.error(error);
+                        console.error("Erro no sistema:", error);
                         if(typeof mostrarNotificacao === 'function') {
                             mostrarNotificacao('Erro na conexão. Chame-nos diretamente no WhatsApp.', 'error');
                         } else {

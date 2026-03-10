@@ -38,7 +38,6 @@
                     </a>
                     <a href="mensagens.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium relative">
                         <i class="fas fa-envelope w-5 text-center text-lg"></i> Dúvidas / Contatos
-                        <span id="badge-novas" class="absolute right-3 top-1/2 -translate-y-1/2 bg-orange-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full hidden">0</span>
                     </a>
                 </div>
             </div>
@@ -87,8 +86,7 @@
         </header>
 
         <div class="flex-1 overflow-y-auto p-8 relative">
-            <div id="grid-blog" class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                </div>
+            <div id="grid-blog" class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
         </div>
     </main>
 
@@ -122,12 +120,9 @@
     </div>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-
-        const firebaseConfig = { apiKey: "AIzaSyCpxfzPrj1DJpcv-bHsVtR1Y7NSVN3KRTI", authDomain: "xerfan-tech-lab.firebaseapp.com", projectId: "xerfan-tech-lab", storageBucket: "xerfan-tech-lab.firebasestorage.app", messagingSenderId: "931331197336", appId: "1:931331197336:web:ca2550d7d10da44fbb43ed" };
-        const app = initializeApp(firebaseConfig); const db = getFirestore(app); const auth = getAuth(app);
+        import { db, auth } from "../js/firebase-config.js";
+        import { collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
         onAuthStateChanged(auth, (user) => { 
             if (user) { 
@@ -152,7 +147,7 @@
                         <div class="p-5">
                             <h4 class="font-bold text-white mb-2 line-clamp-2">${post.titulo}</h4>
                             <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-800">
-                                <span class="text-[10px] font-bold text-gray-500 tracking-widest uppercase">${new Date(post.data).toLocaleDateString()}</span>
+                                <span class="text-[10px] font-bold text-gray-500 tracking-widest uppercase">${new Date(post.data).toLocaleDateString('pt-BR')}</span>
                                 <div class="flex gap-2">
                                     <button onclick="prepararEdicao('${d.id}')" class="text-blue-500 text-[10px] font-bold uppercase tracking-widest hover:text-blue-400"><i class="fas fa-edit mr-1"></i> Editar</button>
                                     <button onclick="excluirPost('${d.id}')" class="text-red-500 text-[10px] font-bold uppercase tracking-widest hover:text-red-400"><i class="fas fa-trash mr-1"></i></button>

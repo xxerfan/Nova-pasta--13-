@@ -135,9 +135,9 @@
     <script src="js/main.js"></script>
     
     <script type="module">
-        // Estrutura Pro: Importando configuração centralizada
         import { db } from "./js/firebase-config.js";
-        import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        // Importação com setDoc para atualizar sem precisar ler
+        import { collection, addDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
         document.addEventListener('DOMContentLoaded', () => {
             AOS.init({ duration: 800, once: true });
@@ -159,7 +159,7 @@
                         const formData = new FormData(formLead);
                         const dados = Object.fromEntries(formData.entries());
 
-                        // 1. Firebase CRM
+                        // 1. Gravação Caixa de Mensagens (Notificações do Admin)
                         await addDoc(collection(db, "mensagens"), {
                             nome: dados.nome,
                             email: dados.email,
@@ -171,20 +171,37 @@
                             origem: 'Site - Contato'
                         });
 
-                        // 2. Web3Forms (E-mail)
+                        // ==========================================
+                        // 2. CAPTAÇÃO AUTOMÁTICA DE CLIENTES (CRM)
+                        // Lógica de Upsert: Atualiza se existir, cria se não existir. Seguro e sem erro de leitura!
+                        // ==========================================
+                        const telefoneLimpo = dados.telefone.replace(/\D/g, '');
+                        if (telefoneLimpo) {
+                            const clienteRef = doc(db, "clientes", telefoneLimpo);
+                            
+                            // O { merge: true } garante a atualização em vez de criar um duplicado
+                            await setDoc(clienteRef, {
+                                nome: dados.nome,
+                                telefone: dados.telefone,
+                                email: dados.email,
+                                ultimo_servico: `Contato: ${dados.assunto_selecionado}`,
+                                data_atualizacao: new Date().toISOString()
+                            }, { merge: true });
+                        }
+
+                        // 3. Web3Forms (E-mail)
                         fetch('https://api.web3forms.com/submit', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify(dados)
                         });
 
-                        // 3. Notificação Toast
+                        // 4. Notificação e WhatsApp
                         if(typeof mostrarNotificacao === 'function') {
                             mostrarNotificacao('Mensagem registada! Redirecionando para o WhatsApp...');
                         }
 
-                        // 4. Redirecionamento WhatsApp Inteligente
-                        const textoWpp = `Olá Xerfan Tech Lab! Vi o site da Xerfan Tech Lab e gostaria de falar com você.\n\n` +
+                        const textoWpp = `Olá Rodrigo! Vi o site da Xerfan Tech Lab e gostaria de falar com você.\n\n` +
                                          `*Nome:* ${dados.nome}\n` +
                                          `*Assunto:* ${dados.assunto_selecionado}\n` +
                                          `*Mensagem:* ${dados.mensagem}`;
@@ -199,7 +216,10 @@
                         }, 1500);
 
                     } catch (err) {
-                        console.error(err);
+                        console.error("Erro no envio:", err);
+                        if(typeof mostrarNotificacao === 'function') {
+                            mostrarNotificacao('Erro na conexão. Tente pelo WhatsApp.', 'error');
+                        }
                         btn.innerHTML = originalText;
                         btn.disabled = false;
                     }

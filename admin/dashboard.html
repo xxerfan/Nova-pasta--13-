@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style> 
         body { font-family: 'Plus Jakarta Sans', sans-serif; } 
-        /* Esconde a barra de rolagem mas mantém a funcionalidade */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #111827; }
         ::-webkit-scrollbar-thumb { background: #374151; border-radius: 10px; }
@@ -179,36 +178,18 @@
     </main>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getFirestore, collection, onSnapshot, doc, updateDoc, setDoc, query, where } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-
-        // Configuração Oficial da Xerfan Tech Lab
-        const firebaseConfig = { 
-            apiKey: "AIzaSyCpxfzPrj1DJpcv-bHsVtR1Y7NSVN3KRTI", 
-            authDomain: "xerfan-tech-lab.firebaseapp.com", 
-            projectId: "xerfan-tech-lab", 
-            storageBucket: "xerfan-tech-lab.firebasestorage.app", 
-            messagingSenderId: "931331197336", 
-            appId: "1:931331197336:web:ca2550d7d10da44fbb43ed" 
-        };
-        
-        const app = initializeApp(firebaseConfig); 
-        const auth = getAuth(app); 
-        const db = getFirestore(app);
+        import { db, auth } from "../js/firebase-config.js";
+        import { collection, onSnapshot, doc, updateDoc, setDoc, query, where } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
         // 1. GUARDIÃO DE AUTENTICAÇÃO
         onAuthStateChanged(auth, (user) => { 
             if (user) { 
-                // Se estiver logado, revela o painel e mostra o email no topo
                 document.getElementById('admin-email').innerText = user.email;
                 document.getElementById('auth-guard').style.opacity = '0';
                 setTimeout(() => document.getElementById('auth-guard').style.display = 'none', 500);
-                
-                // Inicia as consultas de banco de dados
                 iniciarDash(db); 
             } else { 
-                // Expulsa intrusos
                 window.location.href = 'login.html'; 
             } 
         });
@@ -219,17 +200,14 @@
         // 3. MOTOR DE DADOS DO DASHBOARD
         function iniciarDash(db) {
             
-            // A. Carregar Visualizações do Site (Trafego)
             onSnapshot(doc(db, "analytics", "geral"), (snap) => { 
                 if(snap.exists()) document.getElementById('stat-views').innerText = snap.data().views || 0; 
             });
             
-            // B. Contar Total de Leads
             onSnapshot(collection(db, "mensagens"), (s) => { 
                 document.getElementById('stat-leads').innerText = s.empty ? "0" : s.size; 
             });
 
-            // C. Atualizar o Menu com as mensagens "Novas" (Não lidas)
             const qNovasMsg = query(collection(db, "mensagens"), where("status", "==", "nova"));
             onSnapshot(qNovasMsg, (snapshot) => {
                 const badge = document.getElementById('badge-novas');
@@ -241,7 +219,6 @@
                 }
             });
             
-            // D. Contar Produtos e Serviços (Catálogo)
             let pSize = 0; let sSize = 0;
             onSnapshot(collection(db, "produtos"), (s) => { 
                 pSize = s.empty ? 0 : s.size; 
@@ -252,7 +229,6 @@
                 document.getElementById('stat-catalogo').innerText = pSize + sSize; 
             });
 
-            // E. Contar Projetos e Artigos de Blog (Conteúdo)
             let poSize = 0; let blSize = 0;
             onSnapshot(collection(db, "portfolio"), (s) => { 
                 poSize = s.empty ? 0 : s.size; 
@@ -263,7 +239,6 @@
                 document.getElementById('stat-conteudo').innerText = poSize + blSize; 
             });
 
-            // F. FEATURE TOGGLES (Botões de Liga/Desliga das Páginas)
             const configRef = doc(db, "settings", "paginas");
             onSnapshot(configRef, (snap) => {
                 if(snap.exists()){
@@ -273,23 +248,15 @@
                     document.getElementById('switch-portfolio').checked = data.portfolio_active ?? true;
                     document.getElementById('switch-blog').checked = data.blog_active ?? true;
                 } else {
-                    // Se o documento não existir, cria com tudo ativo por padrão
                     setDoc(configRef, { produtos_active: true, servicos_active: true, portfolio_active: true, blog_active: true });
                 }
             });
 
-            // G. Lógica para salvar quando você clica num botão de liga/desliga
             const atualizarStatus = async (pagina, status) => {
-                try { 
-                    await updateDoc(configRef, { [`${pagina}_active`]: status }); 
-                } 
-                catch (e) { 
-                    console.error(e);
-                    alert("Erro ao atualizar o status. Verifique as permissões de gravação no Firebase."); 
-                }
+                try { await updateDoc(configRef, { [`${pagina}_active`]: status }); } 
+                catch (e) { alert("Erro ao atualizar o status. Verifique permissões."); }
             };
 
-            // Atrela os eventos aos botões
             document.getElementById('switch-produtos').addEventListener('change', (e) => atualizarStatus('produtos', e.target.checked));
             document.getElementById('switch-servicos').addEventListener('change', (e) => atualizarStatus('servicos', e.target.checked));
             document.getElementById('switch-portfolio').addEventListener('change', (e) => atualizarStatus('portfolio', e.target.checked));

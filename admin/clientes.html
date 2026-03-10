@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base de Clientes - Xerfan Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style> body { font-family: 'Plus Jakarta Sans', sans-serif; } </style>
+</head>
+<body class="bg-gray-950 text-gray-200 flex h-screen overflow-hidden">
+
+    <div id="auth-guard" class="fixed inset-0 bg-gray-950 z-[999] flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="w-16 h-16 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+        <p class="text-gray-400 font-bold tracking-widest uppercase text-sm">Autenticando...</p>
+    </div>
+
+    <aside class="w-64 bg-gray-900 border-r border-gray-800 flex flex-col hidden md:flex shrink-0 overflow-y-auto z-20">
+        <div class="h-20 flex items-center px-6 border-b border-gray-800 shrink-0">
+            <div class="w-8 h-8 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center text-white font-black shadow-lg shadow-orange-500/20 mr-3">X</div>
+            <span class="font-bold text-white tracking-wide">Xerfan Admin</span>
+        </div>
+        
+        <nav class="flex-1 px-4 py-6 space-y-6">
+            <div>
+                <p class="px-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">Visão Geral</p>
+                <a href="dashboard.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium">
+                    <i class="fas fa-chart-pie w-5 text-center text-lg"></i> Dashboard
+                </a>
+            </div>
+
+            <div>
+                <p class="px-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">CRM / Clientes</p>
+                <div class="space-y-1">
+                    <a href="clientes.html" class="flex items-center gap-3 px-3 py-2.5 bg-gray-800 text-white rounded-xl transition-all font-medium">
+                        <i class="fas fa-users w-5 text-center text-orange-500 text-lg"></i> Base de Clientes
+                    </a>
+                    <a href="agendamentos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium">
+                        <i class="fas fa-calendar-check w-5 text-center text-lg"></i> Agendamentos
+                    </a>
+                    <a href="mensagens.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium relative">
+                        <i class="fas fa-envelope w-5 text-center text-lg"></i> Dúvidas / Contatos
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <p class="px-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">Catálogo do Site</p>
+                <div class="space-y-1">
+                    <a href="produtos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium">
+                        <i class="fas fa-box w-5 text-center text-lg"></i> Gestão de Produtos
+                    </a>
+                    <a href="servicos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium">
+                        <i class="fas fa-cogs w-5 text-center text-lg"></i> Gestão de Serviços
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <p class="px-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">Conteúdo</p>
+                <div class="space-y-1">
+                    <a href="portfolio.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium">
+                        <i class="fas fa-images w-5 text-center text-lg"></i> Portfólio (Obras)
+                    </a>
+                    <a href="blog.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium">
+                        <i class="fas fa-pen-nib w-5 text-center text-lg"></i> Gestão do Blog
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="p-4 border-t border-gray-800 shrink-0">
+            <button onclick="fazerLogout()" class="w-full flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-xl transition-colors text-sm font-medium">
+                <i class="fas fa-sign-out-alt w-5 text-center text-lg"></i> Sair do Painel
+            </button>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col h-screen overflow-hidden bg-gray-950">
+        <header class="h-20 bg-gray-900 border-b border-gray-800 flex items-center justify-between px-8 shrink-0 z-10">
+            <div>
+                <h2 class="text-xl font-bold text-white">Base de Clientes</h2>
+                <p class="text-xs text-gray-400">Gerencie a sua carteira oficial de clientes e histórico.</p>
+            </div>
+            <div class="flex gap-3">
+                <button onclick="abrirModalNovo()" class="bg-orange-500 hover:bg-orange-600 text-white text-sm font-bold px-5 py-2.5 rounded-xl transition-all shadow-lg shadow-orange-500/20">
+                    <i class="fas fa-user-plus mr-2"></i> Novo Cliente
+                </button>
+            </div>
+        </header>
+
+        <div class="flex-1 overflow-y-auto p-8 relative">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 relative z-10">
+                <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-sm">
+                    <div class="flex justify-between items-start">
+                        <div><p class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-1">Total de Clientes</p><h3 class="text-3xl font-black text-white" id="stat-clientes">0</h3></div>
+                        <div class="w-10 h-10 bg-orange-500/10 text-orange-500 rounded-lg flex items-center justify-center"><i class="fas fa-users"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl shadow-sm overflow-hidden relative z-10">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-gray-800/50 text-gray-400 text-xs uppercase tracking-wider">
+                            <tr>
+                                <th class="px-6 py-4 font-medium">Nome do Cliente</th>
+                                <th class="px-6 py-4 font-medium">WhatsApp / Telefone</th>
+                                <th class="px-6 py-4 font-medium">Endereço Principal</th>
+                                <th class="px-6 py-4 font-medium">Último Serviço</th>
+                                <th class="px-6 py-4 text-right font-medium">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-clientes" class="divide-y divide-gray-800">
+                            <tr><td colspan="5" class="px-6 py-8 text-center text-gray-500"><i class="fas fa-spinner fa-spin mr-2"></i> A carregar clientes...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="modal-cliente" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-gray-900 border border-gray-700 w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl shadow-2xl">
+            <div class="flex justify-between items-center mb-6 p-8 pb-0">
+                <h3 id="modal-titulo" class="text-2xl font-bold text-white">Cadastrar Cliente</h3>
+                <button type="button" onclick="fecharModal()" class="text-gray-500 hover:text-white"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            <form id="form-cliente" class="p-8 pt-6 space-y-5">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">Nome Completo *</label>
+                        <input type="text" id="cli-nome" required class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white focus:border-orange-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">WhatsApp / Celular *</label>
+                        <input type="tel" id="cli-telefone" required placeholder="(21) 99999-9999" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white focus:border-orange-500 outline-none">
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">E-mail (Opcional)</label>
+                        <input type="email" id="cli-email" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white focus:border-orange-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">Último Serviço Realizado</label>
+                        <input type="text" id="cli-servico" placeholder="Ex: Manutenção PC / Automação" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white focus:border-orange-500 outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">Endereço Completo</label>
+                    <input type="text" id="cli-endereco" placeholder="Rua, Número, Bairro, Niterói - RJ" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white focus:border-orange-500 outline-none">
+                </div>
+                
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">Histórico / Anotações Internas</label>
+                    <textarea id="cli-notas" rows="4" placeholder="Registe detalhes sobre os equipamentos do cliente, histórico de manutenções..." class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white focus:border-orange-500 outline-none resize-none"></textarea>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-6 border-t border-gray-800">
+                    <button type="button" onclick="fecharModal()" class="text-gray-400 font-bold px-6 py-3 hover:text-white transition-colors">Cancelar</button>
+                    <button type="submit" id="btn-salvar" class="bg-orange-500 hover:bg-orange-600 text-white font-bold px-10 py-3 rounded-xl shadow-lg transition-all">Salvar Cliente</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        import { db, auth } from "../js/firebase-config.js";
+        // Adicionada a importação de setDoc para evitar duplicidade na criação manual
+        import { collection, onSnapshot, deleteDoc, doc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) { 
+                document.getElementById('auth-guard').style.opacity = '0';
+                setTimeout(() => document.getElementById('auth-guard').style.display = 'none', 500);
+                iniciarClientes(db); 
+            } else { window.location.href = 'login.html'; }
+        });
+        window.fazerLogout = () => signOut(auth).then(() => { window.location.href = 'login.html'; });
+
+        let idClienteEditando = null; 
+        window.clientesData = {};
+
+        function iniciarClientes(db) {
+            
+            // 1. GESTÃO DO FORMULÁRIO MANUAL
+            document.getElementById('form-cliente').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = document.getElementById('btn-salvar');
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Salvando...'; 
+                btn.disabled = true;
+
+                try {
+                    const telCru = document.getElementById('cli-telefone').value;
+                    const telefoneLimpo = telCru.replace(/\D/g, ''); // Identificador à prova de balas
+                    
+                    const dadosCliente = {
+                        nome: document.getElementById('cli-nome').value,
+                        telefone: telCru,
+                        email: document.getElementById('cli-email').value,
+                        endereco: document.getElementById('cli-endereco').value,
+                        ultimo_servico: document.getElementById('cli-servico').value,
+                        notas: document.getElementById('cli-notas').value,
+                        data_atualizacao: new Date().toISOString()
+                    };
+
+                    if (idClienteEditando) { 
+                        // Atualiza cliente que já existe na lista
+                        await updateDoc(doc(db, "clientes", idClienteEditando), dadosCliente); 
+                    } else { 
+                        // Cria novo cliente usando o Telefone Limpo como ID (Evita duplicação com o site público)
+                        dadosCliente.data_cadastro = new Date().toISOString(); 
+                        await setDoc(doc(db, "clientes", telefoneLimpo || new Date().getTime().toString()), dadosCliente, { merge: true }); 
+                    }
+                    fecharModal();
+                } catch (error) { 
+                    alert("Erro ao salvar cliente. Verifique a consola."); 
+                    console.error(error);
+                } finally { 
+                    btn.innerText = 'Salvar Cliente'; btn.disabled = false; 
+                }
+            });
+
+            // 2. LEITURA DE DADOS (Sem bloqueio de ordem)
+            onSnapshot(collection(db, "clientes"), (snap) => {
+                const tabela = document.getElementById('tabela-clientes'); 
+                tabela.innerHTML = '';
+                document.getElementById('stat-clientes').innerText = snap.size;
+                window.clientesData = {}; 
+
+                if (snap.empty) { 
+                    tabela.innerHTML = '<tr><td colspan="5" class="px-6 py-8 text-center text-gray-500">Nenhum cliente na base de dados.</td></tr>'; 
+                    return; 
+                }
+
+                // Passa para array e ordena em JavaScript (Ignorando falhas de índice do Firebase)
+                let clientesArray = [];
+                snap.forEach((docSnap) => {
+                    const c = docSnap.data();
+                    clientesArray.push({ id: docSnap.id, ...c });
+                });
+
+                // Ordena do mais recente (data_atualizacao) para o mais antigo
+                clientesArray.sort((a, b) => new Date(b.data_atualizacao || b.data_cadastro || 0) - new Date(a.data_atualizacao || a.data_cadastro || 0));
+
+                clientesArray.forEach((c) => {
+                    window.clientesData[c.id] = c; 
+                    
+                    const numWpp = (c.telefone || '').replace(/\D/g, '');
+                    const linkWpp = numWpp ? `https://wa.me/55${numWpp}` : '#';
+
+                    const primeiraLetra = c.nome ? c.nome.charAt(0) : '?';
+
+                    const tr = document.createElement('tr');
+                    tr.className = 'hover:bg-gray-800/50 transition-colors group';
+                    tr.innerHTML = `
+                        <td class="px-6 py-4 font-bold text-white flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-orange-500 text-xs font-black uppercase shadow-sm">${primeiraLetra}</div>
+                            ${c.nome || 'Sem Nome'}
+                        </td>
+                        <td class="px-6 py-4 text-gray-300 font-mono text-sm">${c.telefone || '-'}</td>
+                        <td class="px-6 py-4 text-gray-400 text-xs truncate max-w-[200px]" title="${c.endereco}">${c.endereco || '-'}</td>
+                        <td class="px-6 py-4 text-gray-300 text-xs font-medium"><span class="bg-gray-800 border border-gray-700 px-2 py-1 rounded shadow-sm">${c.ultimo_servico || 'Lead Inicial'}</span></td>
+                        <td class="px-6 py-4 text-right">
+                            <a href="${linkWpp}" target="_blank" class="text-green-500 hover:text-green-400 px-2 transition-colors inline-block" title="Chamar no WhatsApp"><i class="fab fa-whatsapp text-lg"></i></a>
+                            <button onclick="prepararEdicao('${c.id}')" class="text-blue-500 hover:text-blue-400 px-2 transition-colors" title="Editar Ficha"><i class="fas fa-edit"></i></button>
+                            <button onclick="deletarCliente('${c.id}')" class="text-gray-500 hover:text-red-500 px-2 transition-colors" title="Apagar Cliente"><i class="fas fa-trash"></i></button>
+                        </td>
+                    `;
+                    tabela.appendChild(tr);
+                });
+            });
+        }
+
+        window.deletarCliente = async (id) => { if(confirm("Atenção! Deseja apagar permanentemente os dados deste cliente?")) await deleteDoc(doc(db, "clientes", id)); };
+        
+        window.prepararEdicao = function(id) {
+            const c = window.clientesData[id]; 
+            idClienteEditando = id; 
+            document.getElementById('modal-titulo').innerText = "Editar Ficha de Cliente";
+            document.getElementById('cli-nome').value = c.nome || '';
+            document.getElementById('cli-telefone').value = c.telefone || '';
+            document.getElementById('cli-email').value = c.email || '';
+            document.getElementById('cli-endereco').value = c.endereco || '';
+            document.getElementById('cli-servico').value = c.ultimo_servico || '';
+            document.getElementById('cli-notas').value = c.notas || '';
+            abrirModal();
+        };
+
+        window.abrirModalNovo = function() {
+            idClienteEditando = null; 
+            document.getElementById('modal-titulo').innerText = "Cadastrar Novo Cliente";
+            document.getElementById('form-cliente').reset(); 
+            abrirModal();
+        };
+
+        const modal = document.getElementById('modal-cliente');
+        window.abrirModal = () => { modal.classList.replace('hidden', 'flex'); };
+        window.fecharModal = () => { modal.classList.replace('flex', 'hidden'); };
+    </script>
+</body>
+</html>

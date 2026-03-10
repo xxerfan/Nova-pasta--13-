@@ -38,7 +38,6 @@
                     </a>
                     <a href="mensagens.html" class="flex items-center gap-3 px-3 py-2.5 bg-gray-800 text-white rounded-xl transition-all font-medium relative">
                         <i class="fas fa-envelope w-5 text-center text-orange-500 text-lg"></i> Dúvidas / Contatos
-                        <span id="badge-novas" class="absolute right-3 top-1/2 -translate-y-1/2 bg-orange-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full hidden">0</span>
                     </a>
                 </div>
             </div>
@@ -138,12 +137,10 @@
     </div>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getFirestore, collection, onSnapshot, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-
-        const firebaseConfig = { apiKey: "AIzaSyCpxfzPrj1DJpcv-bHsVtR1Y7NSVN3KRTI", authDomain: "xerfan-tech-lab.firebaseapp.com", projectId: "xerfan-tech-lab", storageBucket: "xerfan-tech-lab.firebasestorage.app", messagingSenderId: "931331197336", appId: "1:931331197336:web:ca2550d7d10da44fbb43ed" };
-        const app = initializeApp(firebaseConfig); const auth = getAuth(app); const db = getFirestore(app);
+        // Importação limpa!
+        import { db, auth } from "../js/firebase-config.js";
+        import { collection, onSnapshot, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
         onAuthStateChanged(auth, (user) => {
             if (user) { 
@@ -167,7 +164,14 @@
                 window.mensagensData = {};
 
                 let msgArray = [];
-                snapshot.forEach(doc => { msgArray.push({ id: doc.id, ...doc.data() }); });
+                snapshot.forEach(doc => { 
+                    const data = doc.data();
+                    // Filtro Mágico: Ignora as mensagens que vêm do Agendamento
+                    if (data.origem && data.origem.toLowerCase().includes('agendamento')) return;
+                    
+                    msgArray.push({ id: doc.id, ...data }); 
+                });
+                
                 msgArray.sort((a, b) => new Date(b.data_envio) - new Date(a.data_envio));
 
                 if (msgArray.length === 0) {
@@ -195,7 +199,7 @@
                     
                     tr.innerHTML = `
                         <td class="px-6 py-4 text-xs text-gray-400">${dataBr}</td>
-                        <td class="px-6 py-4"><span class="text-xs border border-gray-700 px-2 py-1 rounded text-gray-400">${msg.origem}</span></td>
+                        <td class="px-6 py-4"><span class="text-xs border border-gray-700 px-2 py-1 rounded text-gray-400">${msg.origem || 'Site'}</span></td>
                         <td class="px-6 py-4 font-bold text-white">${msg.nome}</td>
                         <td class="px-6 py-4 text-gray-300 truncate max-w-[200px]">${msg.assunto}</td>
                         <td class="px-6 py-4">${statusBadge}</td>
@@ -209,10 +213,6 @@
 
                 document.getElementById('stat-total').innerText = total;
                 document.getElementById('stat-novas').innerText = novas;
-                
-                const badgeMenu = document.getElementById('badge-novas');
-                if(novas > 0) { badgeMenu.innerText = novas; badgeMenu.classList.remove('hidden'); } 
-                else { badgeMenu.classList.add('hidden'); }
             });
 
             window.abrirMensagem = async function(id) {
@@ -221,7 +221,7 @@
                 document.getElementById('ler-telefone').innerText = msg.telefone;
                 document.getElementById('ler-email').innerText = msg.email;
                 const d = new Date(msg.data_envio);
-                document.getElementById('ler-data').innerText = `${d.toLocaleDateString('pt-BR')} - ${msg.origem}`;
+                document.getElementById('ler-data').innerText = `${d.toLocaleDateString('pt-BR')} - ${msg.origem || 'Site'}`;
                 document.getElementById('ler-assunto').innerText = msg.assunto;
                 document.getElementById('ler-mensagem').innerText = msg.mensagem;
                 
