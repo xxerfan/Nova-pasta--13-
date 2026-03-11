@@ -1,0 +1,21 @@
+{
+  "name": "Xerfan Tech Lab",
+  "short_name": "XerfanTech",
+  "description": "Soluções Tecnológicas e Manutenção em Niterói",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#030712",
+  "theme_color": "#f97316",
+  "icons": [
+    {
+      "src": "img/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "img/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
