@@ -1,7 +1,6 @@
 /**
  * ============================================================
- * Xerfan Tech Lab - main.js v9.0 PRO
- * UI Maestro & Intelligent Chat Integration
+ * Xerfan Tech Lab - main.js v10.0 (MOBILE & DESKTOP SYNC)
  * ============================================================
  */
 
@@ -20,7 +19,7 @@ function loadComponent(elementId, componentPath) {
             if (elementId === 'header') {
                 initHeaderLogic();
                 aplicarTravasVisibilidade();
-                // Inicia o chatbot apenas se não for admin e o botão do header já existir
+                // Inicia o chatbot SEMPRE que o header carregar
                 if (!window.location.pathname.includes('admin')) {
                     new XerfanSmartBot();
                 }
@@ -29,7 +28,7 @@ function loadComponent(elementId, componentPath) {
         .catch(err => console.warn(`Erro no componente: ${componentPath}`, err));
 }
 
-// 2. LÓGICA CENTRAL DO HEADER (Menu, Scroll, Topo)
+// 2. LÓGICA DO HEADER (Menu Mobile, Scroll, Topo)
 function initHeaderLogic() {
     const header = document.getElementById('main-header');
     const navWrapper = document.getElementById('nav-wrapper');
@@ -38,6 +37,7 @@ function initHeaderLogic() {
     const mobileMenu = document.getElementById('mobile-menu');
     const menuIcon = document.getElementById('menu-icon');
 
+    // Listener de Scroll Único
     window.addEventListener('scroll', () => {
         const scrollY = window.pageYOffset;
 
@@ -65,6 +65,7 @@ function initHeaderLogic() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
+    // Toggle Menu Mobile
     let menuOpen = false;
     mobileBtn?.addEventListener('click', () => {
         menuOpen = !menuOpen;
@@ -77,6 +78,7 @@ function initHeaderLogic() {
         }
     });
 
+    // Link Ativo
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
     document.querySelectorAll('.nav-item-pro[data-page], .mobile-nav-item[data-page]').forEach(l => {
         if (l.getAttribute('data-page') === currentPage) l.classList.add('active');
@@ -99,7 +101,6 @@ async function aplicarTravasVisibilidade() {
                     document.querySelectorAll(`.nav-link-${modulo}`).forEach(l => l.style.display = ativo ? '' : 'none');
                     const secaoHome = document.getElementById(`secao-${modulo}`);
                     if (secaoHome) secaoHome.style.display = ativo ? '' : 'none';
-                    if (window.location.pathname.toLowerCase().includes(`/${modulo}.html`) && !ativo) window.location.href = 'index.html';
                 });
             }
         });
@@ -155,12 +156,13 @@ function initScrollReveal() {
     document.querySelectorAll('[data-reveal], .stagger-children').forEach(el => observer.observe(el));
 }
 
-// 5. CHATBOT INTELIGENTE (Conectado ao botão do Header)
+// 5. CHATBOT INTELIGENTE
 class XerfanSmartBot {
     constructor() {
         this.isOpen = false;
         this.step = 0; 
-        this.lead = { detalhes: '', servico_deduzido: '', nome: '', local: '' };
+        this.lead = { detalhes: '', nome: '', local: '' };
+        document.querySelectorAll('#xtl-bot-window-root').forEach(el => el.remove());
         this.init();
     }
 
@@ -172,20 +174,20 @@ class XerfanSmartBot {
 
     renderChatWindow() {
         const div = document.createElement('div');
-        div.id = 'xtl-bot-container';
+        div.id = 'xtl-bot-window-root';
         div.innerHTML = `
             <style>
-                #xtl-bot-window { transform-origin: bottom right; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 1000; }
+                #xtl-bot-window { transform-origin: bottom right; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 2000; }
                 .chat-bubble-user { background: linear-gradient(135deg, #25D366, #128C7E); color: white; margin-left: auto; border-radius: 1rem 1rem 0 1rem; padding: 0.6rem 1rem; max-width: 85%; font-size: 0.85rem; margin-bottom: 8px;}
                 .chat-bubble-bot { background-color: #1f2937; color: #e5e7eb; margin-right: auto; border-radius: 1rem 1rem 1rem 0; padding: 0.6rem 1rem; max-width: 85%; border: 1px solid #374151; font-size: 0.85rem; margin-bottom: 8px; }
             </style>
-            <div id="xtl-bot-window" class="fixed bottom-[90px] right-6 bg-gray-900 border border-gray-700 rounded-2xl shadow-2xl w-[340px] mb-4 overflow-hidden scale-0 opacity-0 pointer-events-none flex flex-col">
+            <div id="xtl-bot-window" class="fixed bottom-[90px] right-6 bg-gray-900 border border-gray-700 rounded-2xl shadow-2xl w-[320px] sm:w-[340px] overflow-hidden scale-0 opacity-0 pointer-events-none flex flex-col">
                 <div class="bg-gray-800 p-4 border-b border-gray-700 flex items-center justify-between">
                     <div class="flex items-center gap-3">
                         <div class="w-8 h-8 bg-gray-950 rounded-full p-1 border border-gray-700"><img src="img/logo.png" class="w-full h-full object-contain"></div>
                         <h4 class="text-white font-bold text-sm">Suporte XTL</h4>
                     </div>
-                    <button id="xtl-bot-close" class="text-gray-400 hover:text-white"><i class="fas fa-times"></i></button>
+                    <button id="xtl-bot-close" class="text-gray-400 hover:text-white p-1"><i class="fas fa-times"></i></button>
                 </div>
                 <div id="xtl-bot-body" class="p-4 bg-[#0b101a] h-[300px] overflow-y-auto flex flex-col relative"></div>
                 <div id="xtl-bot-transfer" class="hidden p-3 bg-gray-800 border-t border-gray-700">
@@ -193,7 +195,7 @@ class XerfanSmartBot {
                 </div>
                 <div class="p-3 bg-gray-900 border-t border-gray-700 flex gap-2">
                     <input type="text" id="xtl-bot-input" placeholder="Digite aqui..." class="flex-1 bg-gray-800 text-white text-sm border border-gray-700 rounded-xl px-3 py-2 outline-none">
-                    <button id="xtl-bot-send" class="w-10 h-10 bg-orange-500 text-white rounded-xl"><i class="fas fa-paper-plane text-xs"></i></button>
+                    <button id="xtl-bot-send" class="w-10 h-10 bg-orange-500 text-white rounded-xl flex items-center justify-center"><i class="fas fa-paper-plane text-xs"></i></button>
                 </div>
             </div>`;
         document.body.appendChild(div);
@@ -214,7 +216,8 @@ class XerfanSmartBot {
         const win = document.getElementById('xtl-bot-window');
         win.classList.add('scale-100', 'opacity-100'); win.classList.remove('scale-0', 'opacity-0', 'pointer-events-none');
         document.getElementById('xtl-bot-icon').className = 'fas fa-times text-xl';
-        document.getElementById('xtl-bot-tooltip').style.display = 'none';
+        const tooltip = document.getElementById('xtl-bot-tooltip');
+        if (tooltip) tooltip.style.display = 'none';
         this.isOpen = true;
         setTimeout(() => document.getElementById('xtl-bot-input').focus(), 100);
     }
@@ -223,7 +226,8 @@ class XerfanSmartBot {
         const win = document.getElementById('xtl-bot-window');
         win.classList.remove('scale-100', 'opacity-100'); win.classList.add('scale-0', 'opacity-0', 'pointer-events-none');
         document.getElementById('xtl-bot-icon').className = 'fab fa-whatsapp';
-        document.getElementById('xtl-bot-tooltip').style.display = '';
+        const tooltip = document.getElementById('xtl-bot-tooltip');
+        if (tooltip) tooltip.style.display = '';
         this.isOpen = false;
     }
 
@@ -271,7 +275,7 @@ class XerfanSmartBot {
     }
 }
 
-// BOOT DA APLICAÇÃO
+// BOOT
 document.addEventListener('DOMContentLoaded', () => {
     loadComponent('header', 'components/header.html');
     loadComponent('footer', 'components/footer.html');
