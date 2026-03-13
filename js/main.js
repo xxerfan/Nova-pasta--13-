@@ -1,6 +1,6 @@
 /**
  * ============================================================
- * Xerfan Tech Lab - main.js v10.0 (MOBILE & DESKTOP SYNC)
+ * Xerfan Tech Lab - main.js v11.0 (MOBILE, DESKTOP & WEBHOOK SYNC)
  * ============================================================
  */
 
@@ -156,7 +156,7 @@ function initScrollReveal() {
     document.querySelectorAll('[data-reveal], .stagger-children').forEach(el => observer.observe(el));
 }
 
-// 5. CHATBOT INTELIGENTE
+// 5. CHATBOT INTELIGENTE COM AUTOMAÇÃO DE LEADS (WEBHOOK)
 class XerfanSmartBot {
     constructor() {
         this.isOpen = false;
@@ -268,10 +268,48 @@ class XerfanSmartBot {
         }
     }
 
-    sendToWhatsApp() {
+    async sendToWhatsApp() {
+        // --- 1. PREPARAÇÃO DOS DADOS DO LEAD ---
+        const leadData = {
+            nome: this.lead.nome,
+            local: this.lead.local,
+            detalhes: this.lead.detalhes,
+            origem: "Chatbot_Site_XTL",
+            data_hora: new Date().toISOString()
+        };
+
+        // --- 2. URL DO SEU WEBHOOK ---
+        // Aqui você coloca o link do Webhook.site, n8n, Zapier ou Make
+        // Para testar agora, acesse https://webhook.site/, copie "Your unique URL" e cole abaixo
+        const webhookUrl = "https://webhook.site/1d9b3dfc-83c7-48cc-a5d3-17e38ccbf814"; 
+
+        // --- 3. DISPARO SILENCIOSO (BACKGROUND FETCH) ---
+        try {
+            fetch(webhookUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(leadData)
+            }).catch(e => console.log("Aviso: Falha silenciosa no envio do webhook, mas o cliente segue o fluxo."));
+        } catch (error) {
+            console.error("Erro no envio do lead para automação:", error);
+        }
+
+        // --- 4. CONTINUAR FLUXO NORMAL (WHATSAPP) ---
         let text = `*SITE XERFAN TECH*%0A👤 *Nome:* ${this.lead.nome}%0A📍 *Local:* ${this.lead.local}%0A📝 *Dúvida:* ${this.lead.detalhes}`;
         window.open(`https://wa.me/5521984197719?text=${text}`, '_blank');
+        
+        // --- 5. LIMPEZA E FECHAMENTO ---
         this.close();
+        
+        // Limpar o bot após 1 segundo para o caso de um novo contacto na mesma sessão
+        setTimeout(() => {
+            this.step = 0;
+            this.lead = { detalhes: '', nome: '', local: '' };
+            document.getElementById('xtl-bot-body').innerHTML = '';
+            document.getElementById('xtl-bot-transfer').classList.add('hidden');
+        }, 1000);
     }
 }
 
