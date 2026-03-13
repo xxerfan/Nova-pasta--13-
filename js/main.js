@@ -1,6 +1,6 @@
 /**
  * ============================================================
- * Xerfan Tech Lab - main.js v14.0 (BLINDADO & REST API)
+ * Xerfan Tech Lab - main.js v15.0 (REST COM API KEY + WPP INFALÍVEL)
  * ============================================================
  */
 
@@ -265,10 +265,17 @@ class XerfanSmartBot {
     }
 
     sendToWhatsApp() {
+        const btnWpp = document.getElementById('xtl-bot-wpp');
+        if (btnWpp) {
+            btnWpp.innerText = "A redirecionar...";
+            btnWpp.disabled = true;
+        }
+
         try {
-            // 1. SALVAR NO FIREBASE USANDO A API REST DO GOOGLE (Isso contorna qualquer bloqueio)
+            // 1. SALVAR NO FIREBASE (API REST COM CHAVE - Resolve o Erro 403)
+            const apiKey = "AIzaSyCpxfzPrj1DJpcv-bHsVtR1Y7NSVN3KRTI"; // Sua chave real do firebase-config.js
             const projectId = "xerfan-tech-lab";
-            const firestoreUrl = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/mensagens`;
+            const firestoreUrl = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/mensagens?key=${apiKey}`;
             
             const dbPayload = {
                 fields: {
@@ -285,32 +292,38 @@ class XerfanSmartBot {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(dbPayload)
-            }).then(() => console.log("✅ Lead Registado no Admin!")).catch(e => console.log(e));
+            }).then(() => console.log("✅ Lead Registado no Admin!")).catch(e => console.error(e));
 
         } catch(error) {
             console.error(error);
         }
 
-        // 2. ABRIR O WHATSAPP (MÉTODO BLINDADO COM LINK FANTASMA)
+        // 2. ABRIR O WHATSAPP (MÉTODO 100% INFALÍVEL)
         let text = `*SITE XERFAN TECH*%0A👤 *Nome:* ${this.lead.nome}%0A📍 *Local:* ${this.lead.local}%0A📝 *Dúvida:* ${this.lead.detalhes}`;
+        const linkWpp = `https://wa.me/5521984197719?text=${text}`;
         
-        const linkInvisivel = document.createElement('a');
-        linkInvisivel.href = `https://wa.me/5521984197719?text=${text}`;
-        linkInvisivel.target = '_blank';
-        document.body.appendChild(linkInvisivel);
-        linkInvisivel.click(); // O navegador aprova isto porque simula um clique nativo
-        document.body.removeChild(linkInvisivel);
-        
-        // 3. LIMPEZA
-        this.close();
         setTimeout(() => {
+            // Tentativa 1: Abrir numa aba nova
+            let abaWpp = window.open(linkWpp, '_blank');
+            
+            // Tentativa 2: Se o bloqueador engoliu a aba nova, força a página atual a ir para o WhatsApp
+            if (!abaWpp || abaWpp.closed || typeof abaWpp.closed === 'undefined') {
+                window.location.href = linkWpp; 
+            }
+            
+            // Limpeza visual (só ocorre se a página não mudar)
+            this.close();
             this.step = 0;
             this.lead = { detalhes: '', nome: '', local: '' };
             const bodyDiv = document.getElementById('xtl-bot-body');
             if(bodyDiv) bodyDiv.innerHTML = '';
             const transferDiv = document.getElementById('xtl-bot-transfer');
             if(transferDiv) transferDiv.classList.add('hidden');
-        }, 1000);
+            if (btnWpp) {
+                btnWpp.innerText = "Falar no WhatsApp Agora";
+                btnWpp.disabled = false;
+            }
+        }, 150); // Atraso minúsculo para garantir que o fetch iniciou
     }
 }
 
