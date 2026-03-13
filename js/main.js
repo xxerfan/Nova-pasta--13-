@@ -1,6 +1,6 @@
 /**
  * ============================================================
- * Xerfan Tech Lab - main.js v11.2 (WEBHOOK NON-BLOCKING)
+ * Xerfan Tech Lab - main.js v12.0 (FIREBASE CRM INTEGRATION)
  * ============================================================
  */
 
@@ -37,10 +37,8 @@ function initHeaderLogic() {
     const mobileMenu = document.getElementById('mobile-menu');
     const menuIcon = document.getElementById('menu-icon');
 
-    // Listener de Scroll Único
     window.addEventListener('scroll', () => {
         const scrollY = window.pageYOffset;
-
         if (scrollY > 60) {
             header?.classList.add('scrolled');
             navWrapper?.classList.add('py-0', 'bg-gray-900/95', 'shadow-md');
@@ -65,7 +63,6 @@ function initHeaderLogic() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // Toggle Menu Mobile
     let menuOpen = false;
     mobileBtn?.addEventListener('click', () => {
         menuOpen = !menuOpen;
@@ -78,7 +75,6 @@ function initHeaderLogic() {
         }
     });
 
-    // Link Ativo
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
     document.querySelectorAll('.nav-item-pro[data-page], .mobile-nav-item[data-page]').forEach(l => {
         if (l.getAttribute('data-page') === currentPage) l.classList.add('active');
@@ -156,7 +152,7 @@ function initScrollReveal() {
     document.querySelectorAll('[data-reveal], .stagger-children').forEach(el => observer.observe(el));
 }
 
-// 5. CHATBOT INTELIGENTE COM AUTOMAÇÃO DE LEADS (WEBHOOK)
+// 5. CHATBOT INTELIGENTE COM INTEGRAÇÃO FIREBASE
 class XerfanSmartBot {
     constructor() {
         this.isOpen = false;
@@ -268,38 +264,50 @@ class XerfanSmartBot {
         }
     }
 
-    sendToWhatsApp() {
-        // 1. DADOS DO LEAD
+    async sendToWhatsApp() {
+        // --- 1. DADOS FORMATADOS PARA O SEU ADMIN ---
         const leadData = {
             nome: this.lead.nome,
             local: this.lead.local,
-            detalhes: this.lead.detalhes,
-            origem: "Chatbot_Site_XTL",
-            data_hora: new Date().toISOString()
+            mensagem: this.lead.detalhes, // Usando 'mensagem' para combinar com o seu admin
+            status: "nova", // Vai fazer a notificação vermelha aparecer no Dashboard
+            origem: "Chatbot do Site",
+            data: new Date().toISOString()
         };
 
-        // 2. O SEU LINK DO WEBHOOK
-        const webhookUrl = "https://webhook.site/e69dc0d5-b062-4211-9a99-b1d56e9c9f69"; 
+        const btnWpp = document.getElementById('xtl-bot-wpp');
+        const textoOriginal = btnWpp.innerText;
+        btnWpp.innerText = "Conectando...";
+        btnWpp.disabled = true;
 
-        // 3. ENVIO INVISÍVEL PARA O WEBHOOK
-        fetch(webhookUrl, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(leadData)
-        }).then(() => console.log("Webhook enviado!"))
-          .catch(err => console.error("Erro no envio:", err));
+        // --- 2. SALVAR DIRETAMENTE NO FIREBASE ---
+        try {
+            // Importa as funções do Firestore em tempo real
+            const { collection, addDoc } = await import("https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js");
+            // Importa o seu banco de dados
+            const { db } = await import("./firebase-config.js");
+            
+            // Salva na coleção "mensagens" (A mesma que o seu Admin lê!)
+            await addDoc(collection(db, "mensagens"), leadData);
+            console.log("✅ Lead capturado com sucesso no Banco de Dados!");
+            
+        } catch (error) {
+            console.error("❌ Erro ao salvar no Firebase:", error);
+        }
 
-        // 4. ABRIR WHATSAPP
+        // --- 3. ABRIR WHATSAPP ---
         let text = `*SITE XERFAN TECH*%0A👤 *Nome:* ${this.lead.nome}%0A📍 *Local:* ${this.lead.local}%0A📝 *Dúvida:* ${this.lead.detalhes}`;
         window.open(`https://wa.me/5521984197719?text=${text}`, '_blank');
         
-        // 5. RESETAR O BOT
+        // --- 4. RESETAR BOT ---
         this.close();
         setTimeout(() => {
             this.step = 0;
             this.lead = { detalhes: '', nome: '', local: '' };
             document.getElementById('xtl-bot-body').innerHTML = '';
             document.getElementById('xtl-bot-transfer').classList.add('hidden');
+            btnWpp.innerText = textoOriginal;
+            btnWpp.disabled = false;
         }, 1000);
     }
 }
