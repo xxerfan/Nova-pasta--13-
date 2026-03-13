@@ -1,6 +1,6 @@
 /**
  * ============================================================
- * Xerfan Tech Lab - main.js v13.0 (ANTI-POPUP BLOCKER & FIREBASE BACKGROUND)
+ * Xerfan Tech Lab - main.js v14.0 (BLINDADO & REST API)
  * ============================================================
  */
 
@@ -19,6 +19,7 @@ function loadComponent(elementId, componentPath) {
             if (elementId === 'header') {
                 initHeaderLogic();
                 aplicarTravasVisibilidade();
+                // Inicia o chatbot SEMPRE que o header carregar (apenas fora do admin)
                 if (!window.location.pathname.includes('admin')) {
                     new XerfanSmartBot();
                 }
@@ -99,7 +100,7 @@ async function aplicarTravasVisibilidade() {
                 });
             }
         });
-    } catch (e) { console.error("Erro travas:", e); }
+    } catch (e) { console.log("Travas não carregadas (normal se deslogado)"); }
 }
 
 // 4. UTILITÁRIOS
@@ -151,7 +152,7 @@ function initScrollReveal() {
     document.querySelectorAll('[data-reveal], .stagger-children').forEach(el => observer.observe(el));
 }
 
-// 5. CHATBOT INTELIGENTE COM CRM FIREBASE
+// 5. CHATBOT INTELIGENTE COM FIREBASE REST API
 class XerfanSmartBot {
     constructor() {
         this.isOpen = false;
@@ -186,11 +187,11 @@ class XerfanSmartBot {
                 </div>
                 <div id="xtl-bot-body" class="p-4 bg-[#0b101a] h-[300px] overflow-y-auto flex flex-col relative"></div>
                 <div id="xtl-bot-transfer" class="hidden p-3 bg-gray-800 border-t border-gray-700">
-                    <button id="xtl-bot-wpp" class="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-2 rounded-xl text-sm transition-colors">Falar no WhatsApp Agora</button>
+                    <button id="xtl-bot-wpp" class="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-2 rounded-xl text-sm transition-colors cursor-pointer">Falar no WhatsApp Agora</button>
                 </div>
                 <div class="p-3 bg-gray-900 border-t border-gray-700 flex gap-2">
                     <input type="text" id="xtl-bot-input" placeholder="Digite aqui..." class="flex-1 bg-gray-800 text-white text-sm border border-gray-700 rounded-xl px-3 py-2 outline-none">
-                    <button id="xtl-bot-send" class="w-10 h-10 bg-orange-500 text-white rounded-xl flex items-center justify-center"><i class="fas fa-paper-plane text-xs"></i></button>
+                    <button id="xtl-bot-send" class="w-10 h-10 bg-orange-500 text-white rounded-xl flex items-center justify-center cursor-pointer"><i class="fas fa-paper-plane text-xs"></i></button>
                 </div>
             </div>`;
         document.body.appendChild(div);
@@ -258,43 +259,57 @@ class XerfanSmartBot {
             this.step = 2;
         } else if (this.step === 2) {
             this.lead.local = msg;
-            this.appendBot('Tudo pronto! Clica no botão acima para falar com o técnico.');
+            this.appendBot('Tudo pronto! Clica no botão abaixo para falar com o técnico.');
             this.step = 3;
         }
     }
 
     sendToWhatsApp() {
-        // 1. DADOS FORMATADOS PARA O ADMIN
-        const leadData = {
-            nome: this.lead.nome,
-            local: this.lead.local,
-            mensagem: this.lead.detalhes,
-            status: "nova",
-            origem: "Chatbot do Site",
-            data: new Date().toISOString()
-        };
+        try {
+            // 1. SALVAR NO FIREBASE USANDO A API REST DO GOOGLE (Isso contorna qualquer bloqueio)
+            const projectId = "xerfan-tech-lab";
+            const firestoreUrl = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/mensagens`;
+            
+            const dbPayload = {
+                fields: {
+                    nome: { stringValue: this.lead.nome || "Visitante" },
+                    local: { stringValue: this.lead.local || "Não informado" },
+                    mensagem: { stringValue: this.lead.detalhes || "Contato via Site" },
+                    status: { stringValue: "nova" },
+                    origem: { stringValue: "Chatbot do Site" },
+                    data: { stringValue: new Date().toISOString() }
+                }
+            };
 
-        // 2. ABRIR WHATSAPP IMEDIATAMENTE (Síncrono)
-        // Isso evita que o navegador bloqueie a aba (Popup Blocker)
+            fetch(firestoreUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dbPayload)
+            }).then(() => console.log("✅ Lead Registado no Admin!")).catch(e => console.log(e));
+
+        } catch(error) {
+            console.error(error);
+        }
+
+        // 2. ABRIR O WHATSAPP (MÉTODO BLINDADO COM LINK FANTASMA)
         let text = `*SITE XERFAN TECH*%0A👤 *Nome:* ${this.lead.nome}%0A📍 *Local:* ${this.lead.local}%0A📝 *Dúvida:* ${this.lead.detalhes}`;
-        window.open(`https://wa.me/5521984197719?text=${text}`, '_blank');
         
-        // 3. SALVAR NO FIREBASE SILENCIOSAMENTE (Assíncrono em Background)
-        import("https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js").then((firestore) => {
-            import("./firebase-config.js").then((firebaseConfig) => {
-                firestore.addDoc(firestore.collection(firebaseConfig.db, "mensagens"), leadData)
-                    .then(() => console.log("✅ Lead salvo no CRM do Admin!"))
-                    .catch((err) => console.error("❌ Erro ao salvar background:", err));
-            });
-        }).catch(err => console.error("❌ Erro de importação:", err));
-
-        // 4. RESETAR O BOT E FECHAR
+        const linkInvisivel = document.createElement('a');
+        linkInvisivel.href = `https://wa.me/5521984197719?text=${text}`;
+        linkInvisivel.target = '_blank';
+        document.body.appendChild(linkInvisivel);
+        linkInvisivel.click(); // O navegador aprova isto porque simula um clique nativo
+        document.body.removeChild(linkInvisivel);
+        
+        // 3. LIMPEZA
         this.close();
         setTimeout(() => {
             this.step = 0;
             this.lead = { detalhes: '', nome: '', local: '' };
-            document.getElementById('xtl-bot-body').innerHTML = '';
-            document.getElementById('xtl-bot-transfer').classList.add('hidden');
+            const bodyDiv = document.getElementById('xtl-bot-body');
+            if(bodyDiv) bodyDiv.innerHTML = '';
+            const transferDiv = document.getElementById('xtl-bot-transfer');
+            if(transferDiv) transferDiv.classList.add('hidden');
         }, 1000);
     }
 }
