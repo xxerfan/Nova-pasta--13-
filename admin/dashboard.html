@@ -21,7 +21,67 @@
         <p class="text-gray-400 font-bold tracking-widest uppercase text-sm">Autenticando...</p>
     </div>
 
-    <div id="admin-sidebar-container"></div>
+    <aside class="w-64 bg-gray-900 border-r border-gray-800 flex flex-col hidden md:flex shrink-0 overflow-y-auto z-20">
+        <div class="h-20 flex items-center px-6 border-b border-gray-800 shrink-0">
+            <div class="w-8 h-8 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center text-white font-black shadow-lg shadow-orange-500/20 mr-3">X</div>
+            <span class="font-bold text-white tracking-wide">Xerfan Admin</span>
+        </div>
+        
+        <nav class="flex-1 px-4 py-6 space-y-6">
+            <div>
+                <p class="px-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">Visão Geral</p>
+                <a href="dashboard.html" class="flex items-center gap-3 px-3 py-2.5 bg-gray-800 border border-gray-700 text-white rounded-xl transition-all font-medium shadow-sm">
+                    <i class="fas fa-chart-pie w-5 text-center text-orange-500 text-lg"></i> Dashboard
+                </a>
+            </div>
+
+            <div>
+                <p class="px-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">CRM / Clientes</p>
+                <div class="space-y-1">
+                    <a href="clientes.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium">
+                     <i class="fas fa-users w-5 text-center text-lg"></i> Base de Clientes
+                    </a>
+                    <a href="agendamentos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium">
+                        <i class="fas fa-calendar-check w-5 text-center text-lg"></i> Agendamentos
+                    </a>
+                    <a href="mensagens.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium relative">
+                        <i class="fas fa-envelope w-5 text-center text-lg"></i> Dúvidas / Contatos
+                        <span id="badge-novas" class="absolute right-3 top-1/2 -translate-y-1/2 bg-orange-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full hidden transition-all">0</span>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <p class="px-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">Catálogo do Site</p>
+                <div class="space-y-1">
+                    <a href="produtos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium">
+                        <i class="fas fa-box w-5 text-center text-lg"></i> Gestão de Produtos
+                    </a>
+                    <a href="servicos.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium">
+                        <i class="fas fa-cogs w-5 text-center text-lg"></i> Gestão de Serviços
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <p class="px-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">Conteúdo</p>
+                <div class="space-y-1">
+                    <a href="portfolio.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium">
+                        <i class="fas fa-images w-5 text-center text-lg"></i> Gestão de Projetos
+                    </a>
+                    <a href="blog.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all font-medium">
+                        <i class="fas fa-pen-nib w-5 text-center text-lg"></i> Gestão do Blog
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="p-4 border-t border-gray-800 shrink-0">
+            <button onclick="fazerLogout()" class="w-full flex items-center gap-3 px-3 py-2.5 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-xl transition-colors text-sm font-medium">
+                <i class="fas fa-sign-out-alt w-5 text-center text-lg"></i> Sair do Painel
+            </button>
+        </div>
+    </aside>
 
     <main class="flex-1 flex flex-col h-screen overflow-hidden bg-gray-950">
         
@@ -32,7 +92,7 @@
             </div>
             <div class="flex items-center gap-3">
                 <div class="text-right hidden sm:block">
-                    <p class="text-sm font-bold text-white" id="admin-email">Verificando...</p>
+                    <p class="text-sm font-bold text-white" id="admin-email">Admin</p>
                     <p class="text-[10px] text-green-500 uppercase tracking-widest"><i class="fas fa-circle text-[8px] mr-1"></i>Online</p>
                 </div>
                 <div class="w-10 h-10 rounded-full bg-gray-800 border border-gray-700 flex items-center justify-center text-orange-500">
@@ -86,55 +146,125 @@
                 </div>
 
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="bg-gray-800/50 p-5 rounded-2xl border border-gray-700 flex items-center justify-between">
+                    <div class="bg-gray-800/50 p-5 rounded-2xl border border-gray-700 flex items-center justify-between hover:border-gray-600 transition-colors">
                         <span class="text-sm font-bold text-gray-300">Produtos</span>
                         <label class="relative inline-flex items-center cursor-pointer">
                             <input type="checkbox" id="switch-produtos" class="sr-only peer">
-                            <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
+                            <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500 shadow-inner"></div>
                         </label>
                     </div>
-                    <div class="bg-gray-800/50 p-5 rounded-2xl border border-gray-700 flex items-center justify-between">
+                    <div class="bg-gray-800/50 p-5 rounded-2xl border border-gray-700 flex items-center justify-between hover:border-gray-600 transition-colors">
                         <span class="text-sm font-bold text-gray-300">Serviços</span>
                         <label class="relative inline-flex items-center cursor-pointer">
                             <input type="checkbox" id="switch-servicos" class="sr-only peer">
-                            <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
+                            <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500 shadow-inner"></div>
                         </label>
                     </div>
-                    <div class="bg-gray-800/50 p-5 rounded-2xl border border-gray-700 flex items-center justify-between">
+                    <div class="bg-gray-800/50 p-5 rounded-2xl border border-gray-700 flex items-center justify-between hover:border-gray-600 transition-colors">
                         <span class="text-sm font-bold text-gray-300">Projetos</span>
                         <label class="relative inline-flex items-center cursor-pointer">
                             <input type="checkbox" id="switch-portfolio" class="sr-only peer">
-                            <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
+                            <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500 shadow-inner"></div>
                         </label>
                     </div>
-                    <div class="bg-gray-800/50 p-5 rounded-2xl border border-gray-700 flex items-center justify-between">
+                    <div class="bg-gray-800/50 p-5 rounded-2xl border border-gray-700 flex items-center justify-between hover:border-gray-600 transition-colors">
                         <span class="text-sm font-bold text-gray-300">Blog</span>
                         <label class="relative inline-flex items-center cursor-pointer">
                             <input type="checkbox" id="switch-blog" class="sr-only peer">
-                            <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
+                            <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500 shadow-inner"></div>
                         </label>
                     </div>
                 </div>
             </section>
+            
         </div>
     </main>
 
-    <script>
-        window.loadComponent = function(elementId, componentPath) {
-            const element = document.getElementById(elementId);
-            if (!element) return Promise.resolve();
-            return fetch(componentPath)
-                .then(res => res.text())
-                .then(html => { element.innerHTML = html; })
-                .catch(err => console.warn(`Erro no componente: ${componentPath}`, err));
-        }
-        
-        window.addEventListener('load', () => {
-            loadComponent('admin-sidebar-container', '../components/admin-sidebar.html');
-        });
-    </script>
+    <script type="module">
+        import { db, auth } from "../js/firebase-config.js";
+        import { collection, onSnapshot, doc, updateDoc, setDoc, query, where } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
-    <script type="module" src="../js/admin/auth.js"></script>
-    <script type="module" src="../js/admin/dashboard.js"></script>
+        // 1. GUARDIÃO DE AUTENTICAÇÃO
+        onAuthStateChanged(auth, (user) => { 
+            if (user) { 
+                document.getElementById('admin-email').innerText = user.email;
+                document.getElementById('auth-guard').style.opacity = '0';
+                setTimeout(() => document.getElementById('auth-guard').style.display = 'none', 500);
+                iniciarDash(db); 
+            } else { 
+                window.location.href = 'login.html'; 
+            } 
+        });
+        
+        // 2. FUNÇÃO DE LOGOUT
+        window.fazerLogout = () => signOut(auth).then(() => { window.location.href = 'login.html'; });
+
+        // 3. MOTOR DE DADOS DO DASHBOARD
+        function iniciarDash(db) {
+            
+            onSnapshot(doc(db, "analytics", "geral"), (snap) => { 
+                if(snap.exists()) document.getElementById('stat-views').innerText = snap.data().views || 0; 
+            });
+            
+            onSnapshot(collection(db, "mensagens"), (s) => { 
+                document.getElementById('stat-leads').innerText = s.empty ? "0" : s.size; 
+            });
+
+            const qNovasMsg = query(collection(db, "mensagens"), where("status", "==", "nova"));
+            onSnapshot(qNovasMsg, (snapshot) => {
+                const badge = document.getElementById('badge-novas');
+                if(!snapshot.empty && snapshot.size > 0) {
+                    badge.innerText = snapshot.size;
+                    badge.classList.remove('hidden');
+                } else {
+                    badge.classList.add('hidden');
+                }
+            });
+            
+            let pSize = 0; let sSize = 0;
+            onSnapshot(collection(db, "produtos"), (s) => { 
+                pSize = s.empty ? 0 : s.size; 
+                document.getElementById('stat-catalogo').innerText = pSize + sSize; 
+            });
+            onSnapshot(collection(db, "servicos"), (s) => { 
+                sSize = s.empty ? 0 : s.size; 
+                document.getElementById('stat-catalogo').innerText = pSize + sSize; 
+            });
+
+            let poSize = 0; let blSize = 0;
+            onSnapshot(collection(db, "portfolio"), (s) => { 
+                poSize = s.empty ? 0 : s.size; 
+                document.getElementById('stat-conteudo').innerText = poSize + blSize; 
+            });
+            onSnapshot(collection(db, "blog"), (s) => { 
+                blSize = s.empty ? 0 : s.size; 
+                document.getElementById('stat-conteudo').innerText = poSize + blSize; 
+            });
+
+            const configRef = doc(db, "settings", "paginas");
+            onSnapshot(configRef, (snap) => {
+                if(snap.exists()){
+                    const data = snap.data();
+                    document.getElementById('switch-produtos').checked = data.produtos_active ?? true;
+                    document.getElementById('switch-servicos').checked = data.servicos_active ?? true;
+                    document.getElementById('switch-portfolio').checked = data.portfolio_active ?? true;
+                    document.getElementById('switch-blog').checked = data.blog_active ?? true;
+                } else {
+                    setDoc(configRef, { produtos_active: true, servicos_active: true, portfolio_active: true, blog_active: true });
+                }
+            });
+
+            const atualizarStatus = async (pagina, status) => {
+                try { await updateDoc(configRef, { [`${pagina}_active`]: status }); } 
+                catch (e) { alert("Erro ao atualizar o status. Verifique permissões."); }
+            };
+
+            document.getElementById('switch-produtos').addEventListener('change', (e) => atualizarStatus('produtos', e.target.checked));
+            document.getElementById('switch-servicos').addEventListener('change', (e) => atualizarStatus('servicos', e.target.checked));
+            document.getElementById('switch-portfolio').addEventListener('change', (e) => atualizarStatus('portfolio', e.target.checked));
+            document.getElementById('switch-blog').addEventListener('change', (e) => atualizarStatus('blog', e.target.checked));
+        }
+    </script>
 </body>
 </html>
