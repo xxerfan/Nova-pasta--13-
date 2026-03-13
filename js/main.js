@@ -1,6 +1,6 @@
 /**
  * ============================================================
- * Xerfan Tech Lab - main.js v12.0 (FIREBASE CRM INTEGRATION)
+ * Xerfan Tech Lab - main.js v13.0 (ANTI-POPUP BLOCKER & FIREBASE BACKGROUND)
  * ============================================================
  */
 
@@ -19,7 +19,6 @@ function loadComponent(elementId, componentPath) {
             if (elementId === 'header') {
                 initHeaderLogic();
                 aplicarTravasVisibilidade();
-                // Inicia o chatbot SEMPRE que o header carregar
                 if (!window.location.pathname.includes('admin')) {
                     new XerfanSmartBot();
                 }
@@ -28,7 +27,7 @@ function loadComponent(elementId, componentPath) {
         .catch(err => console.warn(`Erro no componente: ${componentPath}`, err));
 }
 
-// 2. LÓGICA DO HEADER (Menu Mobile, Scroll, Topo)
+// 2. LÓGICA DO HEADER
 function initHeaderLogic() {
     const header = document.getElementById('main-header');
     const navWrapper = document.getElementById('nav-wrapper');
@@ -152,7 +151,7 @@ function initScrollReveal() {
     document.querySelectorAll('[data-reveal], .stagger-children').forEach(el => observer.observe(el));
 }
 
-// 5. CHATBOT INTELIGENTE COM INTEGRAÇÃO FIREBASE
+// 5. CHATBOT INTELIGENTE COM CRM FIREBASE
 class XerfanSmartBot {
     constructor() {
         this.isOpen = false;
@@ -187,7 +186,7 @@ class XerfanSmartBot {
                 </div>
                 <div id="xtl-bot-body" class="p-4 bg-[#0b101a] h-[300px] overflow-y-auto flex flex-col relative"></div>
                 <div id="xtl-bot-transfer" class="hidden p-3 bg-gray-800 border-t border-gray-700">
-                    <button id="xtl-bot-wpp" class="w-full bg-green-600 text-white font-bold py-2 rounded-xl text-sm transition-all duration-300">Falar no WhatsApp Agora</button>
+                    <button id="xtl-bot-wpp" class="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-2 rounded-xl text-sm transition-colors">Falar no WhatsApp Agora</button>
                 </div>
                 <div class="p-3 bg-gray-900 border-t border-gray-700 flex gap-2">
                     <input type="text" id="xtl-bot-input" placeholder="Digite aqui..." class="flex-1 bg-gray-800 text-white text-sm border border-gray-700 rounded-xl px-3 py-2 outline-none">
@@ -264,50 +263,38 @@ class XerfanSmartBot {
         }
     }
 
-    async sendToWhatsApp() {
-        // --- 1. DADOS FORMATADOS PARA O SEU ADMIN ---
+    sendToWhatsApp() {
+        // 1. DADOS FORMATADOS PARA O ADMIN
         const leadData = {
             nome: this.lead.nome,
             local: this.lead.local,
-            mensagem: this.lead.detalhes, // Usando 'mensagem' para combinar com o seu admin
-            status: "nova", // Vai fazer a notificação vermelha aparecer no Dashboard
+            mensagem: this.lead.detalhes,
+            status: "nova",
             origem: "Chatbot do Site",
             data: new Date().toISOString()
         };
 
-        const btnWpp = document.getElementById('xtl-bot-wpp');
-        const textoOriginal = btnWpp.innerText;
-        btnWpp.innerText = "Conectando...";
-        btnWpp.disabled = true;
-
-        // --- 2. SALVAR DIRETAMENTE NO FIREBASE ---
-        try {
-            // Importa as funções do Firestore em tempo real
-            const { collection, addDoc } = await import("https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js");
-            // Importa o seu banco de dados
-            const { db } = await import("./firebase-config.js");
-            
-            // Salva na coleção "mensagens" (A mesma que o seu Admin lê!)
-            await addDoc(collection(db, "mensagens"), leadData);
-            console.log("✅ Lead capturado com sucesso no Banco de Dados!");
-            
-        } catch (error) {
-            console.error("❌ Erro ao salvar no Firebase:", error);
-        }
-
-        // --- 3. ABRIR WHATSAPP ---
+        // 2. ABRIR WHATSAPP IMEDIATAMENTE (Síncrono)
+        // Isso evita que o navegador bloqueie a aba (Popup Blocker)
         let text = `*SITE XERFAN TECH*%0A👤 *Nome:* ${this.lead.nome}%0A📍 *Local:* ${this.lead.local}%0A📝 *Dúvida:* ${this.lead.detalhes}`;
         window.open(`https://wa.me/5521984197719?text=${text}`, '_blank');
         
-        // --- 4. RESETAR BOT ---
+        // 3. SALVAR NO FIREBASE SILENCIOSAMENTE (Assíncrono em Background)
+        import("https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js").then((firestore) => {
+            import("./firebase-config.js").then((firebaseConfig) => {
+                firestore.addDoc(firestore.collection(firebaseConfig.db, "mensagens"), leadData)
+                    .then(() => console.log("✅ Lead salvo no CRM do Admin!"))
+                    .catch((err) => console.error("❌ Erro ao salvar background:", err));
+            });
+        }).catch(err => console.error("❌ Erro de importação:", err));
+
+        // 4. RESETAR O BOT E FECHAR
         this.close();
         setTimeout(() => {
             this.step = 0;
             this.lead = { detalhes: '', nome: '', local: '' };
             document.getElementById('xtl-bot-body').innerHTML = '';
             document.getElementById('xtl-bot-transfer').classList.add('hidden');
-            btnWpp.innerText = textoOriginal;
-            btnWpp.disabled = false;
         }, 1000);
     }
 }
