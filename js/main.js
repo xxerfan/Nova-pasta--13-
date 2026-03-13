@@ -1,6 +1,6 @@
 /**
  * ============================================================
- * Xerfan Tech Lab - main.js v11.1 (MOBILE, DESKTOP & WEBHOOK SYNC)
+ * Xerfan Tech Lab - main.js v11.2 (WEBHOOK NON-BLOCKING)
  * ============================================================
  */
 
@@ -268,8 +268,8 @@ class XerfanSmartBot {
         }
     }
 
-    async sendToWhatsApp() {
-        // --- 1. PREPARAÇÃO DOS DADOS DO LEAD ---
+    sendToWhatsApp() {
+        // 1. DADOS DO LEAD
         const leadData = {
             nome: this.lead.nome,
             local: this.lead.local,
@@ -278,31 +278,23 @@ class XerfanSmartBot {
             data_hora: new Date().toISOString()
         };
 
-        // --- 2. URL DO SEU WEBHOOK ---
+        // 2. O SEU LINK DO WEBHOOK
         const webhookUrl = "https://webhook.site/e69dc0d5-b062-4211-9a99-b1d56e9c9f69"; 
 
-        // --- 3. DISPARO FANTASMA (NÃO BLOQUEIA A TELA) ---
-        // Ele "atira" os dados para o webhook e não fica à espera da resposta
+        // 3. ENVIO INVISÍVEL PARA O WEBHOOK
         fetch(webhookUrl, {
             method: "POST",
-            mode: "cors", // Garante que o envio é permitido
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(leadData)
-        }).then(res => console.log("Webhook ativado!"))
-          .catch(err => console.error("Aviso: Falha no webhook (provável AdBlock), mas o lead seguiu.", err));
+        }).then(() => console.log("Webhook enviado!"))
+          .catch(err => console.error("Erro no envio:", err));
 
-        // --- 4. CONTINUAR FLUXO NORMAL (WHATSAPP IMEDIATO) ---
+        // 4. ABRIR WHATSAPP
         let text = `*SITE XERFAN TECH*%0A👤 *Nome:* ${this.lead.nome}%0A📍 *Local:* ${this.lead.local}%0A📝 *Dúvida:* ${this.lead.detalhes}`;
-        
-        // Abre o WhatsApp instantaneamente, dando uma UX perfeita ao cliente
         window.open(`https://wa.me/5521984197719?text=${text}`, '_blank');
         
-        // --- 5. LIMPEZA E FECHAMENTO ---
+        // 5. RESETAR O BOT
         this.close();
-        
         setTimeout(() => {
             this.step = 0;
             this.lead = { detalhes: '', nome: '', local: '' };
