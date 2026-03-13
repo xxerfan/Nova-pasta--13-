@@ -278,44 +278,36 @@ class XerfanSmartBot {
             data_hora: new Date().toISOString()
         };
 
-        // --- 2. URL DO SEU WEBHOOK (A SUA URL EXATA) ---
+        // --- 2. URL DO SEU WEBHOOK ---
         const webhookUrl = "https://webhook.site/e69dc0d5-b062-4211-9a99-b1d56e9c9f69"; 
 
-        // --- 3. FEEDBACK VISUAL PARA O UTILIZADOR ---
-        const btnWpp = document.getElementById('xtl-bot-wpp');
-        const textoOriginal = btnWpp.innerText;
-        btnWpp.innerText = "A redirecionar...";
-        btnWpp.disabled = true;
+        // --- 3. DISPARO FANTASMA (NÃO BLOQUEIA A TELA) ---
+        // Ele "atira" os dados para o webhook e não fica à espera da resposta
+        fetch(webhookUrl, {
+            method: "POST",
+            mode: "cors", // Garante que o envio é permitido
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(leadData)
+        }).then(res => console.log("Webhook ativado!"))
+          .catch(err => console.error("Aviso: Falha no webhook (provável AdBlock), mas o lead seguiu.", err));
 
-        // --- 4. DISPARO COM ESPERA (AWAIT) ---
-        try {
-            await fetch(webhookUrl, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(leadData)
-            });
-            console.log("✅ Lead enviado com sucesso para o Webhook!");
-        } catch (error) {
-            console.error("❌ Erro no envio do lead para automação:", error);
-        }
-
-        // --- 5. CONTINUAR FLUXO NORMAL (WHATSAPP) ---
+        // --- 4. CONTINUAR FLUXO NORMAL (WHATSAPP IMEDIATO) ---
         let text = `*SITE XERFAN TECH*%0A👤 *Nome:* ${this.lead.nome}%0A📍 *Local:* ${this.lead.local}%0A📝 *Dúvida:* ${this.lead.detalhes}`;
+        
+        // Abre o WhatsApp instantaneamente, dando uma UX perfeita ao cliente
         window.open(`https://wa.me/5521984197719?text=${text}`, '_blank');
         
-        // --- 6. LIMPEZA E FECHAMENTO ---
+        // --- 5. LIMPEZA E FECHAMENTO ---
         this.close();
         
-        // Limpar o bot após 1 segundo e restaurar o botão
         setTimeout(() => {
             this.step = 0;
             this.lead = { detalhes: '', nome: '', local: '' };
             document.getElementById('xtl-bot-body').innerHTML = '';
             document.getElementById('xtl-bot-transfer').classList.add('hidden');
-            btnWpp.innerText = textoOriginal;
-            btnWpp.disabled = false;
         }, 1000);
     }
 }
