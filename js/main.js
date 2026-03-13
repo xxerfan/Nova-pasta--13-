@@ -1,6 +1,6 @@
 /**
  * ============================================================
- * Xerfan Tech Lab - main.js v11.0 (MOBILE, DESKTOP & WEBHOOK SYNC)
+ * Xerfan Tech Lab - main.js v11.1 (MOBILE, DESKTOP & WEBHOOK SYNC)
  * ============================================================
  */
 
@@ -191,7 +191,7 @@ class XerfanSmartBot {
                 </div>
                 <div id="xtl-bot-body" class="p-4 bg-[#0b101a] h-[300px] overflow-y-auto flex flex-col relative"></div>
                 <div id="xtl-bot-transfer" class="hidden p-3 bg-gray-800 border-t border-gray-700">
-                    <button id="xtl-bot-wpp" class="w-full bg-green-600 text-white font-bold py-2 rounded-xl text-sm">Falar no WhatsApp Agora</button>
+                    <button id="xtl-bot-wpp" class="w-full bg-green-600 text-white font-bold py-2 rounded-xl text-sm transition-all duration-300">Falar no WhatsApp Agora</button>
                 </div>
                 <div class="p-3 bg-gray-900 border-t border-gray-700 flex gap-2">
                     <input type="text" id="xtl-bot-input" placeholder="Digite aqui..." class="flex-1 bg-gray-800 text-white text-sm border border-gray-700 rounded-xl px-3 py-2 outline-none">
@@ -278,37 +278,44 @@ class XerfanSmartBot {
             data_hora: new Date().toISOString()
         };
 
-        // --- 2. URL DO SEU WEBHOOK ---
-        // Aqui você coloca o link do Webhook.site, n8n, Zapier ou Make
-        // Para testar agora, acesse https://webhook.site/, copie "Your unique URL" e cole abaixo
-        const webhookUrl = "https://webhook.site/1d9b3dfc-83c7-48cc-a5d3-17e38ccbf814"; 
+        // --- 2. URL DO SEU WEBHOOK (A SUA URL EXATA) ---
+        const webhookUrl = "https://webhook.site/e69dc0d5-b062-4211-9a99-b1d56e9c9f69"; 
 
-        // --- 3. DISPARO SILENCIOSO (BACKGROUND FETCH) ---
+        // --- 3. FEEDBACK VISUAL PARA O UTILIZADOR ---
+        const btnWpp = document.getElementById('xtl-bot-wpp');
+        const textoOriginal = btnWpp.innerText;
+        btnWpp.innerText = "A redirecionar...";
+        btnWpp.disabled = true;
+
+        // --- 4. DISPARO COM ESPERA (AWAIT) ---
         try {
-            fetch(webhookUrl, {
+            await fetch(webhookUrl, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(leadData)
-            }).catch(e => console.log("Aviso: Falha silenciosa no envio do webhook, mas o cliente segue o fluxo."));
+            });
+            console.log("✅ Lead enviado com sucesso para o Webhook!");
         } catch (error) {
-            console.error("Erro no envio do lead para automação:", error);
+            console.error("❌ Erro no envio do lead para automação:", error);
         }
 
-        // --- 4. CONTINUAR FLUXO NORMAL (WHATSAPP) ---
+        // --- 5. CONTINUAR FLUXO NORMAL (WHATSAPP) ---
         let text = `*SITE XERFAN TECH*%0A👤 *Nome:* ${this.lead.nome}%0A📍 *Local:* ${this.lead.local}%0A📝 *Dúvida:* ${this.lead.detalhes}`;
         window.open(`https://wa.me/5521984197719?text=${text}`, '_blank');
         
-        // --- 5. LIMPEZA E FECHAMENTO ---
+        // --- 6. LIMPEZA E FECHAMENTO ---
         this.close();
         
-        // Limpar o bot após 1 segundo para o caso de um novo contacto na mesma sessão
+        // Limpar o bot após 1 segundo e restaurar o botão
         setTimeout(() => {
             this.step = 0;
             this.lead = { detalhes: '', nome: '', local: '' };
             document.getElementById('xtl-bot-body').innerHTML = '';
             document.getElementById('xtl-bot-transfer').classList.add('hidden');
+            btnWpp.innerText = textoOriginal;
+            btnWpp.disabled = false;
         }, 1000);
     }
 }
